@@ -1,0 +1,93 @@
+<div class="introOuter">
+
+    <div id="admissionIntroWrapper">
+        <div class="introBox">
+            <p class="anonymousOnly headerP" style="text-align: left;">
+
+      <span class="introBoxHeader">
+          <div class="headerContent">
+              With Quickmit you can separate out and manage how your parents view and submit online enrollment
+              (and re-enrollment) by whatever categories of student applications you would like to offer them
+              in presenting your school programs, for example:
+          </div>
+      </span>
+
+            <div class="introBoxContent">
+                <p/>
+                <strong>Only one grade level of education?</strong><br/>
+                Our standard Quickmit application process immediately handles any education level
+                focus you wish to differentiate for parents: Pre-K, Kindergarten, Elementary, Middle and High School.
+                <p/>
+                <strong>More than one grade level category?</strong> <br/>
+                Quickmit can organize individual categories into any desired grouping of grade
+                levels you wish to offer parents when they come to your website and use the Quickmit
+                landing page you've customized.
+                <p/>
+                As example, the below format is the most common page customization being used by
+                independent schools offering K through 12 programs.
+            <p/>
+
+            Contact Quickmit at <a href="mailto:{__COORDINATOR_EMAIL__}" target="_blank">{__COORDINATOR_EMAIL__}</a>.
+            </div>
+
+
+        </div>
+        <div>
+            <table class="x-table-layout" style="padding-top: 10px;" role="presentation" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td class="swell ajaxTarget" style="cursor: pointer; vertical-align: top; padding: 22px; width: 420px;"><span
+                            style="display: block; font-size: 14px; font-weight: bold;">Early Childhood &amp; Elementary School</span>
+                        <a onclick="return false;" href="{__CLIENT_BASE_URL__}/formDefinitions/applications/EarlyEdAdmissions.js?json=true"><img
+                                style="width: 112px; height: 112px; padding: 8px; float: left;" alt="" src="https://quickmit.net/clients/template/img/children.png"/></a>
+
+                        <p style="margin-top: 12px; text-align: left;">We'll replace this graphic with one representing your community during Quickmit setup.</p>
+
+                        <p/> <span style="text-decoration: underline; font-weight: bold">Click here to apply</span> using your sample application.</p>
+
+                    </td>
+                    <td class="swell ajaxTarget" style="cursor: pointer; vertical-align: top; padding: 22px; width: 420px;"><span
+                            style="display: block; font-size: 14px; font-weight: bold;">Middle School &amp; High School</span>
+                        <a onclick="return false;" href="{__CLIENT_BASE_URL__}/formDefinitions/applications/HSMSAdmissions.js?json=true"><img
+                                style="width: 112px; height: 112px; padding: 8px; float: left;" alt="" src="https://quickmit.net/clients/template/img/hs.png"/></a>
+
+                        <p style="margin-top: 12px; text-align: left;">You can also modify this copy to insert whatever thoughts you'd like to share with parents next to each
+                            graphic, or have none at all.</p>
+
+                        <p/> <span style="text-decoration: underline; font-weight: bold">Click here to apply</span> using your sample application.</p>
+
+                    </td>
+                </tr>
+                <tr>
+                  <td class="swell ajaxTarget" style="cursor: pointer; vertical-align: top; padding: 22px; width: 420px;"><span style="display: block; font-size: 14px; font-weight: bold;">Enrollment and Re-enrollment</span>
+                    <a onclick="return false;" href="http://dev.quickmit.net/clients/development/formDefinitions/applications/Enrollment.js?json=true"><img style="width: 112px; height: 112px; padding: 8px; float: left;" alt="" src="https://quickmit.net/clients/template/img/hs.png" /></a>
+                    <p style="margin-top: 12px; text-align: left;">Welcome back.  Admitted students may enroll here.</p>
+                  </td>
+                </tr>
+                <tr class="anonymousOnly">
+                    <td rowspane="2" class="swell ajaxTarget" style="height: 52px; vertical-align: bottom;">
+                        <span style="margin-bottom: 9px; display: block; font-size: 18px; font-weight: bold;">Continue an application</span>
+                        <a style="font-size: 16px;" onclick="return false;" href="https://quickmit.net/clients/ia/">Click here</a>, to continue an existing admission application
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">// <![CDATA[
+Ext.onReady(function () {
+    var roots = Ext.query(".admissionIntroWrapper");
+    Lumen.getApplication().fireEvent(Lumen.AJAXIFY, {root: roots[0]});
+    Ext.Array.each(Ext.query(".swell", roots[0]), function () {
+        var element = Ext.fly(this);
+        if (!element.dom.hovered) {
+            element.dom.hovered = true;
+            element.hover(function (e, t, eOpts) {
+                Ext.fly(this).highlight("56C7EB", {duration: 1000});
+            }, function (e, t, eOpts) {
+            });
+        }
+    });
+});
+// ]]&gt;</script>

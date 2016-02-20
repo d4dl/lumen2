@@ -1,0 +1,3 @@
+Action application/x-pair-sphp5 /cgi-sys/php-cgiwrap/d4dl/php5QuickMIT.cgi
+AddType application/x-pair-sphp5 .php
+Options -Indexes

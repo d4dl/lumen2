@@ -1,0 +1,1418 @@
+[10-Jul-2015 16:48:10 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[10-Jul-2015 16:49:33 America/Chicago] Client id: 'khabelestrong' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[10-Jul-2015 16:49:33 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong
+[10-Jul-2015 16:49:33 America/Chicago] School name SCHOOL_NAME
+[10-Jul-2015 16:49:38 America/Chicago] Client id: 'khabelestrong' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[10-Jul-2015 16:49:38 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong
+[10-Jul-2015 16:49:38 America/Chicago] using client url https://quickmit.net/clients/installation/khabelestrong
+[10-Jul-2015 16:49:39 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/khabelestrong/build/production/MyApp/resources/images
+[10-Jul-2015 16:57:49 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[10-Jul-2015 16:57:49 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong
+[10-Jul-2015 16:57:49 America/Chicago] using client url https://quickmit.net/clients/installation/khabelestrong
+[11-Jul-2015 13:26:33 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[11-Jul-2015 13:28:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:29:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:29:32 America/Chicago] Received a request from 70.112.206.72
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "jenny.jo.anderson@gmail.com",
+        "Password": "$6$rounds=5000$7Dt17On76M.zBd\/k$9NgB4LSH4SvHxFSivKL5vgQrf20DZlj86impJ2NyxjSQbvfyu.cEVHKYBwmLU.vD8vm\/d.beWwMq3MH57CJ6z\/"
+    },
+    "Person": {
+        "FirstName": "Jenn",
+        "LastName": "Anderson",
+        "Email": "jenny.jo.anderson@gmail.com",
+        "PhoneArray": [
+            "512 213-7274"
+        ],
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739",
+                "Country": "United States"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "jbanderson2009@gmail.com",
+        "Password": "$6$rounds=5000$dF3IJNL5TqAue7\/W$fA18\/N5tGlTsbtkkOLqb\/CcHChHtpdsnAHSyfl5DaIhGYff5WVjG3734Y\/SsFXzuOSD9OixFr2jcyiZJ8gArx."
+    },
+    "Person": {
+        "FirstName": "Jason",
+        "LastName": "Anderson",
+        "Email": "jbanderson2009@gmail.com",
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Myka",
+        "LastName": "Mossell"
+    },
+    "School": {
+        "Grade": "8",
+        "Role": "Student"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1608cc760e8f408d9b03c"
+        },
+        {
+            "ParentId": "55a1608cc760e8f408d9b03d"
+        }
+    ]
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1608cc760e8f408d9b03d",
+    "AccessIds": [
+        "55a1608cc760e8f408d9b03c",
+        "55a1608cc760e8f408d9b03d"
+    ],
+    "ChildId": "55a1608cc760e8f408d9b03e"
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "stephen@stephenbarber.com",
+        "Password": "$6$rounds=5000$Vd2JJqJkzDznbZLL$HNh9mmJ\/sG.CL5WrNgY1XSxugMzag4Aqbih81nIiv.uOL5aE0wiCxJCssONKJc7lxAyAVo08tZuDEFyfy4Dyp1"
+    },
+    "Person": {
+        "FirstName": "Stephen",
+        "LastName": "Barber",
+        "Email": "stephen@stephenbarber.com",
+        "PhoneArray": {
+            "1": "512 636-3542",
+            "3": "512-441-3542"
+        },
+        "AddressArray": [
+            {
+                "Street": "702 Buckingham Cir     5110 Creekline Dr Austin TX 78745",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "kimber@settstudio.com",
+        "Password": "$6$rounds=5000$b2.UZIuL\/uKJ6foM$PzNwMHZ5M4qeihoc7W2w9\/pU7hvt3qUqRLZ6YuXlBzcACXkfKoBryGdQCubzCe5PpskdZ2qomTavAefwCAYwb."
+    },
+    "Person": {
+        "FirstName": "Kimber",
+        "LastName": "Reed",
+        "Email": "kimber@settstudio.com",
+        "PhoneArray": [
+            "512 633-9757",
+            "512-633-9757"
+        ]
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Kade",
+        "LastName": "Barber"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1608cc760e8f408d9b040"
+        },
+        {
+            "ParentId": "55a1608cc760e8f408d9b041"
+        }
+    ]
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1608cc760e8f408d9b041",
+    "AccessIds": [
+        "55a1608cc760e8f408d9b040",
+        "55a1608cc760e8f408d9b041"
+    ],
+    "ChildId": "55a1608cc760e8f408d9b042"
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "patricia.laurora@yahoo.com",
+        "Password": "$6$rounds=5000$ydn7Spsz1.eRmY8F$gF62gbi\/V7ZesUJtQIFuiaHwZPDDdIoZVMRP\/ix4o7mmlONYBAN7SoBbOMsNLm1tRh.ajHu..MTHJf6nDSO6h0"
+    },
+    "Person": {
+        "FirstName": "Patricia",
+        "LastName": "Laurora",
+        "Email": "patricia.laurora@yahoo.com",
+        "PhoneArray": [
+            "",
+            "832-316-6897"
+        ],
+        "AddressArray": [
+            {
+                "Street": "1717 #240 Toomey Rd",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "allan_traicoff@yahoo.com",
+        "Password": "$6$rounds=5000$fq.BdVLcf.z0HQSj$G38247VaQE\/kWjKgZzV.YgXvoXphCcidMO1Sds5gWsCpm9\/w\/q2p83eakv4Ruvm6EUcoSnzfRMBcQx2zw3BYx0"
+    },
+    "Person": {
+        "FirstName": "Allan",
+        "LastName": "Traicoff",
+        "Email": "allan_traicoff@yahoo.com",
+        "PhoneArray": {
+            "1": "281 687-8123",
+            "2": "832 477-2657"
+        }
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Liam",
+        "LastName": "Traicoff"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1608cc760e8f408d9b044"
+        },
+        {
+            "ParentId": "55a1608cc760e8f408d9b045"
+        }
+    ]
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1608cc760e8f408d9b045",
+    "AccessIds": [
+        "55a1608cc760e8f408d9b044",
+        "55a1608cc760e8f408d9b045"
+    ],
+    "ChildId": "55a1608cc760e8f408d9b046"
+}
+[11-Jul-2015 13:29:32 America/Chicago] Crypting password 
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "Username": "akeist@yahoo.com",
+        "Password": "$6$rounds=5000$V9a1.0CY6nmRKmeO$CQKHgIJJ8Cq.WvWrvZIOYGT8IpSG7182jHNMJq8LqDpCZZuPG6UYrVAyI8jniWxifhh.zMpLdBc7MuvbjFKAY0"
+    },
+    "Person": {
+        "FirstName": "Anna",
+        "LastName": "Keist",
+        "Email": "akeist@yahoo.com",
+        "PhoneArray": {
+            "1": "512-826-6990"
+        }
+    }
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Michael",
+        "LastName": "Keist"
+    },
+    "School": {
+        "Grade": "8"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1608cc760e8f408d9b048"
+        }
+    ]
+}
+[11-Jul-2015 13:29:32 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1608cc760e8f408d9b048",
+    "AccessIds": [
+        "55a1608cc760e8f408d9b048"
+    ],
+    "ChildId": "55a1608cc760e8f408d9b049"
+}
+[11-Jul-2015 13:29:32 America/Chicago] PHP Fatal error:  Call to a member function toArray() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudentsIA.php on line 200
+[11-Jul-2015 13:33:49 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:33:49 America/Chicago] Received a request from 70.112.206.72
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password daupuace
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "daupuace",
+        "Username": "jenny.jo.anderson@gmail.com",
+        "Password": "$6$rounds=5000$J8wDj.u5IErBPNW\/$J8rF2WhKY8CcMcSNbPokD3jrLGI6bs4OclED1TDCCESw96mQiQrZHSfGZKhNWetA3dAoAUodcaRjElSxitlKC1"
+    },
+    "Person": {
+        "FirstName": "Jenn",
+        "LastName": "Anderson",
+        "Email": "jenny.jo.anderson@gmail.com",
+        "PhoneArray": [
+            "512 213-7274"
+        ],
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739",
+                "Country": "United States"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password woapaawa
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "woapaawa",
+        "Username": "jbanderson2009@gmail.com",
+        "Password": "$6$rounds=5000$5jQQcv6n8K0HFuoZ$d8Gzb0wZTJroizGeSjxXc\/Mh2OdfjV.l0sdOZc9\/mJLZiaYCAE4toyBBCNFq0Jq1lwh8s0mKch7NBGnorw78c."
+    },
+    "Person": {
+        "FirstName": "Jason",
+        "LastName": "Anderson",
+        "Email": "jbanderson2009@gmail.com",
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Myka",
+        "LastName": "Mossell"
+    },
+    "School": {
+        "Grade": "8",
+        "Role": "Student"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1618dc760e85a090da3c9"
+        },
+        {
+            "ParentId": "55a1618dc760e85a090da3ca"
+        }
+    ]
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1618dc760e85a090da3ca",
+    "AccessIds": [
+        "55a1618dc760e85a090da3c9",
+        "55a1618dc760e85a090da3ca"
+    ],
+    "ChildId": "55a1618dc760e85a090da3cb"
+}
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password xoequiga
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "xoequiga",
+        "Username": "stephen@stephenbarber.com",
+        "Password": "$6$rounds=5000$.BInxcYMNOodu68O$XMjMe5abP6LTUNOiBaWcR\/xYdsNzu8\/uqFpknC1E2s8\/0QptOdlOZ6qwD8XBYTw5BtyNFK7A\/eRg2gaF4mR\/Q0"
+    },
+    "Person": {
+        "FirstName": "Stephen",
+        "LastName": "Barber",
+        "Email": "stephen@stephenbarber.com",
+        "PhoneArray": {
+            "1": "512 636-3542",
+            "3": "512-441-3542"
+        },
+        "AddressArray": [
+            {
+                "Street": "702 Buckingham Cir     5110 Creekline Dr Austin TX 78745",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password peanaatu
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "peanaatu",
+        "Username": "kimber@settstudio.com",
+        "Password": "$6$rounds=5000$Ky8XxAsyLGDy5RZ\/$fd\/T5qNdAwcAY9Tr\/xduVf0Blne4.LjiwEfVw2rV7VuVXrsJf3SaSmzmMIlHpadXzCx262i.ZjNueL50iV50t\/"
+    },
+    "Person": {
+        "FirstName": "Kimber",
+        "LastName": "Reed",
+        "Email": "kimber@settstudio.com",
+        "PhoneArray": [
+            "512 633-9757",
+            "512-633-9757"
+        ]
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Kade",
+        "LastName": "Barber"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1618dc760e85a090da3cd"
+        },
+        {
+            "ParentId": "55a1618dc760e85a090da3ce"
+        }
+    ]
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1618dc760e85a090da3ce",
+    "AccessIds": [
+        "55a1618dc760e85a090da3cd",
+        "55a1618dc760e85a090da3ce"
+    ],
+    "ChildId": "55a1618dc760e85a090da3cf"
+}
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password ciidieri
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "ciidieri",
+        "Username": "patricia.laurora@yahoo.com",
+        "Password": "$6$rounds=5000$DF60evVCAPBHWxcX$bmxhdJJs.4GEsJDNUcsSU\/CaPmWHt1EhwLpRRkTDK9dPaE0vjJ34w\/LEXtO.Enmy2NmIIFPQUTpKxytcfxqV6\/"
+    },
+    "Person": {
+        "FirstName": "Patricia",
+        "LastName": "Laurora",
+        "Email": "patricia.laurora@yahoo.com",
+        "PhoneArray": [
+            "",
+            "832-316-6897"
+        ],
+        "AddressArray": [
+            {
+                "Street": "1717 #240 Toomey Rd",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password soegiuxi
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "soegiuxi",
+        "Username": "allan_traicoff@yahoo.com",
+        "Password": "$6$rounds=5000$GNB3WkEew7SsIIJX$R1zT2Dym2JSM2V6Q8Z2BAXsE5cA4Yb9vIXvf12.a3eg66KeJcVg3yFL96LyZQSgkZnNWC3dYZgdRi8Npwihxp0"
+    },
+    "Person": {
+        "FirstName": "Allan",
+        "LastName": "Traicoff",
+        "Email": "allan_traicoff@yahoo.com",
+        "PhoneArray": {
+            "1": "281 687-8123",
+            "2": "832 477-2657"
+        }
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Liam",
+        "LastName": "Traicoff"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1618dc760e85a090da3d1"
+        },
+        {
+            "ParentId": "55a1618dc760e85a090da3d2"
+        }
+    ]
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1618dc760e85a090da3d2",
+    "AccessIds": [
+        "55a1618dc760e85a090da3d1",
+        "55a1618dc760e85a090da3d2"
+    ],
+    "ChildId": "55a1618dc760e85a090da3d3"
+}
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] Crypting password vaehiuve
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "vaehiuve",
+        "Username": "akeist@yahoo.com",
+        "Password": "$6$rounds=5000$ll2OvW\/wSsi8ttqV$8lEoYsJZBAiYWZoT\/UXkFWHptbd3bRH0LWJgWx9YBngIJHG5JX.3B..QVIzqbnrSVOgNcuUGnt9mXsDRIWQ2K1"
+    },
+    "Person": {
+        "FirstName": "Anna",
+        "LastName": "Keist",
+        "Email": "akeist@yahoo.com",
+        "PhoneArray": {
+            "1": "512-826-6990"
+        }
+    }
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Michael",
+        "LastName": "Keist"
+    },
+    "School": {
+        "Grade": "8"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a1618dc760e85a090da3d5"
+        }
+    ]
+}
+[11-Jul-2015 13:33:49 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a1618dc760e85a090da3d5",
+    "AccessIds": [
+        "55a1618dc760e85a090da3d5"
+    ],
+    "ChildId": "55a1618dc760e85a090da3d6"
+}
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:33:49 America/Chicago] PHP Fatal error:  Call to a member function toArray() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudentsIA.php on line 200
+[11-Jul-2015 13:34:01 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[11-Jul-2015 13:36:28 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[11-Jul-2015 13:36:30 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:37:04 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:37:04 America/Chicago] Received a request from 70.112.206.72
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password daupuace
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "daupuace",
+        "Username": "jenny.jo.anderson@gmail.com",
+        "Password": "$6$rounds=5000$72xzPlx0agrbRawV$rIYEqkcsJRotg.hHrjGGjK09.x.mqFZknQg5DdjVgdi4sT4mIJMjJlg8sYX9JR6\/2xpJlBUYWMrz1Qpm7YFGV0"
+    },
+    "Person": {
+        "FirstName": "Jenn",
+        "LastName": "Anderson",
+        "Email": "jenny.jo.anderson@gmail.com",
+        "PhoneArray": [
+            "512 213-7274"
+        ],
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739",
+                "Country": "United States"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password woapaawa
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "woapaawa",
+        "Username": "jbanderson2009@gmail.com",
+        "Password": "$6$rounds=5000$DemwuWrnn0ahKUXP$TbAQEJAs33duTXFjjBZLjuKfpolqAl.7vT4SHn0CnyP2xEVbULPx2FXjrYJEnkzvCQ8\/CvoZPdaA7eQ8O6aBE."
+    },
+    "Person": {
+        "FirstName": "Jason",
+        "LastName": "Anderson",
+        "Email": "jbanderson2009@gmail.com",
+        "AddressArray": [
+            {
+                "Street": "6412 Tracton Ct",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78739"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Myka",
+        "LastName": "Mossell"
+    },
+    "School": {
+        "Grade": "8",
+        "Role": "Student"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a16250c760e8370a13be67"
+        },
+        {
+            "ParentId": "55a16250c760e8370a13be68"
+        }
+    ]
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a16250c760e8370a13be68",
+    "AccessIds": [
+        "55a16250c760e8370a13be67",
+        "55a16250c760e8370a13be68"
+    ],
+    "ChildId": "55a16250c760e8370a13be69"
+}
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password xoequiga
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "xoequiga",
+        "Username": "stephen@stephenbarber.com",
+        "Password": "$6$rounds=5000$sw9D6\/VSM9Kxx1SR$hK9GiYnkKSM02vja1Ug8YCgqFh2xYa5JqmKvh1O5F2.MQK1Ks5psga2FQrUJW9obF2HvUa.fQvfCSPerGTbbR1"
+    },
+    "Person": {
+        "FirstName": "Stephen",
+        "LastName": "Barber",
+        "Email": "stephen@stephenbarber.com",
+        "PhoneArray": {
+            "1": "512 636-3542",
+            "3": "512-441-3542"
+        },
+        "AddressArray": [
+            {
+                "Street": "702 Buckingham Cir     5110 Creekline Dr Austin TX 78745",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password peanaatu
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "peanaatu",
+        "Username": "kimber@settstudio.com",
+        "Password": "$6$rounds=5000$HJGb.IzagXUQxlXb$ryheaelWF.nVF\/D9iRM6wWipZydyuSiMfinVsONcC8KpfwhQU7ntoL7faWltWmPukdbfbqjc7PjRwQIaApUTC\/"
+    },
+    "Person": {
+        "FirstName": "Kimber",
+        "LastName": "Reed",
+        "Email": "kimber@settstudio.com",
+        "PhoneArray": [
+            "512 633-9757",
+            "512-633-9757"
+        ]
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Kade",
+        "LastName": "Barber"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a16250c760e8370a13be6b"
+        },
+        {
+            "ParentId": "55a16250c760e8370a13be6c"
+        }
+    ]
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a16250c760e8370a13be6c",
+    "AccessIds": [
+        "55a16250c760e8370a13be6b",
+        "55a16250c760e8370a13be6c"
+    ],
+    "ChildId": "55a16250c760e8370a13be6d"
+}
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password ciidieri
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "ciidieri",
+        "Username": "patricia.laurora@yahoo.com",
+        "Password": "$6$rounds=5000$WEa4NvVuxQu7GWDm$j087o6aoDB\/POOaMM\/xwSV1ruErAR6rVTR\/Qw2oF2E39rzfSVceoWU8H7xm.OtDvI2NpmRgpPXMj3FavjdFnC\/"
+    },
+    "Person": {
+        "FirstName": "Patricia",
+        "LastName": "Laurora",
+        "Email": "patricia.laurora@yahoo.com",
+        "PhoneArray": [
+            "",
+            "832-316-6897"
+        ],
+        "AddressArray": [
+            {
+                "Street": "1717 #240 Toomey Rd",
+                "City": "Austin",
+                "Province": "TX",
+                "PostalCode": "78704"
+            }
+        ]
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password soegiuxi
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "soegiuxi",
+        "Username": "allan_traicoff@yahoo.com",
+        "Password": "$6$rounds=5000$hAwhS5irosR7Br5R$TlWgEjXQslzXVwLDVT9tuyfmZiM70H3PwBGDgUMgCT50EBocLQ3T79KpCsm0Q0Vvgb7.m8ehGVGMLISwYb.Q71"
+    },
+    "Person": {
+        "FirstName": "Allan",
+        "LastName": "Traicoff",
+        "Email": "allan_traicoff@yahoo.com",
+        "PhoneArray": {
+            "1": "281 687-8123",
+            "2": "832 477-2657"
+        }
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Liam",
+        "LastName": "Traicoff"
+    },
+    "School": {
+        "Grade": "7"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a16250c760e8370a13be6f"
+        },
+        {
+            "ParentId": "55a16250c760e8370a13be70"
+        }
+    ]
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a16250c760e8370a13be70",
+    "AccessIds": [
+        "55a16250c760e8370a13be6f",
+        "55a16250c760e8370a13be70"
+    ],
+    "ChildId": "55a16250c760e8370a13be71"
+}
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] Crypting password vaehiuve
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Login": {
+        "TemporaryPassword": "vaehiuve",
+        "Username": "akeist@yahoo.com",
+        "Password": "$6$rounds=5000$2YwlnamDTuKS693L$WuVW71cyW641SAJjv6xhly2i0e228qXVvGNdElYhcp0o1GRa5hV4tybMqEeXsMlCN.GEt41DjkBdAMUHTFqfj."
+    },
+    "Person": {
+        "FirstName": "Anna",
+        "LastName": "Keist",
+        "Email": "akeist@yahoo.com",
+        "PhoneArray": {
+            "1": "512-826-6990"
+        }
+    }
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "FirstName": "Michael",
+        "LastName": "Keist"
+    },
+    "School": {
+        "Grade": "8"
+    },
+    "HasChildArray": [
+        {
+            "ParentId": "55a16250c760e8370a13be73"
+        }
+    ]
+}
+[11-Jul-2015 13:37:04 America/Chicago] Saving a document in AdmissionApplication
+{
+    "ApplicationType": "EarlyEdAdmissions",
+    "Status": "Bootstrapping",
+    "OwnerId": "55a16250c760e8370a13be73",
+    "AccessIds": [
+        "55a16250c760e8370a13be73"
+    ],
+    "ChildId": "55a16250c760e8370a13be74"
+}
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 1 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Warning:  Missing argument 2 for JsonPath::jsonPath(), called in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonStore.php on line 26 and defined in /usr/www/users/d4dl/quickmit/prod/clients/setup/JsonPath.php on line 17
+[11-Jul-2015 13:37:04 America/Chicago] PHP Fatal error:  Call to a member function toArray() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudentsIA.php on line 203
+[11-Jul-2015 13:38:26 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:38:26 America/Chicago] Received a request from 70.112.206.72
+[11-Jul-2015 13:38:26 America/Chicago] PHP Fatal error:  Call to a member function toArray() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudentsIA.php on line 203
+[11-Jul-2015 13:39:26 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:39:26 America/Chicago] Received a request from 70.112.206.72
+[11-Jul-2015 13:39:26 America/Chicago] PHP Fatal error:  Call to a member function toArray() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudentsIA.php on line 204
+[11-Jul-2015 13:41:52 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:42:01 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:43:35 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:43:35 America/Chicago] PHP Warning:  require_once(JSONPath.php): failed to open stream: No such file or directory in /usr/www/users/d4dl/quickmit/prod/clients/setup/JSONStore.php on line 2
+[11-Jul-2015 13:43:35 America/Chicago] PHP Fatal error:  require_once(): Failed opening required 'JSONPath.php' (include_path='.:/usr/home/d4dl/bin/php563/lib/php:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services:/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services') in /usr/www/users/d4dl/quickmit/prod/clients/setup/JSONStore.php on line 2
+[11-Jul-2015 13:43:50 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:44:49 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:46:11 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:48:40 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:49:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:54:26 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:55:45 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:56:24 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:56:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:56:52 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 13:57:58 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:00:11 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:00:27 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:01:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:02:43 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:03:04 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:05:35 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:06:41 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:10:16 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:10:57 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:11:13 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:12:47 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:13:00 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:13:25 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[11-Jul-2015 14:13:33 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:14:06 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:14:27 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:15:19 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:16:16 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[11-Jul-2015 14:16:22 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[11-Jul-2015 14:17:31 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[13-Jul-2015 07:19:23 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[15-Jul-2015 17:01:16 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:01:53 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:03:44 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:04:54 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:05:29 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:06:27 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:06:43 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:08:40 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:14:04 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:14:27 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:21:29 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:25:54 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:31:32 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:32:03 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:32:43 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:33:09 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:34:03 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:36:23 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:38:11 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:38:42 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[15-Jul-2015 17:42:44 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[15-Jul-2015 17:42:44 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[15-Jul-2015 17:42:50 America/Chicago] Client id: 'development' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[15-Jul-2015 17:42:50 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/development
+[15-Jul-2015 17:42:50 America/Chicago] School name SCHOOL_NAME
+[15-Jul-2015 17:44:19 America/Chicago] Client id: 'development' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[15-Jul-2015 17:44:19 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/development
+[15-Jul-2015 17:44:19 America/Chicago] using client url https://quickmit.net/clients/installation/development
+[15-Jul-2015 17:44:19 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/development/build/production/MyApp/resources/images
+[15-Jul-2015 19:26:55 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[16-Jul-2015 07:11:44 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 07:11:57 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:12:31 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:14:00 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:19:17 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:20:09 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:20:21 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:22:25 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:23:31 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:24:17 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:25:03 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:25:21 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 07:25:26 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[16-Jul-2015 07:25:31 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[16-Jul-2015 07:28:28 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 07:28:37 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:28:42 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:32:10 America/Chicago] Client id: 'importtest' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/importtest'
+[16-Jul-2015 07:33:47 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 07:33:53 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[16-Jul-2015 07:33:59 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[16-Jul-2015 07:39:32 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 07:39:38 America/Chicago] Client id: 'ianew' client dir '/usr/www/users/d4dl/quickmit/installation/ianew' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/ianew'
+[16-Jul-2015 07:39:42 America/Chicago] Client id: 'ianew' client dir '/usr/www/users/d4dl/quickmit/installation/ianew' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/ianew'
+[16-Jul-2015 10:55:28 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 10:56:17 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 10:56:50 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[16-Jul-2015 10:57:23 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 07:37:36 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 07:37:56 America/Chicago] Client id: 'Wizard Academy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/Wizard Academy'
+[17-Jul-2015 07:37:56 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/Wizard Academy
+[17-Jul-2015 07:37:56 America/Chicago] School name SCHOOL_NAME
+[17-Jul-2015 07:39:58 America/Chicago] Client id: 'Wizard Academy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/Wizard Academy'
+[17-Jul-2015 07:39:58 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/Wizard Academy
+[17-Jul-2015 07:39:58 America/Chicago] using client url https://quickmit.net/clients/installation/Wizard Academy
+[17-Jul-2015 07:39:58 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/Wizard Academy/build/production/MyApp/resources/images
+[17-Jul-2015 07:46:19 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 07:46:21 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 07:46:34 America/Chicago] Client id: 'wizardacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/wizardacademy'
+[17-Jul-2015 07:46:34 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/wizardacademy
+[17-Jul-2015 07:46:34 America/Chicago] School name SCHOOL_NAME
+[17-Jul-2015 07:47:38 America/Chicago] Client id: 'wizardacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/wizardacademy'
+[17-Jul-2015 07:47:38 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/wizardacademy
+[17-Jul-2015 07:47:38 America/Chicago] using client url https://quickmit.net/clients/installation/wizardacademy
+[17-Jul-2015 07:47:38 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/wizardacademy/build/production/MyApp/resources/images
+[17-Jul-2015 14:21:03 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 14:25:04 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[17-Jul-2015 14:25:56 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[17-Jul-2015 14:28:04 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Jul-2015 14:28:15 America/Chicago] Client id: 'ianew' client dir '/usr/www/users/d4dl/quickmit/installation/ianew' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/ianew'
+[17-Jul-2015 14:28:19 America/Chicago] Client id: 'ianew' client dir '/usr/www/users/d4dl/quickmit/installation/ianew' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/ianew'
+[26-Jul-2015 11:54:19 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[26-Jul-2015 16:41:11 America/Chicago] Client id: 'austinjewishacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/austinjewishacademy'
+[26-Jul-2015 16:41:11 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/austinjewishacademy
+[26-Jul-2015 16:41:11 America/Chicago] School name SCHOOL_NAME
+[26-Jul-2015 16:46:26 America/Chicago] Client id: 'austinjewishacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/austinjewishacademy'
+[26-Jul-2015 16:46:26 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/austinjewishacademy
+[26-Jul-2015 16:46:26 America/Chicago] using client url https://quickmit.net/clients/installation/austinjewishacademy
+[26-Jul-2015 16:46:26 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/austinjewishacademy/build/production/MyApp/resources/images
+[29-Jul-2015 10:57:32 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[29-Jul-2015 10:57:39 America/Chicago] Client id: 'avacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy'
+[29-Jul-2015 10:57:39 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy
+[29-Jul-2015 10:57:39 America/Chicago] School name SCHOOL_NAME
+[29-Jul-2015 10:57:41 America/Chicago] Client id: 'avacademy' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy'
+[29-Jul-2015 10:57:41 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy
+[29-Jul-2015 10:57:41 America/Chicago] using client url https://quickmit.net/clients/installation/avacademy
+[29-Jul-2015 10:57:41 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/avacademy/build/production/MyApp/resources/images
+[29-Jul-2015 10:58:19 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[29-Jul-2015 10:58:23 America/Chicago] Client id: 'avacademy' client dir '/usr/www/users/d4dl/quickmit/installation/avacademy' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy'
+[29-Jul-2015 10:58:23 America/Chicago] Client DOES exist including file
+[29-Jul-2015 10:58:23 America/Chicago] Using production, live stripe key
+[29-Jul-2015 10:58:23 America/Chicago] School name SCHOOL_NAME
+[29-Jul-2015 11:01:44 America/Chicago] Client id: 'avacademy' client dir '/usr/www/users/d4dl/quickmit/installation/avacademy' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy'
+[29-Jul-2015 11:01:44 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/avacademy
+[29-Jul-2015 11:01:44 America/Chicago] using client url https://quickmit.net/clients/installation/avacademy
+[29-Jul-2015 13:28:31 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[29-Jul-2015 13:28:31 America/Chicago] PHP Warning:  include_once(clientConfig.php): failed to open stream: No such file or directory in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 4
+[29-Jul-2015 13:28:31 America/Chicago] PHP Warning:  include_once(): Failed opening 'clientConfig.php' for inclusion (include_path='.:/usr/home/d4dl/bin/php563/lib/php:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services') in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 4
+[29-Jul-2015 13:28:31 America/Chicago] No version sent to server
+[29-Jul-2015 13:28:31 America/Chicago] PHP Fatal error:  Call to a member function encryptPassword() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/encryptPassword.php on line 6
+[29-Jul-2015 13:29:54 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[29-Jul-2015 13:29:54 America/Chicago] Using production, live stripe key
+[29-Jul-2015 13:29:54 America/Chicago] No version sent to server
+[29-Jul-2015 13:29:54 America/Chicago] PHP Fatal error:  Call to a member function encryptPassword() on null in /usr/www/users/d4dl/quickmit/prod/clients/setup/encryptPassword.php on line 6
+[29-Jul-2015 13:30:21 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[29-Jul-2015 13:30:21 America/Chicago] Using production, live stripe key
+[29-Jul-2015 13:30:21 America/Chicago] No version sent to server
+[29-Jul-2015 13:30:21 America/Chicago] Crypting password prapodak
+[30-Jul-2015 06:29:21 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[30-Jul-2015 06:29:29 America/Chicago] Client id: 'skybridge' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/skybridge'
+[30-Jul-2015 06:29:29 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/skybridge
+[30-Jul-2015 06:29:29 America/Chicago] School name SCHOOL_NAME
+[30-Jul-2015 06:35:26 America/Chicago] Client id: 'skybridge' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/skybridge'
+[30-Jul-2015 06:35:26 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/skybridge
+[30-Jul-2015 06:35:26 America/Chicago] using client url https://quickmit.net/clients/installation/skybridge
+[30-Jul-2015 06:35:26 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/skybridge/build/production/MyApp/resources/images
+[30-Jul-2015 15:39:13 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[30-Jul-2015 15:39:13 America/Chicago] Using production, live stripe key
+[30-Jul-2015 15:39:13 America/Chicago] No version sent to server
+[30-Jul-2015 15:39:13 America/Chicago] Crypting password prapodak
+[30-Jul-2015 15:40:00 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[30-Jul-2015 15:40:00 America/Chicago] Using production, live stripe key
+[30-Jul-2015 15:40:00 America/Chicago] No version sent to server
+[30-Jul-2015 15:40:00 America/Chicago] Crypting password prapodak
+[31-Jul-2015 14:14:06 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[31-Jul-2015 14:14:11 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[31-Jul-2015 14:14:24 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[31-Jul-2015 14:16:27 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[31-Jul-2015 14:17:24 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[31-Jul-2015 14:17:31 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[31-Jul-2015 14:17:31 America/Chicago] Using test, test stripe key
+[31-Jul-2015 14:17:31 America/Chicago] No version sent to server
+[31-Jul-2015 14:17:31 America/Chicago] Saving person {
+    "Person": {
+        "Student-Person.FirstName": "Madeline",
+        "Student-Person.LastName": "Sands",
+        "Student-School.Role": "Student",
+        "Student-Person.Email:Student-Login.Username": "masa13st@khabelestrong.org",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Steve",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "steve.sands@oracle.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] Thisis hte person getting persissted {"Person":{"Student-Person.FirstName":"Madeline","Student-Person.LastName":"Sands","Student-School.Role":"Student","Student-Person.Email:Student-Login.Username":"masa13st@khabelestrong.org","Application-Status":"Started","Student-School.Grade:Application-Grade":12,"Parent-Person.FirstName":"Steve","Parent-Person.LastName":"Sands","Parent-Person.Email:Parent-Login.Username":"steve.sands@oracle.com"}}
+[31-Jul-2015 14:17:31 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "Student-Person.FirstName": "Madeline",
+        "Student-Person.LastName": "Sands",
+        "Student-School.Role": "Student",
+        "Student-Person.Email:Student-Login.Username": "masa13st@khabelestrong.org",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Steve",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "steve.sands@oracle.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] ERRROR{
+    "Person": {
+        "Student-Person.FirstName": "Madeline",
+        "Student-Person.LastName": "Sands",
+        "Student-School.Role": "Student",
+        "Student-Person.Email:Student-Login.Username": "masa13st@khabelestrong.org",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Steve",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "steve.sands@oracle.com"
+    },
+    "Created": 1438370251,
+    "_id": {
+        "$id": "55bbc9cbc760e88e59e28d79"
+    }
+}Error saving that document with id {"$id":"55bbc9cbc760e88e59e28d79"}. which IS an instance of MongoId 
+[31-Jul-2015 14:17:31 America/Chicago] 127.0.0.1:27017: The dotted field 'Student-Person.FirstName' in 'Person.Student-Person.FirstName' is not valid for storage.
+#0 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(150): MongoCollection->update(Array, Array, Array)
+#1 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(570): DataService->saveDocument('Person', Array)
+#2 /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudents.php(41): DataService->savePerson(Array)
+#3 {main}
+[31-Jul-2015 14:17:31 America/Chicago] Saving person {
+    "Person": {
+        "Parent-Person.FirstName": "Deborah",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "debsans@hotmail.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] Thisis hte person getting persissted {"Person":{"Parent-Person.FirstName":"Deborah","Parent-Person.LastName":"Sands","Parent-Person.Email:Parent-Login.Username":"debsans@hotmail.com"}}
+[31-Jul-2015 14:17:31 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "Parent-Person.FirstName": "Deborah",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "debsans@hotmail.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] ERRROR{
+    "Person": {
+        "Parent-Person.FirstName": "Deborah",
+        "Parent-Person.LastName": "Sands",
+        "Parent-Person.Email:Parent-Login.Username": "debsans@hotmail.com"
+    },
+    "Created": 1438370251,
+    "_id": {
+        "$id": "55bbc9cbc760e88e59e28d7a"
+    }
+}Error saving that document with id {"$id":"55bbc9cbc760e88e59e28d7a"}. which IS an instance of MongoId 
+[31-Jul-2015 14:17:31 America/Chicago] 127.0.0.1:27017: The dotted field 'Parent-Person.FirstName' in 'Person.Parent-Person.FirstName' is not valid for storage.
+#0 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(150): MongoCollection->update(Array, Array, Array)
+#1 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(570): DataService->saveDocument('Person', Array)
+#2 /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudents.php(41): DataService->savePerson(Array)
+#3 {main}
+[31-Jul-2015 14:17:31 America/Chicago] Saving person {
+    "Person": {
+        "Student-Person.FirstName": "Thomas",
+        "Student-Person.LastName": "Warren",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 9,
+        "Parent-Person.FirstName": "Trent",
+        "Parent-Person.LastName": "Warren",
+        "Parent-Person.Email:Parent-Login.Username": "tw@spiderwoodstudios.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] Thisis hte person getting persissted {"Person":{"Student-Person.FirstName":"Thomas","Student-Person.LastName":"Warren","Student-School.Role":"Student","Application-Status":"Started","Student-School.Grade:Application-Grade":9,"Parent-Person.FirstName":"Trent","Parent-Person.LastName":"Warren","Parent-Person.Email:Parent-Login.Username":"tw@spiderwoodstudios.com"}}
+[31-Jul-2015 14:17:31 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "Student-Person.FirstName": "Thomas",
+        "Student-Person.LastName": "Warren",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 9,
+        "Parent-Person.FirstName": "Trent",
+        "Parent-Person.LastName": "Warren",
+        "Parent-Person.Email:Parent-Login.Username": "tw@spiderwoodstudios.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] ERRROR{
+    "Person": {
+        "Student-Person.FirstName": "Thomas",
+        "Student-Person.LastName": "Warren",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 9,
+        "Parent-Person.FirstName": "Trent",
+        "Parent-Person.LastName": "Warren",
+        "Parent-Person.Email:Parent-Login.Username": "tw@spiderwoodstudios.com"
+    },
+    "Created": 1438370251,
+    "_id": {
+        "$id": "55bbc9cbc760e88e59e28d7b"
+    }
+}Error saving that document with id {"$id":"55bbc9cbc760e88e59e28d7b"}. which IS an instance of MongoId 
+[31-Jul-2015 14:17:31 America/Chicago] 127.0.0.1:27017: The dotted field 'Student-Person.FirstName' in 'Person.Student-Person.FirstName' is not valid for storage.
+#0 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(150): MongoCollection->update(Array, Array, Array)
+#1 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(570): DataService->saveDocument('Person', Array)
+#2 /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudents.php(41): DataService->savePerson(Array)
+#3 {main}
+[31-Jul-2015 14:17:31 America/Chicago] Saving person {
+    "Person": {
+        "Student-Person.FirstName": "Sheridan",
+        "Student-Person.LastName": "Parker",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Stacey",
+        "Parent-Person.LastName": "Sheridan",
+        "Parent-Person.Email:Parent-Login.Username": "sheridan.stacey@gmail.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] Thisis hte person getting persissted {"Person":{"Student-Person.FirstName":"Sheridan","Student-Person.LastName":"Parker","Student-School.Role":"Student","Application-Status":"Started","Student-School.Grade:Application-Grade":12,"Parent-Person.FirstName":"Stacey","Parent-Person.LastName":"Sheridan","Parent-Person.Email:Parent-Login.Username":"sheridan.stacey@gmail.com"}}
+[31-Jul-2015 14:17:31 America/Chicago] Saving a document in Person
+{
+    "Person": {
+        "Student-Person.FirstName": "Sheridan",
+        "Student-Person.LastName": "Parker",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Stacey",
+        "Parent-Person.LastName": "Sheridan",
+        "Parent-Person.Email:Parent-Login.Username": "sheridan.stacey@gmail.com"
+    }
+}
+[31-Jul-2015 14:17:31 America/Chicago] ERRROR{
+    "Person": {
+        "Student-Person.FirstName": "Sheridan",
+        "Student-Person.LastName": "Parker",
+        "Student-School.Role": "Student",
+        "Application-Status": "Started",
+        "Student-School.Grade:Application-Grade": 12,
+        "Parent-Person.FirstName": "Stacey",
+        "Parent-Person.LastName": "Sheridan",
+        "Parent-Person.Email:Parent-Login.Username": "sheridan.stacey@gmail.com"
+    },
+    "Created": 1438370251,
+    "_id": {
+        "$id": "55bbc9cbc760e88e59e28d7c"
+    }
+}Error saving that document with id {"$id":"55bbc9cbc760e88e59e28d7c"}. which IS an instance of MongoId 
+[31-Jul-2015 14:17:31 America/Chicago] 127.0.0.1:27017: The dotted field 'Student-Person.FirstName' in 'Person.Student-Person.FirstName' is not valid for storage.
+#0 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(150): MongoCollection->update(Array, Array, Array)
+#1 /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php(570): DataService->saveDocument('Person', Array)
+#2 /usr/www/users/d4dl/quickmit/prod/clients/setup/importStudents.php(41): DataService->savePerson(Array)
+#3 {main}
+[31-Jul-2015 14:27:26 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Aug-2015 12:57:01 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Aug-2015 12:57:10 America/Chicago] Client id: 'repairsuniverse' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/repairsuniverse'
+[17-Aug-2015 12:57:10 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/repairsuniverse
+[17-Aug-2015 12:57:10 America/Chicago] School name SCHOOL_NAME
+[17-Aug-2015 12:58:41 America/Chicago] Client id: 'repairsuniverse' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/repairsuniverse'
+[17-Aug-2015 12:58:41 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/repairsuniverse
+[17-Aug-2015 12:58:41 America/Chicago] using client url https://quickmit.net/clients/installation/repairsuniverse
+[17-Aug-2015 12:58:41 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/repairsuniverse/build/production/MyApp/resources/images
+[17-Aug-2015 15:37:12 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Aug-2015 15:37:12 America/Chicago] PHP Warning:  include_once(clientConfig.php): failed to open stream: No such file or directory in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[17-Aug-2015 15:37:12 America/Chicago] PHP Warning:  include_once(): Failed opening 'clientConfig.php' for inclusion (include_path='.:/usr/home/d4dl/bin/php563/lib/php:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services') in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[17-Aug-2015 15:37:12 America/Chicago] No version sent to server
+[17-Aug-2015 15:37:13 America/Chicago] Crypting password 
+[17-Aug-2015 15:37:32 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[17-Aug-2015 15:37:32 America/Chicago] PHP Warning:  include_once(clientConfig.php): failed to open stream: No such file or directory in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[17-Aug-2015 15:37:32 America/Chicago] PHP Warning:  include_once(): Failed opening 'clientConfig.php' for inclusion (include_path='.:/usr/home/d4dl/bin/php563/lib/php:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services') in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[17-Aug-2015 15:37:32 America/Chicago] No version sent to server
+[17-Aug-2015 15:37:32 America/Chicago] Crypting password frauilp
+[18-Aug-2015 09:33:09 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 09:33:09 America/Chicago] Using production, live stripe key
+[18-Aug-2015 09:33:09 America/Chicago] No version sent to server
+[18-Aug-2015 09:33:09 America/Chicago] Crypting password prapodak
+[18-Aug-2015 09:33:19 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 09:33:19 America/Chicago] Using production, live stripe key
+[18-Aug-2015 09:33:19 America/Chicago] No version sent to server
+[18-Aug-2015 09:33:19 America/Chicago] Crypting password trdalrtef
+[18-Aug-2015 09:33:26 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 09:33:26 America/Chicago] Using production, live stripe key
+[18-Aug-2015 09:33:26 America/Chicago] No version sent to server
+[18-Aug-2015 09:33:26 America/Chicago] Crypting password trdaldtef
+[18-Aug-2015 09:33:29 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 09:33:29 America/Chicago] Using production, live stripe key
+[18-Aug-2015 09:33:29 America/Chicago] No version sent to server
+[18-Aug-2015 09:33:29 America/Chicago] Crypting password trdaldtef
+[18-Aug-2015 14:21:39 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 14:21:39 America/Chicago] Using production, live stripe key
+[18-Aug-2015 14:21:39 America/Chicago] No version sent to server
+[18-Aug-2015 14:21:39 America/Chicago] Crypting password rz89hgyy
+[18-Aug-2015 14:21:43 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 14:21:43 America/Chicago] Using production, live stripe key
+[18-Aug-2015 14:21:43 America/Chicago] No version sent to server
+[18-Aug-2015 14:21:43 America/Chicago] Crypting password rz89hgyy
+[18-Aug-2015 14:21:45 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 14:21:45 America/Chicago] Using production, live stripe key
+[18-Aug-2015 14:21:45 America/Chicago] No version sent to server
+[18-Aug-2015 14:21:45 America/Chicago] Crypting password rz89hgyy
+[18-Aug-2015 14:29:44 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[18-Aug-2015 14:29:44 America/Chicago] Using production, live stripe key
+[18-Aug-2015 14:29:44 America/Chicago] No version sent to server
+[18-Aug-2015 14:29:44 America/Chicago] Crypting password rz98sduiyy
+[22-Aug-2015 13:14:05 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[22-Aug-2015 13:14:10 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:16:43 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[22-Aug-2015 13:16:47 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:16:59 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:17:01 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:17:08 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:17:31 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:17:36 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:23:42 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:23:45 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:23:52 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:24:56 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:24:58 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:25:02 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:25:55 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:25:56 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:26:01 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:29:20 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:29:24 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:29:35 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:35:31 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:35:32 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:39:01 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:39:14 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:39:28 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:44:13 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:44:18 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:56:02 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:56:07 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 13:59:54 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:04:32 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:05:21 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:05:47 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:06:22 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:10:30 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:11:09 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:12:25 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:13:29 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:17:26 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:21:33 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[22-Aug-2015 14:24:08 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[22-Aug-2015 14:24:13 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[22-Aug-2015 14:24:17 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[23-Aug-2015 12:04:23 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[23-Aug-2015 12:04:23 America/Chicago] Using production, live stripe key
+[23-Aug-2015 12:04:23 America/Chicago] No version sent to server
+[23-Aug-2015 12:04:23 America/Chicago] Crypting password Quicks@nd1
+[04-Sep-2015 08:20:42 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[04-Sep-2015 08:20:48 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:23:00 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:28:53 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:44:48 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:46:44 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:46:53 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:50:41 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:50:46 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:55:33 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 08:55:41 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[04-Sep-2015 08:55:46 America/Chicago] Client id: 'khabelestrong' client dir '/usr/www/users/d4dl/quickmit/installation/khabelestrong' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/khabelestrong'
+[04-Sep-2015 09:22:40 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[04-Sep-2015 09:22:46 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 09:23:25 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[04-Sep-2015 09:24:59 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 09:20:50 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[07-Sep-2015 09:20:55 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 09:21:02 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 10:21:14 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[07-Sep-2015 10:21:20 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 10:21:26 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 11:23:13 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[07-Sep-2015 11:23:17 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[07-Sep-2015 11:23:21 America/Chicago] Client id: 'development' client dir '/usr/www/users/d4dl/quickmit/installation/development' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/development'
+[12-Sep-2015 08:26:54 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[12-Sep-2015 08:27:00 America/Chicago] Client id: 'XXX' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/XXX'
+[12-Sep-2015 08:27:00 America/Chicago] Client does NOT exist: /usr/www/users/d4dl/quickmit/prod/clients/installation/XXX
+[12-Sep-2015 08:27:00 America/Chicago] School name SCHOOL_NAME
+[12-Sep-2015 08:27:03 America/Chicago] Client id: 'XXX' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/XXX'
+[12-Sep-2015 08:27:03 America/Chicago] Looking for /usr/www/users/d4dl/quickmit/prod/clients/installation/XXX
+[12-Sep-2015 08:27:03 America/Chicago] using client url https://quickmit.net/clients/installation/XXX
+[12-Sep-2015 08:27:03 America/Chicago] Making directory /usr/www/users/d4dl/quickmit/installation/XXX/build/production/MyApp/resources/images
+[14-Sep-2015 21:11:50 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[19-Sep-2015 09:15:13 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[20-Sep-2015 11:12:37 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[13-Oct-2015 07:59:09 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[13-Oct-2015 07:59:09 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[14-Oct-2015 08:28:29 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[15-Oct-2015 08:16:39 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[25-Oct-2015 13:08:24 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'
+[25-Oct-2015 13:08:24 America/Chicago] PHP Warning:  include_once(clientConfig.php): failed to open stream: No such file or directory in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[25-Oct-2015 13:08:24 America/Chicago] PHP Warning:  include_once(): Failed opening 'clientConfig.php' for inclusion (include_path='.:/usr/home/d4dl/bin/php563/lib/php:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services') in /usr/www/users/d4dl/quickmit/prod/service/php/services/DataService.php on line 3
+[25-Oct-2015 13:08:24 America/Chicago] No version sent to server
+[25-Oct-2015 13:08:24 America/Chicago] Crypting password gr8plow
+[25-Oct-2015 13:17:34 America/Chicago] Client id: '' client dir '' to create '/usr/www/users/d4dl/quickmit/prod/clients/installation/'

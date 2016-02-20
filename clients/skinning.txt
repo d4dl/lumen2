@@ -1,0 +1,6 @@
+Use KSITheme.zip uncompressed as a starting point for a sencha architect theme.
+In Sencha Architected -> Project Explorere (in the right hand pane) select the neptune them under 'Resources'
+The only thing you should need to change is the base color for component.  But you may need to change other stuff.
+Then select 'Build web app'.
+It will generate a weird css file. Something like: ./theme/ext-theme-neptune-7eb360ee-e64f-4c01-a112-e02917b024e0.css
+scp ./theme/ext-theme-neptune-7eb360ee-e64f-4c01-a112-e02917b024e0.css quickmit.net:/usr/www/users/d4dl/quickmit.net/clients/{CLIENT_DIR}/build/production/MyApp/resources/MyApp-all.css

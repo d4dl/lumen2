@@ -1,0 +1,13 @@
+{
+    "name": "ext-theme-gray-9a90b101-9a31-48ac-a224-71414fd6507e",
+    "type": "theme",
+    "creator": "Architect",
+    "summary": "Architect created theme. Edit through Architect. Manual edits here will likly be discarded.",
+    "detailedDescription": "Architect created theme. Edit through Architect. Manual edits here will likly be discarded.",
+    "version": "1.0.0",
+    "compatVersion": "1.0.0",
+    "format": "1",
+    "local": true,
+    "requires": [],
+    "extend": "ext-theme-gray"
+}

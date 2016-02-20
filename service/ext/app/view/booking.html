@@ -1,0 +1,1091 @@
+<html class="ltr " dir="ltr" lang="en"><head>
+  <title>Quickmit</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://b.youcanbook.me/v2/themes/resources/pics/appicons/book-144.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://b.youcanbook.me/v2/themes/resources/pics/appicons/book-114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://b.youcanbook.me/v2/themes/resources/pics/appicons/book-72.png">
+  <link rel="apple-touch-icon-precomposed" href="https://b.youcanbook.me/v2/themes/resources/pics/appicons/book-57.png">
+  <link rel="shortcut icon" type="image/png" href="https://b.youcanbook.me/v2/themes/resources/pics/appicons/book-32.png">
+
+
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/resources/css/addtohomescreen.css" type="text/css">
+
+
+
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/resources/css/poweredby/pb3.css" type="text/css">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/v2/themes/keyboard.css?v=20150617125103" type="text/css">
+
+  <style type="text/css">
+
+
+
+
+
+
+  </style>
+
+
+
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/resources/jquery-ui-1.8.23/themes/ui-lightness/jquery.ui.core.css" type="text/css">
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/resources/jquery-ui-1.8.23/themes/ui-lightness/jquery.ui.theme.css" type="text/css">
+  <link rel="stylesheet" href="https://b.youcanbook.me/v2/themes/resources/jquery-ui-1.8.23/themes/ui-lightness/jquery.ui.datepicker.css" type="text/css">
+</head>
+  <body>
+    <div class="content">
+
+
+      <div class="main">
+        <div class="mainStart"></div>
+
+
+        <div class="instructions">
+          <div class="instructionsStart"></div>
+          <p>Click on any time to make a booking.</p>
+        </div>
+        <div class="instructionsEnd"></div>
+
+        <div id="spinner" style="display: none;"><img src="/resources/pics/spinner-big.gif" class="square smallImage"></div>
+        <div class="gridPage yesFree noTimezone noJumpDate yesPeriodButtons" id="gridPage" style="visibility: visible;">
+
+
+
+          <div class="periodButtons">
+
+            <button onclick="goPeriod('Am');" id="showAm" class="showing"><span class="periodLabel">Morning: </span><span class="periodCount">14</span><span class="periodAfter"> Available</span></button>
+            <button onclick="goPeriod('Pm');" id="showPm"><span class="periodLabel">Afternoon: </span> <span class="periodCount">0</span><span class="periodAfter"> Available</span></button>
+            <button onclick="goPeriod('Eve');" id="showEve"><span class="periodLabel">Evening: </span><span class="periodCount">13<span class="periodAfter"> Available</span></span></button>
+          </div>
+
+          <div class="grid cols7 showTechnicallyFree" style="width: 789px; max-width: 789px; margin: 0px auto;">
+
+
+            <div class="paging pagingBefore pagingPrevious wideCol">
+              <h4><a href="https://b.youcanbook.me/v2/themes/v2/jsps/cal.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-22" class="pageButton">« previous</a></h4>
+            </div>
+
+            <div class="gridDays">
+
+
+              <div class="gridDay gridDayMon  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Mon">Mon</span> <span class="gridHeaderDate" data-content="6/29/15">6/29/15</span> <span class="gridHeaderFull">Monday, June 29, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1435591800000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435591800000,1435595400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435591800000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435591800000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435595400000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435595400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435595400000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435595400000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435599000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1435602600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1435606200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1435609800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1435613400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1435617000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1435620600000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435620600000,1435624200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435620600000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435620600000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1435624200000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435624200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435624200000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435624200000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDayTue  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Tue">Tue</span> <span class="gridHeaderDate" data-content="6/30/15">6/30/15</span> <span class="gridHeaderFull">Tuesday, June 30, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1435678200000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435678200000,1435681800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435678200000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435678200000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435681800000" class="gridSlot gridAm gridHighlight" onmouseover="highlight('1435681800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435681800000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435681800000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435685400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1435689000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1435692600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1435696200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1435699800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1435703400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1435707000000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435707000000,1435710600000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435707000000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435707000000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1435710600000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435710600000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435710600000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435710600000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDayWed  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Wed">Wed</span> <span class="gridHeaderDate" data-content="7/1/15">7/1/15</span> <span class="gridHeaderFull">Wednesday, July 1, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1435764600000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435764600000,1435768200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435764600000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435764600000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435768200000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435768200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435768200000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435768200000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435771800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1435775400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1435779000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1435782600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1435786200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1435789800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1435793400000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435793400000,1435797000000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435793400000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435793400000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1435797000000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435797000000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435797000000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435797000000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDayThu  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Thu">Thu</span> <span class="gridHeaderDate" data-content="7/2/15">7/2/15</span> <span class="gridHeaderFull">Thursday, July 2, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1435851000000" class="gridSlot gridAm gridFree" onmouseover="highlight('1435851000000,1435854600000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435851000000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435851000000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435854600000" class="gridSlot gridAm gridFree" onmouseover="highlight('1435854600000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435854600000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435854600000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435858200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1435861800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1435865400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1435869000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1435872600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1435876200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1435879800000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435879800000,1435883400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435879800000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435879800000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1435883400000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435883400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435883400000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435883400000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDayFri  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Fri">Fri</span> <span class="gridHeaderDate" data-content="7/3/15">7/3/15</span> <span class="gridHeaderFull">Friday, July 3, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1435937400000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435937400000,1435941000000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435937400000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435937400000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435941000000" class="gridSlot gridFree gridAm" onmouseover="highlight('1435941000000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435941000000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435941000000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1435944600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1435948200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1435951800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1435955400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1435959000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1435962600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1435966200000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435966200000,1435969800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435966200000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435966200000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1435969800000" class="gridSlot gridFree gridEve" onmouseover="highlight('1435969800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435969800000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1435969800000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDaySat  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Sat">Sat</span> <span class="gridHeaderDate" data-content="7/4/15">7/4/15</span> <span class="gridHeaderFull">Saturday, July 4, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1436023800000" class="gridSlot gridFree gridAm" onmouseover="highlight('1436023800000,1436027400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436023800000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436023800000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1436027400000" class="gridSlot gridFree gridAm" onmouseover="highlight('1436027400000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436027400000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436027400000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1436031000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1436034600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1436038200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1436041800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1436045400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1436049000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1436052600000" class="gridSlot gridFree gridEve" onmouseover="highlight('1436052600000,1436056200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436052600000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436052600000">6:30 PM</a>
+                </div>
+
+
+
+                <div id="grid1436056200000" class="gridSlot gridFree gridEve" onmouseover="highlight('1436056200000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436056200000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436056200000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="gridDay gridDaySun  wideCol">
+                <div class="gridHeader">
+
+
+
+                  <h4><span class="gridHeaderDayName" data-content="Sun">Sun</span> <span class="gridHeaderDate" data-content="7/5/15">7/5/15</span> <span class="gridHeaderFull">Sunday, July 5, 2015</span></h4>
+
+                </div>
+
+
+                <div id="grid1436110200000" class="gridSlot gridFree gridAm" onmouseover="highlight('1436110200000,1436113800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436110200000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436110200000">10:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1436113800000" class="gridSlot gridAm gridFree" onmouseover="highlight('1436113800000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436113800000';">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436113800000">11:30 AM</a>
+                </div>
+
+
+
+                <div id="grid1436117400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  12:30 PM
+                </div>
+
+
+
+                <div id="grid1436121000000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  1:30 PM
+                </div>
+
+
+
+                <div id="grid1436124600000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  2:30 PM
+                </div>
+
+
+
+                <div id="grid1436128200000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  3:30 PM
+                </div>
+
+
+
+                <div id="grid1436131800000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  4:30 PM
+                </div>
+
+
+
+                <div id="grid1436135400000" class="gridSlot gridBusy gridPm gridNoFree" style="display: none;">
+                  5:30 PM
+                </div>
+
+
+
+                <div id="grid1436139000000" class="gridSlot gridBusy gridEve" style="display: none;">
+                  6:30 PM
+                </div>
+
+
+
+                <div id="grid1436142600000" class="gridSlot gridFree gridEve" onmouseover="highlight('1436142600000');" onmouseout="resetHighlights();" onclick="location='/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436142600000';" style="display: none;">
+                  <a href="https://b.youcanbook.me/v2/themes/v2/jsps/book.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-06-29&amp;slot=1436142600000">7:30 PM</a>
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+            <div class="paging pagingAfter pagingNext wideCol">
+              <h4><a href="https://b.youcanbook.me/v2/themes/v2/jsps/cal.jsp?cal=nR8chFi7JLpDSzK9NoRK&amp;noframe=true&amp;skipHeaderFooter=true&amp;jumpDate=2015-07-06" class="pageButton">next »</a></h4>
+            </div>
+
+            <div style="clear:both;"></div>
+          </div>
+
+        </div>
+        <div class="mainEnd"></div>
+      </div>
+
+
+
+
+
+
+      <div class="poweredBy" style="display:block !important;">
+
+        <a href="https://youcanbook.me/indexdomain.jsp?utm_campaign=Grid%20Footers&amp;utm_source=Viral&amp;utm_medium=Green%20button&amp;utm_content=Powered%20for%20FREE%20by%20YouCanBook.Me&amp;utm_term=quickmit" target="_blank" style="color: white !important; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);background-color: #E86537 !important;background-image: -webkit-linear-gradient(top, #EF784E, #DD4814) !important;background-image: -o-linear-gradient(top, #EF784E, #DD4814) !important;background-image: linear-gradient(to bottom, #EF784E, #DD4814) !important;background-repeat: repeat-x !important;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;display: inline-block !important;padding: 4px 14px !important;margin-bottom: 0 !important;font-size: 14px !important;line-height: 20px !important;text-align: center !important;vertical-align: middle;cursor: pointer;border: 1px solid #CCC;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);text-decoration: none;font-family: sans-serif;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffef784e', endColorstr='#ffdd4814', GradientType=0) !important;filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;margin: 10px !important;">Powered for FREE by YouCanBook.Me</a>
+      </div>
+
+
+
+
+      <script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/linkid.js"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script type="text/javascript" src="/resources/scripts/ycbm.service.min.js?v=20150617125103"></script>
+
+
+
+
+
+      <script type="text/javascript">
+        //addToHomescreen.removeSession()
+        addToHomescreen({
+          skipFirstVisit: false,
+          maxDisplayCount: 3,
+          lifespan:20,
+          displayPace:60
+          //debug:true
+        });
+      </script>
+
+
+
+
+
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+
+        ga('create', 'UA-57420767-1', 'auto');
+
+
+
+
+
+        ga('create', 'UA-155464-7', 'youcanbook.me', {'name': 'oldTracker'});
+        ga('require', 'linkid', 'linkid.js');
+        ga('set', 'dimension1', 'barnacles');
+        ga('set', 'dimension2', 'Service');
+
+
+        ga('send', 'pageview');
+        ga('oldTracker.send', 'pageview');
+      </script>
+
+
+
+
+    </div>
+
+    <script type="text/javascript">
+      function highlight(gids) {
+        var gid = gids.split(",");
+        for(i = 0; i < gid.length; i++){
+          $("#grid"+gid[i]).removeClass("gridFree");
+          $("#grid"+gid[i]).removeClass("gridTechnicallyFree");
+          $("#grid"+gid[i]).removeClass("gridBusy");
+          $("#grid"+gid[i]).addClass("gridHighlight");
+        }
+      }
+      function resetHighlights() {
+        $(".gridHighlight").removeClass("gridHighlight");
+
+
+
+        $("#grid1435591800000").addClass("gridFree");
+
+
+
+        $("#grid1435678200000").addClass("gridFree");
+
+
+
+        $("#grid1435764600000").addClass("gridFree");
+
+
+
+        $("#grid1435851000000").addClass("gridFree");
+
+
+
+        $("#grid1435937400000").addClass("gridFree");
+
+
+
+        $("#grid1436023800000").addClass("gridFree");
+
+
+
+        $("#grid1436110200000").addClass("gridFree");
+
+
+
+
+
+        $("#grid1435595400000").addClass("gridFree");
+
+
+
+        $("#grid1435681800000").addClass("gridFree");
+
+
+
+        $("#grid1435768200000").addClass("gridFree");
+
+
+
+        $("#grid1435854600000").addClass("gridFree");
+
+
+
+        $("#grid1435941000000").addClass("gridFree");
+
+
+
+        $("#grid1436027400000").addClass("gridFree");
+
+
+
+        $("#grid1436113800000").addClass("gridFree");
+
+
+
+
+
+        $("#grid1435599000000").addClass("gridBusy");
+
+
+
+        $("#grid1435685400000").addClass("gridBusy");
+
+
+
+        $("#grid1435771800000").addClass("gridBusy");
+
+
+
+        $("#grid1435858200000").addClass("gridBusy");
+
+
+
+        $("#grid1435944600000").addClass("gridBusy");
+
+
+
+        $("#grid1436031000000").addClass("gridBusy");
+
+
+
+        $("#grid1436117400000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435602600000").addClass("gridBusy");
+
+
+
+        $("#grid1435689000000").addClass("gridBusy");
+
+
+
+        $("#grid1435775400000").addClass("gridBusy");
+
+
+
+        $("#grid1435861800000").addClass("gridBusy");
+
+
+
+        $("#grid1435948200000").addClass("gridBusy");
+
+
+
+        $("#grid1436034600000").addClass("gridBusy");
+
+
+
+        $("#grid1436121000000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435606200000").addClass("gridBusy");
+
+
+
+        $("#grid1435692600000").addClass("gridBusy");
+
+
+
+        $("#grid1435779000000").addClass("gridBusy");
+
+
+
+        $("#grid1435865400000").addClass("gridBusy");
+
+
+
+        $("#grid1435951800000").addClass("gridBusy");
+
+
+
+        $("#grid1436038200000").addClass("gridBusy");
+
+
+
+        $("#grid1436124600000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435609800000").addClass("gridBusy");
+
+
+
+        $("#grid1435696200000").addClass("gridBusy");
+
+
+
+        $("#grid1435782600000").addClass("gridBusy");
+
+
+
+        $("#grid1435869000000").addClass("gridBusy");
+
+
+
+        $("#grid1435955400000").addClass("gridBusy");
+
+
+
+        $("#grid1436041800000").addClass("gridBusy");
+
+
+
+        $("#grid1436128200000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435613400000").addClass("gridBusy");
+
+
+
+        $("#grid1435699800000").addClass("gridBusy");
+
+
+
+        $("#grid1435786200000").addClass("gridBusy");
+
+
+
+        $("#grid1435872600000").addClass("gridBusy");
+
+
+
+        $("#grid1435959000000").addClass("gridBusy");
+
+
+
+        $("#grid1436045400000").addClass("gridBusy");
+
+
+
+        $("#grid1436131800000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435617000000").addClass("gridBusy");
+
+
+
+        $("#grid1435703400000").addClass("gridBusy");
+
+
+
+        $("#grid1435789800000").addClass("gridBusy");
+
+
+
+        $("#grid1435876200000").addClass("gridBusy");
+
+
+
+        $("#grid1435962600000").addClass("gridBusy");
+
+
+
+        $("#grid1436049000000").addClass("gridBusy");
+
+
+
+        $("#grid1436135400000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435620600000").addClass("gridFree");
+
+
+
+        $("#grid1435707000000").addClass("gridFree");
+
+
+
+        $("#grid1435793400000").addClass("gridFree");
+
+
+
+        $("#grid1435879800000").addClass("gridFree");
+
+
+
+        $("#grid1435966200000").addClass("gridFree");
+
+
+
+        $("#grid1436052600000").addClass("gridFree");
+
+
+
+        $("#grid1436139000000").addClass("gridBusy");
+
+
+
+
+
+        $("#grid1435624200000").addClass("gridFree");
+
+
+
+        $("#grid1435710600000").addClass("gridFree");
+
+
+
+        $("#grid1435797000000").addClass("gridFree");
+
+
+
+        $("#grid1435883400000").addClass("gridFree");
+
+
+
+        $("#grid1435969800000").addClass("gridFree");
+
+
+
+        $("#grid1436056200000").addClass("gridFree");
+
+
+
+        $("#grid1436142600000").addClass("gridFree");
+
+
+
+      }
+      function policeColumns() {
+        $(".grid").css("width", "100%");
+        $(".grid").css("max-width", "100%");
+        var columns = $(".gridDay:visible, .paging");
+        var before = $(".pagingBefore");
+        var after = $(".pagingAfter");
+        columns.addClass("wideCol");
+        columns.removeClass("mediumCol");
+        columns.removeClass("narrowCol");
+        if (before.offset().top != after.offset().top) {
+          columns.addClass("mediumCol");
+        }
+        if (before.offset().top != after.offset().top) {
+          columns.addClass("narrowCol");
+        }
+        if (before.offset().top != after.offset().top) {
+          columns.removeClass("narrowCol");
+          columns.removeClass("mediumCol");
+          columns.removeClass("wideCol");
+          $(".noFreeMessage").removeClass("modal");
+        }
+        else {
+          var w = 1;
+          columns.each(function(){
+            w = w + $(this).outerWidth(true);
+          });
+          if ($(".grid").css("padding-left")) w = w + parseInt($(".grid").css("padding-left"));
+          if ($(".grid").css("padding-right")) w = w + parseInt($(".grid").css("padding-right"));
+          if ($(".grid").css("border-left-width")) w = w + parseInt($(".grid").css("border-left-width"));
+          if ($(".grid").css("border-right-width")) w = w + parseInt($(".grid").css("border-right-width"));
+          $(".grid").css("width", w + "px");
+          $(".grid").css("max-width", w + "px");
+          $(".grid").css("margin", "0px auto");
+          $(".noFreeMessage").addClass("modal");
+        }
+      }
+      function updateTimeZone() {
+        $("#gridPage").css("visibility", "hidden");
+        $("#spinner").show();
+        if ($("#continent").val() == "UTC") {
+          $("#btz").val("UTC");
+        }
+        else {
+          $("#btz").val($("#zone" + $("#continent").val()).val());
+        }
+        $("#timeZoneForm").submit();
+      }
+
+      function goPeriod(period) {
+        $(".gridEarly:visible").hide();
+        $(".gridAm:visible").hide();
+        $(".gridPm:visible").hide();
+        $(".gridEve:visible").hide();
+        $(".grid" + period).show();
+        $(".pageButton").each(function(index, pb) {
+          $(pb).attr("href", $(pb).attr("href").replace("period=Early", "period=" + period));
+          $(pb).attr("href", $(pb).attr("href").replace("period=Am", "period=" + period));
+          $(pb).attr("href", $(pb).attr("href").replace("period=Pm", "period=" + period));
+          $(pb).attr("href", $(pb).attr("href").replace("period=Eve", "period=" + period));
+        });
+        $("div.periodButtons button").removeClass("showing");
+        $("#show" + period).addClass("showing");
+
+      }
+      $(document).ready(function(){
+        $(".gridEarly").hide();
+
+        $(".gridPm").hide();
+        $(".gridEve").hide();
+      });
+
+      $(document).ready(function() {
+        if ($.datepicker.regional['en-US']) {
+          $.datepicker.setDefaults($.datepicker.regional['en-US']);
+        }
+        else if ($.datepicker.regional['en']) {
+          $.datepicker.setDefaults($.datepicker.regional['en']);
+        }
+        else {
+          $.datepicker.setDefaults($.datepicker.regional['en-GB']);
+        }
+        $.datepicker.setDefaults({
+          dateFormat: "yy-mm-dd",
+          showOn: "both",
+          buttonText: "Jump To Date",
+          showAnim: "",
+          constrainInput: false ,
+          gotoCurrent: true
+        });
+        $("#jumpDate").datepicker();
+        $("button.ui-datepicker-trigger").wrapInner("<span>");
+
+        $(".pageButton").click(function(){
+          $("#gridPage").css("visibility", "hidden");
+          $("#spinner").show();
+        });
+        $("select#continent, select[data-zone]").change(updateTimeZone);
+        $(".gridHeaderDayName, .gridHeaderDate").each(function(){
+          $(this).html($(this).data("content"));
+        });
+        $("#spinner").hide();
+        $("#gridPage").css("visibility", "visible");
+        policeColumns();
+        $(window).resize(policeColumns);
+      });
+    </script>
+
+
+
+  </body></html>

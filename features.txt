@@ -1,0 +1,62 @@
+TODO: add a way to get an outer window sized... google sites forces gadget embedders to choose a size. We need to commandeer the size.
+burt.js has been modified.
+google sites needs to be parameterized.
+
+Alpha Customer Request
+Date submitted should be in the grid.
+A 'Hand-off' button should allow coordinators to hand off processing of the app to one or more other parties.
+Amount paid is missing from grid
+Questions need to be externalized.
+Update the dialog presented after submit to direct the parents to attend an info exchange
+Update the email after the app is submitted to direct the parents to attend an info exchange
+Update the grid with a flag for the 'info exchange attended'.
+Update the grid to be customizable per school.
+Change the subject of the evaluation emails sent to teachers.
+Remove empty apps.
+Add a delete feature.  (DO NOT DELETE STUFF FOR REAL)
+Only the documents a parent uploads should be visible to them.  Unless an admin explicitly permits access... maybe.
+There needs to be two new emails.  One is an acceptance letter with a link to enrollment.
+One is a Re-enrollment notification with a link to enrollment.
+The print button needs to have a popup blocker notification
+
+Current
+Teacher survey and recommendation workflow
+Application Fee Payment Processing
+Never open an unfinished application again.
+The system walks the applicants through the process and reminds them of unfinished business.  Including:
+  - Personal Recommendation
+  - Uploading psych evaluations and report cards
+  - Uploading immunization records
+  - Unpaid application fees
+  - Automated management campus visits, interviews and other activities
+
+Future
+
+    - Form Builder
+    - Custom column addition
+
+Integrations
+    - Evernote
+    - Google Docs
+    - Google Groups
+    - FACTsmanagement
+    - Survey Monkey
+    - Google Drive
+    - DropBox
+
+email reminder option for
+    - Missing documents
+    - Reenrollment reminders
+    - Tuition payment processing
+    - Elective signup and payment
+    - Typeahead quicksearch
+    - Google calendar integration
+    - Mailchimp integration
+    - Periodic reminders to complete app
+    - Re-enrollment
+    - Task management - acccept a student with the click of a button
+    - Response management - send a message to the applicant, and view the status of the response
+    - Student and applicant grid
+
+
+I agree to terms of use and privacy and to comply with COPPA, I affirm that I am 13 years or older.

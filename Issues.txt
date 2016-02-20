@@ -1,0 +1,11 @@
+Issues
+ComboBoxes are being saved with the Ext generated ids.
+There are other ext generated ids
+isApplicationFeePaid is checking the status which appears to be different 'paid' sometimes, 'succeeded' others.
+The "your application has been submitted" is missing finance office address details
+When I submitted brandon's application it got associated with me as the owner using OwnerId
+The setup script isn't properly replacing the substitution variable
+All the emails should use <a href="__APPLICATION_LINK__" for the application link rather than {__APPLICATION__LINK}
+Change portal to ssytem
+Add the rest of Ali's email templates to templates.php
+Date submitted is getting save in ISO rather than timestamp.

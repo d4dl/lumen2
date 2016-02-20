@@ -1,0 +1,109 @@
+.body {
+    color: #2B72C2;
+}
+
+a:active {
+    color: #2B72C2;
+}
+
+li {
+    line-height: 22px;
+    color: #666;
+    list-style-position: inside;
+    font-size: 12px;
+}
+
+table tr td {
+    margin-right: 10px;
+}
+
+table tr {
+    text-align: left;
+}
+
+.content {
+    padding-top: 5px;
+}
+
+.fieldSetLabel, .fieldSetComponent {
+    display: block;
+}
+
+.fieldSetLabel.longQuestionFieldSet,
+.fieldSetLabel.multipleChoiceFieldSet {
+    margin-top: 14px;
+    display: block;
+}
+
+.fieldSetComponentSection .subfieldTitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.fieldSetLabel.longQuestionFieldSet, .fieldSetLabel.longQuestionFieldSet {
+    margin-top: 24px;
+    margin-bottom: 5px;
+}
+
+.fieldSetLabel.multiAnswerQuestion {
+    display: block;
+}
+
+.printHeading {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 22px 0px 20px 0px;
+}
+.printHeading .studentName {
+    display: block;
+}
+
+.printHeading .studentName::after {
+    content: ": ";
+}
+
+.fieldSetLabel {
+    display: inline-table;
+    font-weight: bold;
+}
+
+.fieldSetComponent {
+    display: inline-table;
+}
+
+.fieldSetComponentSection .headingTitle {
+    margin-bottom: 32px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fieldSetComponentSection.level1 {
+    margin-left: 32px;
+    margin-bottom: 20px;
+}
+
+table.surveyQuestionGrid {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+td.question,
+td.questionAnswer {
+    text-align: left;
+}
+
+td.question {
+    border: 1px solid;
+}
+
+td.questionRow {
+    border-bottom: 1px solid;
+}
+
+.questionRow .questionAnswer .questionSpan.selected {
+    font-weight: bold;
+}
+
+.questionRow .questionAnswer .questionSpan.notSelected {
+    opacity: .3;
+}

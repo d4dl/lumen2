@@ -1,0 +1,64 @@
+[
+    {
+        "name": "Plan A: 1 payment",
+        "tenantId": "development",
+        "downPaymentAmount": 10000,
+        "debitScheduleEntries": []
+    },
+    {
+        "name": "Plan B: 2 payments",
+        "dateFormat": "MMM d, yyyy",
+        "tenantId": "development",
+        "downPaymentAmount": 5100,
+        "debitScheduleEntries": [
+            {
+                "formattedDateToExecute": "Feb 1, 2015",
+                "debitAmount": 5100
+            }
+        ]
+    },
+    {
+        "name": "Plan C: 10 monthly payments",
+        "dateFormat": "MMM d, yyyy",
+        "tenantId": "development",
+        "downPaymentAmount": 1200,
+        "debitScheduleEntries": [
+            {
+                "formattedDateToExecute": "Sep 1, 2014",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Oct 1, 2014",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Nov 1, 2014",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Dec 1, 2014",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Jan 1, 2015",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Feb 1, 2015",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Mar 1, 2015",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "Apr 1, 2015",
+                "debitAmount": 1200
+            },
+            {
+                "formattedDateToExecute": "May 1, 2001",
+                "debitAmount": 1200
+            }
+        ]
+    }
+]

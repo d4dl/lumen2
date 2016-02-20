@@ -1,0 +1,33 @@
+
+
+
+
+Teacher survey and recommendation workflow
+Application Fee Payment Processing
+Never open an unfinished application again.
+The system walks the applicants through the process and reminds them of unfinished business.  Including:
+  - Personal Recommendation
+  - Uploading psych evaluations and report cards
+  - Uploading immunization records
+  - Unpaid application fees
+  - Automated management campus visits, interviews and other activities
+
+
+
+
+email reminder option for
+    - Missing documents
+    - Reenrollment reminders
+    - Tuition payment processing
+    - Elective signup and payment
+    - Typeahead quicksearch
+    - Google calendar integration
+    - Mailchimp integration
+    - Periodic reminders to complete app
+    - Re-enrollment
+    - Task management - acccept a student with the click of a button
+    - Response management - send a message to the applicant, and view the status of the response
+    - Student and applicant grid
+
+
+I agree to terms of use and privacy and to comply with COPPA, I affirm that I am 13 years or older.

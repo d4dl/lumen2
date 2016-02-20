@@ -1,0 +1,39 @@
+                {name: "", inputValue: "Exceptional", boxLabel: "Exceptional"},
+                {name: "", inputValue: "Above Average", boxLabel: "Above Average"},
+                {name: "", inputValue: "Average", boxLabel: "Average"},
+                {name: "", inputValue: "Below Average", boxLabel: "Below Average"},
+                {name: "", inputValue: "Deficient", boxLabel: "Deficient"},
+                {name: "", inputValue: "No opinion" boxLabel: "No opinion}"
+
+
+
+Things to search and replace
+It looks like the form won't build the first time you create an account.
+Make sure day visits isn't on IA application... or that it works right.
+data*
+
+Make sure ParentsPerspective is showing instructions for voluntee contribution question.
+multiplechoicequestion REPLACE WITH bindableradiogroup  or bindablecheckboxgroup
+fieldSetComponent
+multianswerquestion
+longquestion
+shortquestion
+useDataItemKey
+skipTopLevel
+empty strings: "" ''
+dataSetIdentifier: just use name
+IAs payment form may need some adjustment after a new deployment.
+set showGuestDaysPanel to false in the two apps for IA
+
+    dataSetIdentifier
+    dataItemIdentifier
+    dataItemKey
+    dataItemKeyValue
+
+
+
+Emails:
+Welcome family
+Enrollment complete
+Day Visit Review
+In App notification.  This application is ready for you to review.  When you're done pass it along.

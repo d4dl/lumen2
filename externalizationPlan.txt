@@ -1,0 +1,5 @@
+Look for strings in php
+Find js fields:
+  title
+  fieldLabel
+  label

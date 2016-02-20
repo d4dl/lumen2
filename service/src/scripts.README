@@ -1,0 +1,2 @@
+The last step of the theme installation is just to create a link
+ln -s build/production/MyApp/resources/ resources
