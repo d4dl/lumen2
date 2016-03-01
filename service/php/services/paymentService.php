@@ -13,91 +13,91 @@ require_once("../thirdparty/Stripe.php");
 $params = json_decode($_POST['params']);
 $dataService = DataService::getInstance();
 
+if(defined("USE_LEGACY_PAYMENTS")) {
+    // set your secret key: remember to change this to your live secret key in production
+    // see your keys here https://manage.stripe.com/account
+    Stripe::setApiKey(STRIPE_API_KEY);
 
-// set your secret key: remember to change this to your live secret key in production
-// see your keys here https://manage.stripe.com/account
-Stripe::setApiKey(STRIPE_API_KEY);
-
-$feeParameter = $params->fee;
-$fee = strpos($feeParameter, '%') > 0 ? (str_replace('%', '', $feeParameter) / 100) : $feeParameter;
+    $feeParameter = $params->fee;
+    $fee = strpos($feeParameter, '%') > 0 ? (str_replace('%', '', $feeParameter) / 100) : $feeParameter;
 
 
-if ($params->paymentType == 'applicationFee') {
-    try {
-        $description = "Admissions Application Fee";
-        $application = $dataService->loadAdmissionApplication($params->applicationId);
-        $childId = "" . $application["ChildId"]; //Coerce to string
+    if ($params->paymentType == 'applicationFee') {
+        try {
+            $description = "Admissions Application Fee";
+            $application = $dataService->loadAdmissionApplication($params->applicationId);
+            $childId = "" . $application["ChildId"]; //Coerce to string
 
-        $applicant = $dataService->loadPerson($childId)['Person'];
-        $userName = $dataService->getUserFullName();
-        $name = $applicant['FirstName'] . " " . $applicant['LastName'];
-        error_log("Loaded child " . json_encode($applicant, JSON_PRETTY_PRINT));
-        list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
+            $applicant = $dataService->loadPerson($childId)['Person'];
+            $userName = $dataService->getUserFullName();
+            $name = $applicant['FirstName'] . " " . $applicant['LastName'];
+            error_log("Loaded child " . json_encode($applicant, JSON_PRETTY_PRINT));
+            list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
 
-        if ($charge->failure_message) {
-            echo(json_encode($charge->failure_message));
-        } else {
+            if ($charge->failure_message) {
+                echo(json_encode($charge->failure_message));
+            } else {
 
-            $application['AmountPaid'] = $params->amount;
-            if (!array_key_exists('Charges', $application)) {
-                $application['Charges'] = array();
+                $application['AmountPaid'] = $params->amount;
+                if (!array_key_exists('Charges', $application)) {
+                    $application['Charges'] = array();
+                }
+                $application['Charges'][] = array(
+                    "ChargeId" => $charge->id,
+                    "CardId" => $charge->card->id,
+                    "Amount" => $charge->amount,
+                    "description" => $charge->description,
+                    "status" => "paid"
+                );
+                //Removes empty keys that stripe sends back.
+                $charge = json_decode($charge->__toJSON());
+                $charge->ChargeId = $charge->id;
+                $charge->Fee = $fee;//The amount kept by quickmit.  The rest is sent to the customer.
+                $charge->PersonId = $childId;
+                $charge->ChildId = "" . $application["ChildId"]; //Coerce to string
+                //error_log("XHA charge " . json_decode($charge));
+                $charge = $dataService->saveCharge((array)$charge);
+                $dataService->saveAdmissionApplication($application);
+                echo(json_encode(array("allCharges" => $application['Charges'], "currentAmount"=>($charge['amount']))));
             }
-            $application['Charges'][] = array(
-                "ChargeId" => $charge->id,
-                "CardId" => $charge->card->id,
-                "Amount" => $charge->amount,
-                "description" => $charge->description,
-                "status" => "paid"
-            );
-            //Removes empty keys that stripe sends back.
-            $charge = json_decode($charge->__toJSON());
-            $charge->ChargeId = $charge->id;
-            $charge->Fee = $fee;//The amount kept by quickmit.  The rest is sent to the customer.
-            $charge->PersonId = $childId;
-            $charge->ChildId = "" . $application["ChildId"]; //Coerce to string
-            //error_log("XHA charge " . json_decode($charge));
-            $charge = $dataService->saveCharge((array)$charge);
-            $dataService->saveAdmissionApplication($application);
-            echo(json_encode(array("allCharges" => $application['Charges'], "currentAmount"=>($charge['amount']))));
+        } catch (Exception $e) {
+            echo(json_encode(array("errorMessage"=>$e->getMessage())));
         }
-    } catch (Exception $e) {
-        echo(json_encode(array("errorMessage"=>$e->getMessage())));
-    }
-} else {
-    $name = "Tuition Charge";
-    $description = "Tuition Payment";
-    $userName = $dataService->getUserFullName();
-    list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
-    error_log("Charge created: " . json_encode($charge));
-    if(array_key_exists("debitScheduleId", $params)) {
-        //If this is a payment for an already scheduled debit.  Set the status to active
-        $dataService->updateDebitSchedule($params->debitScheduleId, array('$set' => array('isActive' => true, 'paymentProcessorCustomerId' => $customerId)));
-    } else if(array_key_exists("debitScheduleTemplateId", $params)) {
-        //Otherwise create a new schedule from the template and activate it.
-        $debitScheduleTemplate = $dataService->loadDebitScheduleTemplate($params->debitScheduleTemplateId);
-        unset($debitScheduleTemplate["_id"]);
-        $debitScheduleTemplate["OwnerId"] = $params->OwnerId;
-        $debitScheduleTemplate["ChildId"] = $params->ChildId;
-        $debitSchedule = $dataService->saveDebitSchedule($debitScheduleTemplate);
-    }
-    error_log("Saved debit schedule " . json_encode($debitSchedule));
-    if(!$charge->failure_message) {
-        //The first payment should equal all the fees plus the down payment amount.
-        $totalExpectedPayment = $debitSchedule['downPaymentAmount'];
-
-        $debitSchedule["paymentProcessor"] = "Stripe";
-        $debitSchedule["paymentProcessorCustomerId"] = $charge->customer;
-        $debitScheduleEntry = array();
-        $downPaymentDebitScheduleEntry = updateScheduleEntryDetails($charge, $debitScheduleEntry, "downPaymentCharge");
-        $debitSchedule["debitScheduleEntries"][] = $downPaymentDebitScheduleEntry;
-
-        foreach($debitSchedule['fees'] as $fee) {
-            $totalExpectedPayment += $fee["amount"];
+    } else {
+        $name = "Tuition Charge";
+        $description = "Tuition Payment";
+        $userName = $dataService->getUserFullName();
+        list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
+        error_log("Charge created: " . json_encode($charge));
+        if(array_key_exists("debitScheduleId", $params)) {
+            //If this is a payment for an already scheduled debit.  Set the status to active
+            $dataService->updateDebitSchedule($params->debitScheduleId, array('$set' => array('isActive' => true, 'paymentProcessorCustomerId' => $customerId)));
+        } else if(array_key_exists("debitScheduleTemplateId", $params)) {
+            //Otherwise create a new schedule from the template and activate it.
+            $debitScheduleTemplate = $dataService->loadDebitScheduleTemplate($params->debitScheduleTemplateId);
+            unset($debitScheduleTemplate["_id"]);
+            $debitScheduleTemplate["OwnerId"] = $params->OwnerId;
+            $debitScheduleTemplate["ChildId"] = $params->ChildId;
+            $debitSchedule = $dataService->saveDebitSchedule($debitScheduleTemplate);
         }
-        $debitSchedule["isActive"] = true;
-        //$executedDate = new MongoDate();
-        error_log("total expected " . $totalExpectedPayment . " paramsamount " . ($params->amount / 100));
-        $actualPayment = $params->amount / 100;
+        error_log("Saved debit schedule " . json_encode($debitSchedule));
+        if(!$charge->failure_message) {
+            //The first payment should equal all the fees plus the down payment amount.
+            $totalExpectedPayment = $debitSchedule['downPaymentAmount'];
+
+            $debitSchedule["paymentProcessor"] = "Stripe";
+            $debitSchedule["paymentProcessorCustomerId"] = $charge->customer;
+            $debitScheduleEntry = array();
+            $downPaymentDebitScheduleEntry = updateScheduleEntryDetails($charge, $debitScheduleEntry, "downPaymentCharge");
+            $debitSchedule["debitScheduleEntries"][] = $downPaymentDebitScheduleEntry;
+
+            foreach($debitSchedule['fees'] as $fee) {
+                $totalExpectedPayment += $fee["amount"];
+            }
+            $debitSchedule["isActive"] = true;
+            //$executedDate = new MongoDate();
+            error_log("total expected " . $totalExpectedPayment . " paramsamount " . ($params->amount / 100));
+            $actualPayment = $params->amount / 100;
 //        if($totalExpectedPayment == $actualPayment) {//Stripe expects amount with no decimal.
 //            for($i = 0; $i < count($debitSchedule['fees']); $i++) {
 //                $fee = $debitSchedule['fees'][$i];
@@ -111,10 +111,14 @@ if ($params->paymentType == 'applicationFee') {
 //            error_log("totalExpectedPayment $totalExpectedPayment was different from $actualPayment");
 //        }
 
-        $debitSchedule = $dataService->saveDebitSchedule($debitSchedule);
+            $debitSchedule = $dataService->saveDebitSchedule($debitSchedule);
+        }
+        echo(json_encode(array("allCharges" => array(), "currentAmount"=>($params->amount))));
     }
-    echo(json_encode(array("allCharges" => array(), "currentAmount"=>($params->amount))));
+} else {
+    $dataService->httpRequest
 }
+
 
 function updateScheduleEntryDetails($charge, &$debitScheduleEntry, $chargeType) {
     $debitScheduleEntry["paymentProcessorTransactionID"] = $charge->id;

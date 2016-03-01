@@ -1,3 +1,4 @@
+
 Ext.define('Lumen.Application', {
     name: 'Lumen',
 

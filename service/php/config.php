@@ -46,7 +46,8 @@ define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 #############################################################################
 define("IMAGES_URL_ROOT", "../../../service/img");
 #define("APPLICATION_LINK", PROTOCOL . "://khablestrong.org/admissions");
-define("REST_DATA_SERVICE_URL_ROOT", "https://localhost:8443/quickmit-rest-1.0/v1");
+define("REST_DATA_SERVICE_URL_ROOT", "http://localhost:8089/quickmit-rest-1.1/test?tenantId=1");
+define(FINANCE_URL, REST_DATA_SERVICE_URL_ROOT. "/finance");
 define("URL_STEM", PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID);
 define("APP_ENTRY_URL", URL_STEM . "/index.php");
 define("STYLE_SHEET", URL_STEM . "/style.css");

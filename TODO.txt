@@ -1,3 +1,4 @@
+THIS IS ALL IN JIRA NOW. DON'T ADD TO IT. ADD TO JIRA.
 TODO
 PopulateForm doesn't need to get called so much.  It only needs to get called when the person and form are loaded
 markCompletedFormsComplete throws an error when an application is loaded and the browser is refreshed
@@ -8,70 +9,70 @@ Person information isn't being considered when determining if they are complete 
 There's no feedback when person is saved.
 Populator has to create two parents, always.
 
-        //TODO Show the name for the login
-        //TODO Email sent after Login
-        //TODO The 'Are you sure you want to navigate away' dialog incorrectly warns the user when it would be perfectly fine for them to leave.
-        //TODO Make entering grade a combo box
-        //TODO remove Guest Days from lower school
-        //TODO an evaluation is added on an early childhood one the right pane stacks underneath the left menu.
-        //TODO get new item on the admin menu to be able to see ALL apps (or put a filter on it).
-        //TODO put only SUBMITTED apps into the grid.
-        //TODO the users need more emails.
-        //TODO Change NON-SUBMITTED APPLICATIONS to NONSUBMITTED
-        //TODO We need on the elementary form on the first page to state - Year applying for admission:
-        //TODO Please add to Teacher Evaluation section of Early Childhood/Elem app:
-        //TODO non component fields, such as Child lives with this parent, need to be turned into components
-        //TODO login errors need to be clear.
-        //TODO more strategic guidance instructions throughout the UI
-        //TODO change georgie's email to a test email so she doesn't get slam spammed
-        //TODO Datefields are coming back with default values.  It should be null.
-        //TODO Datefields are coming back with default values.  It should be null.
-        //TODO all country inputs should be drop downs
-        //TODO Get the creat account login stuff working for sure.
-        //TODO Make everything pretty again
-        //TODO get the application grid for admins working
-        //TODO FINISH FILE UPLOAD
-        //TODO create admin accounts
-        //TODO Make the accordion be nice and animated
-        //TODO Remove unecessary tabs and stuff
-        //TODO Figure out what the left menu should look like for anonymous users
-        //TODO put a overridden setter in StudentEvaluation.class.php to block
+Show the name for the login
+Email sent after Login
+The 'Are you sure you want to navigate away' dialog incorrectly warns the user when it would be perfectly fine for them to leave.
+Make entering grade a combo box
+remove Guest Days from lower school
+an evaluation is added on an early childhood one the right pane stacks underneath the left menu.
+get new item on the admin menu to be able to see ALL apps (or put a filter on it).
+put only SUBMITTED apps into the grid.
+the users need more emails.
+Change NON-SUBMITTED APPLICATIONS to NONSUBMITTED
+We need on the elementary form on the first page to state - Year applying for admission:
+Please add to Teacher Evaluation section of Early Childhood/Elem app:
+non component fields, such as Child lives with this parent, need to be turned into components
+login errors need to be clear.
+more strategic guidance instructions throughout the UI
+change georgie's email to a test email so she doesn't get slam spammed
+Datefields are coming back with default values.  It should be null.
+Datefields are coming back with default values.  It should be null.
+all country inputs should be drop downs
+Get the creat account login stuff working for sure.
+Make everything pretty again
+get the application grid for admins working
+FINISH FILE UPLOAD
+create admin accounts
+Make the accordion be nice and animated
+Remove unecessary tabs and stuff
+Figure out what the left menu should look like for anonymous users
+put a overridden setter in StudentEvaluation.class.php to block
         //non owners/admins from seeing evaluation data.
-        //TODO get the problem with multiple processing passes for the addition of surveys figured out
-        //TODO the instructions need to be put on to make things clear.
-        //TODO handle all the deleting stuff
-        //TODO the teachers should be redirected after they close the alert after submitting an evaluation
-        //TODO they need to not be able to answer a survey more than once.  It should only be submittable if its valid.
-        //TODO Form submitters are still able to edit student evaluations.  They should see a read only blank version.
-        //TODO teacher should not be able to submit the survey unless its valid
-        //TODO Evaluation forms have the wrong titles on them.
-        //TODO some questions shouldn't be shown if others are.  Some should be required based on the answer of another such as 'q: how did you hear about us, a: parent, -> q: parent name'
-        //TODO Lines, colors, spacing borders, label widths fonts and font sizes.
-        //TODO Collapsing consistency.
-        //TODO Emails need to be sent for account creation if its not a domain account.
-        //TODO Menu the menu on the left doesn't do anything.
-        //TODO all console messages need to be routed to a debug try catch
-        //TODO when logging in the waiting text says: "saving application"
-        //TODO the functionality to 'check your application' needs to be added.
-        //TODO there is some simple functionality that allows an intro tab to be place that can display some WP content. maybe it should be re-enabled;
-        //TODO the account creation error doesn't have a good and meaningful message
-        //TODO Application Fee needs a 'same as parent 1 address'
-        //TODO a good error message for duplicate username during registration needs to be put in.
-        //TODO the beginning of user preferences... change password
-        //TODO there needs to be a logout link.
-        //TODO only teachers and admins need to see the values for the surveys
-        //TODO the same email should not be specifiable twice.
-        //TODO there should be a send again option in case the teacher missed the first email but another email should be enterable
-        //TODO it looks like the qqubed stuff is autocommitting.  Turn it off.
-        //TODO QuestionId is NOT being used in the ui.  It should be deleted from everywhere.
-        //TODO qqcubed supports cross-session transaction isolation somehow.  This needs to be supported in the ui
-        //TODO the update progress stuff needs to be put back
-        //TODO the application must have a certain number of fields complete in order to be able to invite a teacher To evaluate the student.  Namely, the students name and address.
-        //TODO the email templates and their corresponding variables need to be reviewed.
-        //TODO there may be an issue with addresses and phone numbers coming back in the wrong orde.
-        //TODO verify that first time forms vs reloaded forms all works right.
-        //TODO sometimes the menu is not getting populated with all the applications
-        //TODO get all the khabel urls out of here and AT LEAST into a config file but preferrably into the database.
+get the problem with multiple processing passes for the addition of surveys figured out
+the instructions need to be put on to make things clear.
+handle all the deleting stuff
+the teachers should be redirected after they close the alert after submitting an evaluation
+they need to not be able to answer a survey more than once.  It should only be submittable if its valid.
+Form submitters are still able to edit student evaluations.  They should see a read only blank version.
+teacher should not be able to submit the survey unless its valid
+Evaluation forms have the wrong titles on them.
+some questions shouldn't be shown if others are.  Some should be required based on the answer of another such as 'q: how did you hear about us, a: parent, -> q: parent name'
+Lines, colors, spacing borders, label widths fonts and font sizes.
+Collapsing consistency.
+Emails need to be sent for account creation if its not a domain account.
+Menu the menu on the left doesn't do anything.
+all console messages need to be routed to a debug try catch
+when logging in the waiting text says: "saving application"
+the functionality to 'check your application' needs to be added.
+there is some simple functionality that allows an intro tab to be place that can display some WP content. maybe it should be re-enabled;
+the account creation error doesn't have a good and meaningful message
+Application Fee needs a 'same as parent 1 address'
+a good error message for duplicate username during registration needs to be put in.
+the beginning of user preferences... change password
+there needs to be a logout link.
+only teachers and admins need to see the values for the surveys
+the same email should not be specifiable twice.
+there should be a send again option in case the teacher missed the first email but another email should be enterable
+it looks like the qqubed stuff is autocommitting.  Turn it off.
+QuestionId is NOT being used in the ui.  It should be deleted from everywhere.
+qqcubed supports cross-session transaction isolation somehow.  This needs to be supported in the ui
+the update progress stuff needs to be put back
+the application must have a certain number of fields complete in order to be able to invite a teacher To evaluate the student.  Namely, the students name and address.
+the email templates and their corresponding variables need to be reviewed.
+there may be an issue with addresses and phone numbers coming back in the wrong orde.
+verify that first time forms vs reloaded forms all works right.
+sometimes the menu is not getting populated with all the applications
+get all the khabel urls out of here and AT LEAST into a config file but preferrably into the database.
 
 
         //     Once you have been contacted by our admissions director, please use this form to request teacher evaluations for your child.
@@ -81,5 +82,5 @@ Populator has to create two parents, always.
         //Flatten out the app and print
         //Fixe doc upload
         //Info link if they're having trougl
-        //TODO load masks need to be put everywhere using the setLoading method
+load masks need to be put everywhere using the setLoading method
 
