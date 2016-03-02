@@ -65,7 +65,8 @@ if(array_key_exists('action', $_REQUEST)) {
     } else if ($documentType == "DebitSchedule") {
         if(array_key_exists("debitScheduleEntries", $jsonDocument)) {
             $debitScheduleEntries = $jsonDocument["debitScheduleEntries"];
-            for($i=0; $i < count($debitScheduleEntries); $i++) {
+            $count = count($debitScheduleEntries);
+            for($i=0; $i < $count; $i++) {
                 $debitScheduleEntry = $debitScheduleEntries[$i];
                 if(array_key_exists("dateToExecute", $debitScheduleEntry)) {
                     $dateToExecute = array_key_exists('sec', $debitScheduleEntry["dateToExecute"]) ? $debitScheduleEntry["dateToExecute"]['sec'] : $debitScheduleEntry["dateToExecute"];
@@ -82,7 +83,11 @@ if(array_key_exists('action', $_REQUEST)) {
         $document['Tag'] = $tag;
     }
     //error_log("Saving a document " . json_encode($document));
-    $document = $dataService->saveDocument($documentType, $document);
+    if($documentType == "Person") {
+        $document = $dataService->savePerson($document);
+    } else {
+        $document = $dataService->saveDocument($documentType, $document);
+    }
 
     $output = json_encode($document);
 }

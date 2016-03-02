@@ -14,6 +14,8 @@ define("SERVER_VERSION",25);
 //The domain name for the iframe hosting the app
 defined('DOMAIN_NAME') || define('DOMAIN_NAME', 'dev.quickmit.net');
 
+defined("MONGO_CONNECTION") || define("MONGO_CONNECTION", "mongodb://quickmit:XdAJfcQjCUGRPU2EZgCnwQc0fmG4lBToRDJFHN@127.0.0.1:27017");
+
 //End Overridables
 
 
@@ -31,9 +33,9 @@ define("SYS_ADMIN_EMAIL", "sysadmin@quickmit.net");
 #############################################################################
 # Directory Configs
 #############################################################################
-define("BASE_DIR", "/usr/www/users/d4dl/quickmit/prod");
+defined("BASE_DIR") || define("BASE_DIR", "/usr/www/users/d4dl/quickmit/prod");
 define("GLOBAL_CLIENT_DATA_DIR", BASE_DIR . "/clients");
-define("CLIENT_DATA_DIR", GLOBAL_CLIENT_DATA_DIR . "/installation/" . CLIENT_ID);
+defined("CLIENT_DATA_DIR") || define("CLIENT_DATA_DIR", GLOBAL_CLIENT_DATA_DIR . "/installation/" . CLIENT_ID);
 define('FILE_UPLOADS', CLIENT_DATA_DIR . '/uploads');
 define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 //ini_set("error_log", BASE_DIR . "/php.log");
@@ -46,17 +48,18 @@ define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 #############################################################################
 define("IMAGES_URL_ROOT", "../../../service/img");
 #define("APPLICATION_LINK", PROTOCOL . "://khablestrong.org/admissions");
-define("REST_DATA_SERVICE_URL_ROOT", "http://localhost:8089/quickmit-rest-1.1/test?tenantId=1");
-define(FINANCE_URL, REST_DATA_SERVICE_URL_ROOT. "/finance");
-define("URL_STEM", PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID);
+define("REST_DATA_SERVICE_URL_ROOT", PROTOCOL . "://localhost:8089/quickmit-rest-1.1/v1.1/");
+define("SHARED_SECRET", "qEIqDjBWx9GxpDUTyE1aVuPLMpk3jPKz4NSDCkDmVjcyBe7MqI3ykIoT6o0jcq6gIEPjacZ2wlCRLBs7mTKlAAORlmCPbXDScLGb");
+define("FINANCE_URL", REST_DATA_SERVICE_URL_ROOT. "/finance");
+defined("URL_STEM") || define("URL_STEM", PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID);
 define("APP_ENTRY_URL", URL_STEM . "/index.php");
 define("STYLE_SHEET", URL_STEM . "/style.css");
 define("FORM_DEFINITION_URL_PREFIX", URL_STEM . "/formDefinitions/applications");
 
 
 
-$CLIENT_BASE_URL = PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID;
-$TEMPLATE_BASE = PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID . "/templates";
+$CLIENT_BASE_URL = URL_STEM;
+$TEMPLATE_BASE = URL_STEM . "/templates";
 define("GLOBAL_I18N_FILE", GLOBAL_CLIENT_DATA_DIR . "/global-admission-instructions.json");
 define("GLOBAL_PROMPTS_FILE", GLOBAL_CLIENT_DATA_DIR .  "/global-prompts.json");
 

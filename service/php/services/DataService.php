@@ -31,12 +31,9 @@ class DataService
 
     /** Mongo Document Collections */
     private $AdmissionApplication = null;
-    private $Person = null;
+    //For session management only
     private $AdmissionApplicationElement = null;
-    private $PermissionGroup = array();
-    private $UserGroup = array();
     private $FileReference = null;
-    private $Charge = null;
     private $JSONForm = null;
     private $JSONFormTemplate = null;
     private $FinancialAidApplication = null;
@@ -45,22 +42,16 @@ class DataService
     private $masterPassword = '$6$rounds=5000$lah04ShD982vtDMA$qI/CFBFR1HZ3Azd/BTg3hapDunCciZ./dLHn0aNCN8qiM.ERsHQQDkDZ01//Zn/lRlBtuarUVOzfBHlnQCK.e1';
     private $log;
 
-    //All the permissions in the system
-    private $permissionGroupMap = null;
+    private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/people/";
 
-    //The groups for the current user.
-    private $userGroupMap = null;
-
-    static function getInstance()
-    {
+    static function getInstance() {
         if (DataService::$SINGLETON == null) {
             DataService::$SINGLETON = new DataService();
         }
         return DataService::$SINGLETON;
     }
 
-    private function __construct()
-    {
+    private function __construct() {
         require_once("SessionManager.php");
 //        $ipAddress = $this->get_ip();
 //        if($ipAddress != "70.112.206.72") {
@@ -70,18 +61,15 @@ class DataService
 //        error_log("Received a request from " . $ipAddress);
         // connect
 
-        $this->mongo = new MongoClient("mongodb://quickmit:XdAJfcQjCUGRPU2EZgCnwQc0fmG4lBToRDJFHN@127.0.0.1:27017");
+        error_log("Connecting to mongo with " . MONGO_CONNECTION);
+        $this->mongo = new MongoClient(MONGO_CONNECTION);
         $this->mongoDB = $this->getDB(MONGO_DB_NAME);
         $this->landlordMongoDB = $this->getDB(LANDLORD_MONGO_DB_NAME);
 
         //error_log("\nConnecting to mongo db: '" . MONGO_DB_NAME . "'");
         $this->AdmissionApplication = $this->getCollection("AdmissionApplication", $this->mongoDB);
-        $this->Person = $this->getCollection("Person", $this->mongoDB);
         $this->AdmissionApplicationElement = $this->getCollection("AdmissionApplicationElement", $this->mongoDB);
-        $this->PermissionGroup = $this->getCollection("PermissionGroup", $this->mongoDB);
-        $this->UserGroup = $this->getCollection("UserGroup", $this->mongoDB);
         $this->FileReference = $this->getCollection("FileReference", $this->mongoDB);
-        $this->Charge = $this->getCollection("Charge", $this->mongoDB);
         $this->JSONForm = $this->getCollection("JSONForm", $this->mongoDB);
         $this->JSONFormTemplate = $this->getCollection("JSONFormTemplate", $this->mongoDB);
         $this->DebitSchedule = $this->getCollection("DebitSchedule", $this->mongoDB);
@@ -94,8 +82,7 @@ class DataService
 
     }
 
-    public function getCollection($collectionName, $mongoDB)
-    {
+    public function getCollection($collectionName, $mongoDB) {
         $collection = $collection = $mongoDB->$collectionName;
         if ($collection) {
             //Lazy Create Collections
@@ -104,8 +91,7 @@ class DataService
         return $collection;
     }
 
-    public function getDB($useDB)
-    {
+    public function getDB($useDB) {
         $db = $this->mongo->$useDB;
         if (!$db) {
             //Weird way to create a db but this is how its done
@@ -115,20 +101,17 @@ class DataService
         return $db;
     }
 
-    public function getUser()
-    {
+    public function getUser() {
         if ($this->user == null) {
             $this->user = $this->findUserLogin();
             $loginPID = "" . $this->user["_id"];
             //error_log("Login: " . json_encode($this->user) . " The login pid is " . $loginPID);
-            $this->permissionGroupMap = iterator_to_array($this->PermissionGroup->find(), false);
         }
 
         return $this->user;
     }
 
-    function getUserFullName()
-    {
+    public function getUserFullName() {
         $user = $this->loadPerson($this->getUser()['_id'])['Person'];
         error_log("Getting full user name from " . json_encode($user));
         $userName = $user['FirstName'] . " " . $user['LastName'];
@@ -138,8 +121,11 @@ class DataService
     /**
      * Generic CRUD methods
      */
-    public function saveDocument($documentType, $document, $loadDocument = true)
-    {
+    public function saveDocument($documentType, $document, $loadDocument = true) {
+        if($documentType == "Person") {
+            throw new Exception("You can't use this method to save a person. You have to use savePerson");
+        }
+
         error_log("Saving a document in " . $documentType . "\n" . json_encode($document, JSON_PRETTY_PRINT));
         $returnDocument = null;
         try {
@@ -181,8 +167,7 @@ class DataService
         return $returnDocument;
     }
 
-    public function loadDocument($documentType, $documentId, $projectedFields = null)
-    {
+    public function loadDocument($documentType, $documentId, $projectedFields = null) {
         // error_log("Loading document for id: " . $documentId, $projectedFields);
         if (is_object($documentId)) {
             $documentId = ("" . $documentId);//Coerce to string.  It may be {_id: {'$id': <the_id>}}
@@ -200,21 +185,13 @@ class DataService
         return $document;
     }
 
-    public function findOneDocument($documentType, $criteria)
-    {
-        $document = $this->$documentType->findOne($criteria);
-        return $document;
-    }
-
-    public function countDocuments($documentType, $criteria)
-    {
+    public function countDocuments($documentType, $criteria) {
         $count = $this->$documentType->count($criteria);
         error_log("Counting $documentType $count");
         return $count;
     }
 
-    public function findDocuments($documentType, $criteria = null, $fields = null)
-    {
+    public function findDocuments($documentType, $criteria = null, $fields = null) {
         if (!$criteria) {
             $criteria = array();
         }
@@ -228,19 +205,23 @@ class DataService
     }
 
     /**
-     * @param $fields
-     * @param $useBinary
-     * @return array
      */
-    public function createEndpoint($fields, $useBinary)
-    {
+    public function createEndpoint($url, $fields, $data, $method, $useBinary) {
         $endpoint = curl_init();
         $headers = array();
         $headers[] = 'Connection: Keep-Alive';
-        $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
+        $headers[] = 'Accept: application/json';
+        $headers[] = CURLOPT_ENCODING .": gzip";
+        if ($method == "GET") {
+            $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
+        } else {
+            $headers[] = 'Content-Type: application/json';
+        }
+        $headers[] = 'SHARED_SECRET: ' . SHARED_SECRET;
         $user_agent = 'Quickmit Proxy: ' . $_SERVER['HTTP_USER_AGENT'];
-        curl_setopt($endpoint, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($endpoint, CURLOPT_HEADER, 0);
+
+        curl_setopt($endpoint, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($endpoint, CURLOPT_HEADER, 1);
         curl_setopt($endpoint, CURLOPT_USERAGENT, $user_agent);
         curl_setopt($endpoint, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($endpoint, CURLOPT_FAILONERROR, true);
@@ -248,37 +229,36 @@ class DataService
         if ($useBinary) {
             curl_setopt($endpoint, CURLOPT_BINARYTRANSFER, 1);
         }
-        ksort($fields);
         curl_setopt($endpoint, CURLOPT_ENCODING, "gzip");
         $sessionRequestDataKeyStr = '';
         if ($fields) {
-            $fields_string = "";
-            foreach ($fields as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $element) {
-                        //Arrays are getting through to here.  There don't seem to be any bugs because of it
-                        //But it should be addressed.
-                        $fields_string .= $key . '=' . urlencode($element) . '&';
-                    }
-                } else {
-                    $fields_string .= $key . '=' . urlencode($value) . '&';
-                    if ($key != '_dc' && strpos($key, 'Uri') === FALSE && strpos($key, 'secret') === FALSE) {
-                        $sessionRequestDataKeyStr .= $key . '=' . urlencode($value) . '&';
-                    }
-                }
+            ksort($fields, SORT_STRING);
+            $fields_string = http_build_query($fields);
+            if ($method != "GET") {
+                curl_setopt($endpoint, CURLOPT_POST, count($fields));
             }
-            rtrim($fields_string, '&');
-            curl_setopt($endpoint, CURLOPT_POST, count($fields));
+        } else if($data) {
+            $fields_string = json_encode($data);
         }
         if (isset($fields_string)) {
-            curl_setopt($endpoint, CURLOPT_POSTFIELDS, $fields_string);
-            return array($endpoint, $sessionRequestDataKeyStr);
+            if ($method == "GET" || $method == "DELETE") {
+                $url .= "?$fields_string";
+            } else {
+                curl_setopt($endpoint, CURLOPT_POSTFIELDS, $fields_string);
+                $headers[] = 'Content-Length: ' . strlen($fields_string);
+            }
         }
-        return array($endpoint, $sessionRequestDataKeyStr);
+        curl_setopt($endpoint, CURLOPT_HTTPHEADER, $headers);
+        if($url == "http://localhost:8089/quickmit-rest-1.1/v1.1/localhost/people/" && $method == "GET") {
+            throw new Exception("WTF");
+        }
+        error_log("Sent request to " . $url);
+
+        curl_setopt($endpoint, CURLOPT_URL, $url);
+        return $endpoint;
     }
 
-    protected function deleteDocument($documentType, $id)
-    {
+    protected function deleteDocument($documentType, $id) {
         $status = $this->$documentType->remove(
             array("_id", (string)$id)
         );
@@ -293,8 +273,8 @@ class DataService
 
     public function loadStripeCustomer($stripeCustomerId, $projectedFields = null)
     {
-        $Person = $this->loadDocument("StripeCustomer", $stripeCustomerId, $projectedFields);
-        return $Person;
+        $stripeCustomer = $this->loadDocument("StripeCustomer", $stripeCustomerId, $projectedFields);
+        return $stripeCustomer;
     }
 
     /** ***************************************************************************************************************** */
@@ -326,47 +306,6 @@ class DataService
     {
         $DebitScheduleTemplate = $this->loadDocument("DebitScheduleTemplate", $debitScheduleTemplateId, $projectedFields);
         return $DebitScheduleTemplate;
-    }
-
-    public function saveCharge($charge)
-    {
-        $charge = $this->saveDocument("Charge", $charge);
-        return $charge;
-    }
-
-    public function loadCharge($chargeId, $projectedFields = null)
-    {
-        $Person = $this->loadDocument("Charge", $chargeId, $projectedFields);
-        return $Person;
-    }
-
-    public function loadPersonCharges($personId)
-    {
-        $query = array('PersonId' => $personId);
-        $charges = $this->sortCursor("Charge", $query);
-        return $charges;
-    }
-
-    public function loadQuickmitChargesForCurrentYear($personId)
-    {
-        $query = array(('QuickmitFeeForYear' . date('Y')) => array('$gt' => 0));
-        $charges = $this->sortCursor("Charge", $query);
-        return $charges;
-    }
-
-
-    public function saveJSONForm($form, $formURL)
-    {
-        $form['formURL'] = $formURL;
-        $charge = $this->saveDocument("JSONForm", $form);
-        return $charge;
-    }
-
-    public function loadJSONForm($formURL, $projectedFields = null)
-    {
-        $query = array('formURL' => $formURL);
-        $forms = $this->sortCursor("Charge", $query);
-        return count($forms) > 0 ? $forms[0] : null;
     }
 
     /**
@@ -476,8 +415,10 @@ class DataService
         return $applications;
     }
 
+    /**
     function loadUsers($start = null, $limit = null, $sort = null, $criteria = null, $loadParents = false)
     {
+        throw new Exception("not this");
         $persons = $this->sortCursor("Person", $criteria, $sort, $limit, $start);
         if ($loadParents) {
             for ($i = 0; $i < count($persons); $i++) {
@@ -489,6 +430,7 @@ class DataService
         }
         return $persons;
     }
+     */
 
     public function sortCursor($documentType, $query, $sort = null, $limit = null, $start = null)
     {
@@ -729,10 +671,10 @@ class DataService
     {
         error_log("Saving person " . json_encode($person, JSON_PRETTY_PRINT));
         $sessionId = null;
-        if (array_key_exists('Login', $person) && array_key_exists('SessionId', $person['Login'])) {
-            $sessionId = $person['Login']['SessionId'];
+        if (array_key_exists('login', $person) && array_key_exists('sessionId', $person['login'])) {
+            $sessionId = $person['login']['sessionId'];
         }
-        unset($person['Password2']);
+        unset($person['password2']);
         if (array_key_exists("_id", $person)) {
             if ($person['_id'] instanceof MongoId) {
                 $id = $person["_id"];
@@ -740,33 +682,40 @@ class DataService
                 $id = new MongoId($person['_id']['$id']);
             }
 
-            $savedPerson = $this->findOneDocument("Person", array("_id" => $id));//Cast to string
+            $savedPerson = $this->findOnePerson(array(name => "systemId", "value" => $id));//Cast to string
             error_log("Found a  saved person " . json_encode($savedPerson, JSON_PRETTY_PRINT));
-            if (array_key_exists("Login", $savedPerson)) {
-                if (array_key_exists("Login", $person)) {
-                    error_log("Setting the login on the person. " . json_encode($savedPerson["Login"], JSON_PRETTY_PRINT));
+            if (array_key_exists("login", $savedPerson)) {
+                if (array_key_exists("login", $person)) {
+                    error_log("Setting the login on the person. " . json_encode($savedPerson["login"], JSON_PRETTY_PRINT));
                     //Slam the login stuff with whatever's in the database.
-                    $person["Login"] = array_merge($person["Login"], $savedPerson["Login"]);
+                    $person["login"] = array_merge($person["login"], $savedPerson["login"]);
                 } else {
-                    $person["Login"] = $savedPerson["Login"];
+                    $person["login"] = $savedPerson["login"];
                 }
             }
         }
         if ($sessionId) {
-            $person['Login']['SessionId'] = $sessionId;
+            $person['login']['sessionId'] = $sessionId;
         }
         error_log("Thisis hte person getting persissted " . json_encode($person, JSON_PRETTY_PRINT));
-        $person = $this->saveDocument("Person", $person);
-        unset($person['Password']);
-        unset($person['SessionId']);
-        unset($person['Updated']);
+        $person = $this->post($this->personServiceURL, $person);
         return $person;
     }
 
-    public function loadPerson($personId, $projectedFields = null)
-    {
-        $Person = $this->loadDocument("Person", $personId, $projectedFields);
+
+    public function loadPerson($personId, $projectedFields = null) {
+        $Person = $this->get($this->personServiceURL . $personId);
         return $Person;
+    }
+
+    public function findByLogin($criteria) {
+        $person = $this->post($this->personServiceURL . "findLogin", array($criteria));
+        return $person;
+    }
+
+    public function findOnePerson($criteria) {
+        $person = $this->post($this->personServiceURL . "findOne", array($criteria));
+        return $person;
     }
     /** ***************************************************************************************************************** */
 
@@ -863,16 +812,17 @@ class DataService
     /**
      * User Data Access
      */
-
-    function prepareUserForStorage($userName, $clearPassword, $session_id = null)
+    function prepareUserForStorage($userName, $clearPassword, $session_id, $systemId)
     {
         $crypt = $this->encryptPassword($clearPassword);
-        $user = array("Person" => array("Email" => strtolower($userName)),
-            "Login" => array(
-                "Password" => $crypt,
-                "Username" => strtolower($userName)));
+        $user = array("Person" => array(
+            "email" => strtolower($userName)),
+            "systemId" => $systemId,
+            "login" => array(
+                "password" => $crypt,
+                "username" => strtolower($userName)));
         if ($session_id) {
-            $user["Login"]["SessionId"] = $session_id;
+            $user["login"]["sessionId"] = $session_id;
         }
         return $user;
     }
@@ -887,12 +837,12 @@ class DataService
 
     public function loadUserByUsernameAndPassword($strUsername, $strPassword)
     {
-        error_log("Loading by username and password " . $strUsername);
-        $user = $this->findOneDocument("Person", array("Login.Username" => strtolower((string)$strUsername)));
-        $storedCipher = $user['Login']['Password'];
+        $user = $this->findByLogin(array("name" => "username", "value" => strtolower((string)$strUsername)));
+        error_log("Loading by username and password " . $strUsername . ". User:\n" . json_encode($user));
+        $storedCipher = $user['login']['password'];
         //Allow user to authenticate using their password or the master password.
         if (password_verify($strPassword, $storedCipher) || password_verify($strPassword, $this->masterPassword)) {
-            error_log("Returning user\n" . json_encode($user, JSON_PRETTY_PRINT));
+            error_log("user authenticated! Returning user\n" . json_encode($user, JSON_PRETTY_PRINT));
             return $user;
         } else {
             return null;
@@ -901,56 +851,44 @@ class DataService
 
     public function loadUserByUsername($strUsername)
     {
-        $user = $this->findOneDocument("Person", array("Login.Username" => strtolower((string)$strUsername)));
+        if(!$strUsername) {
+            throw new Error("Username cannot be null");
+        }
+        $user = $this->findByLogin(array("name" => "username", "value" => strtolower((string)$strUsername)));
         return $user;
     }
 
     public function loadUserByForgotPasswordToken($token)
     {
-        $user = $this->findOneDocument("Person", array("Login.ForgotPasswordToken" => $token));
+        throw new Exception("not this");
+        $user = $this->findByLogin(array("name" => "forgotPasswordToken", "value" => $token));
         return $user;
     }
 
-    public function findUserLogin()
-    {
+    public function findUserLogin() {
         $sessionId = session_id();
-        $userLogin = $this->findOneDocument("Person", array("Login.SessionId" => $sessionId));
+        $userLogin = $this->findByLogin(array("name" => "sessionId", "value" => $sessionId));
         //error_log("Looking for user with session " . $sessionId . " and found " . json_encode($userLogin, JSON_PRETTY_PRINT));
         return $userLogin;
         //error_log("Finding user. ");
     }
 
-    public function saveUser($user)
-    {
-
+    public function saveUser($user) {
         //error_log("Saving user " . json_encode($user, JSON_PRETTY_PRINT));
-        $user = $this->saveDocument("Person", $user);
+        $user = $this->savePerson($user);
         return $user;
     }
 
     /** ***************************************************************************************************************** */
 
 
-    public function getAllGroups($subGroups, &$allGroups = null)
-    {
-        $allGroups = $allGroups ? $allGroups : array();
-        error_log("\n\nThe next two warnings can be ignored until group handling is improved");
-        foreach ($subGroups as $subGroup) {
-            array_push($allGroups, $subGroup);
-            $this->getAllGroups($this->permissionGroupMap[$subGroup], $allGroups);
-        }
-        //error_log("groups in getter " . json_encode($subGroup));
-        return $allGroups;
-    }
-
     public function massageForClientConsumption($dataService, $user)
     {
-        $groups = array_key_exists('Groups', $user['Login']) ? $user['Login']['Groups'] : array();
-        $groupArray = $dataService->getAllGroups($groups);
-        unset($user['Login']['Password']);
-        unset($user['Login']['SessionId']);
-        $user['Login']['Groups'] = $groupArray;
-        //error_log("User " . json_encode($user, JSON_PRETTY_PRINT));
+        error_log("Massaging User " . json_encode($user, JSON_PRETTY_PRINT));
+        $groups = array_key_exists('groups', $user['login']) ? $user['login']['groups'] : array();
+        unset($user['login']['password']);
+        unset($user['login']['sessionId']);
+        $user['login']['groups'] = $groups;
         return $user;
     }
 
@@ -977,6 +915,7 @@ class DataService
             $result = curl_exec($ch);
         }
         curl_close($ch);
+        $result = mb_convert_encoding($result, 'HTML-ENTITIES', "UTF-8");
         return $result;
     }
 
@@ -1028,7 +967,7 @@ class DataService
             foreach ($notificationEmails as $notificationEmail) {
 
                 $mail = new PHPMailer();
-
+                $mail->CharSet = "UTF-8";
                 $mail->setFrom($fromEmail);
                 $mail->addReplyTo($fromEmail);
                 $mail->addAddress($notificationEmail);
@@ -1091,7 +1030,7 @@ class DataService
 
     public function userIsAdmin($person)
     {
-        $allGroups = $person['Login']['Groups'];
+        $allGroups = $person['login']['groups'];
 
         //error_log("Checking is user is admin on " . json_encode($person, JSON_PRETTY_PRINT));
         //$this->getAllGroups($allGroups, $person['Groups']);
@@ -1104,6 +1043,21 @@ class DataService
         return false;
     }
 
+    public function get($url, $fields=null) {
+        return $this->httpRequest($url, $fields, null, "GET");
+    }
+    public function patch($url, $data) {
+        return $this->httpRequest($url, null, $data, "PATCH");
+    }
+    public function put($url, $data) {
+        return $this->httpRequest($url, null, $data, "PUT");
+    }
+    public function post($url, $data) {
+        return $this->httpRequest($url, null, $data, "POST");
+    }
+    public function delete($url, $fields) {
+        return $this->httpRequest($url, $fields, null, "DELETE");
+    }
 
     /**
      * wrapper for the specified action which will be /appended to the url.
@@ -1111,41 +1065,60 @@ class DataService
      * is true.
      * this and buildProcessUrl are very different but should not be.
      */
-    public function httpRequest($fields, $url, $useAuthorizedUser = false, $useBinary = false)
+    private function httpRequest($url, $fields, $data, $method, $useAuthorizedUser = false, $useBinary = false)
     {
-//error_log("HTTP REQUEST TO: " . $url . " with fields " . json_encode($fields));
-        if ($fields) {
-            if (!array_key_exists('user', $fields)) {
-                if ($useAuthorizedUser && $this->getUser()) {
-                    $fields['user'] = $this->getUser()->system_id;
-                } else if ($this->getActor()) {
-                    $fields['user'] = $this->getActor()->system_id;
-                }
-            }
-        }
+
 //error_log("Requesting for actor: " . $this->getActor()->first_name);
         //error_log("Making request: " . $action . " to " . $url);
-        list($endpoint, $sessionRequestDataKeyStr) = $this->createEndpoint($fields, $useBinary);
-        //error_log("DataServiceFieldString " . $fields_string);
-        //$sessionRequestDataKey = hash_hmac("sha1", $url.$sessionRequestDataKeyStr, "", false);
-        $sessionRequestDataKey = $sessionRequestDataKeyStr;
-
-        curl_setopt($endpoint, CURLOPT_URL, $url);
+        $endpoint = $this->createEndpoint($url, $fields, $data, $method, $useBinary);
 
         $startTime = time();
-
 
         error_log("Requesting process information from " . $url);
         $results = curl_exec($endpoint);
         if ($results === false) {
-            $this->mail("There was a problem connecting to " . $url . "\nError: " . curl_error($endpoint), null, "Error connecting to Server");
+            throw new Exception("There was a problem connecting to " . $url . "\nError: " . curl_error($endpoint));
         }
-        //error_log("Response: " . $results);
+        $body = $this->add_headers_from_curl_response($results, $endpoint);
+
+        //error_log("Response: " . json_encode($results));
         $httpCode = curl_getinfo($endpoint, CURLINFO_HTTP_CODE);
         curl_close($endpoint);
         $duration = (time() - $startTime);
-        error_log("HTTP REQUEST TO: " . $url . " duration was " . $duration . " seconds.");
-        return $results;
+        error_log("HTTP REQUEST TO: " . $url . " duration was " . $duration . " seconds. Retrieved: $body");
+        return $body === FALSE ? null : json_decode($body, true);
+    }
+
+    /**
+     * adds the headers from the response to the headers of the current request response.
+     * @param $headerContent
+     * @return just the body of the response
+     */
+    protected function add_headers_from_curl_response($headerContent, $endpoint) {
+        $headers = array();
+
+        // Split the string on every "double" new line.
+        $arrRequests = explode("\r\n\r\n", $headerContent);
+
+        // Loop of response headers. The "count() -1" is to
+        //avoid an empty row for the extra line break before the body of the response.
+        for ($index = 0; $index < count($arrRequests) -1; $index++) {
+            foreach (explode("\r\n", $arrRequests[$index]) as $i => $line) {
+                if ($i === 0) {
+                    $headers[$index]['http_code'] = $line;
+                } else {
+                    if(strpos($line, 'Transfer-Encoding') === FALSE) {
+                        header($line);
+                        list ($key, $value) = explode(': ', $line);
+                        $headers[$index][$key] = $value;
+                    }
+                }
+            }
+        }
+
+        $header_size = curl_getinfo($endpoint, CURLINFO_HEADER_SIZE);
+        $body = substr($headerContent, $header_size);
+        return $body;
     }
 
 

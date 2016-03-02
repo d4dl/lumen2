@@ -1,0 +1,9 @@
+/service/php/.htaccess
+/clients/installation/localhost
+### ExtJs template
+.architect
+bootstrap.json
+build/
+ext/
+
+# Created by .ignore support plugin (hsz.mobi)

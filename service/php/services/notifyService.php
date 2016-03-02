@@ -90,6 +90,7 @@ try {
         $substitutions["__STUDENT_NAME__"] = "Sally Applicant";
         //error_log("Subtitution params: " . json_encode($substitutions));
         $htmlMessage = $dataService->getHtmlMessage($notifyParams->templateURL, $substitutions);
+        $dataService->sendNotifications("Test email", $_REQUEST['templateURL'] , $_REQUEST['email'], $substitutions, $_REQUEST['email']);
         echo($htmlMessage);
     } else {
         error_log("Sending notification from " . $notifyParams->templateURL);

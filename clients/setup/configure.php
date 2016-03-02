@@ -3,6 +3,7 @@ include("head.php");
 
 require_once("localConfig.php");
 
+echo("Looking for $clientDirToCreate");
 error_log("Looking for $clientDirToCreate");
 $isUpdate = file_exists($clientDirToCreate);
 

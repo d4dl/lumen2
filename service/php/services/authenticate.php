@@ -16,7 +16,7 @@ if(array_key_exists("action", $_GET) && $_GET['action'] == 'logout') {
     setcookie(session_id(), null, -1);
     session_destroy();
     session_write_close();
-    $userLogin['Login']['SessionId'] = null;
+    $userLogin['login']['sessionId'] = null;
     $dataService->saveUser($userLogin);
     header("Location: ".APP_ENTRY_URL);
     exit;
@@ -47,19 +47,18 @@ switch($action) {
             //Step 1. CALL USING window.open() User login create a session and a token.
             //The client should launch this from a popup to get around browsers that
             //restrict iframed code from setting cookies
-            error_log("!!!! LOGIN PROCESSING 1. Logging in with tokenSet for " . $formData->Username . ":" . $formData->Password . ":" . $_REQUEST['tokenSet']);
+            error_log("!!!! LOGIN PROCESSING 1. Logging in with tokenSet for " . $formData->Username . ":". $_REQUEST['tokenSet']);
             loginAndSetUserToken($dataService, $formData->Username, $formData->Password);
         } else if(array_key_exists("tokenGet", $_REQUEST)) {
             //Step 3. the client makes a request to get the token.
             //Waiting for the token to be confirmed when the popup redirects from step2.
-            error_log("!!!! LOGIN PROCESSING 3. TokenGet for " . $_REQUEST['tokenGet'] . "\nEntire request: " . json_encode($_REQUEST, JSON_PRETTY_PRINT));
+            error_log("!!!! LOGIN PROCESSING 3. TokenGet for " . $_REQUEST['tokenGet']);
             $output = finishTokenProcessing($dataService);
         }
 
         break;
     }
     case 'completeTokenProcessing': {
-
         $sessionId = session_id();
         //error_log("!!!! LOGIN PROCESSING 2. Completing Token Processing and setting cookie for authorized users. Out of band session id is $sessionId");
         //Launched by the redirect initiated by login?action=tokenSet to rename the token
@@ -79,10 +78,11 @@ switch($action) {
         //Weirdly, this script will be executed twice.
         //once with a GET and once with a POST even though the client issued a POST.
         $user = null;
+        error_log("Why is create being called ?\n" . json_encode($_REQUEST));
         if(array_key_exists("tokenSet", $_REQUEST)) {
             error_log("!!!! LOGIN PROCESSING Create token for " . $_REQUEST['tokenSet']);
-            $login = $dataService->loadUserByUsername($formData->Username);
-            if(!$login) {
+            $loginUser = $dataService->loadUserByUsername($formData->Username);
+            if(!$loginUser) {
                 $session_id = session_id();
                 if(!$session_id) {
                     $session_id = session_id();
@@ -90,8 +90,8 @@ switch($action) {
                 }
                 $userName = (string)$formData->Username;
                 $clearPassword = $formData->Password;
-                $user = $dataService->prepareUserForStorage($userName, $clearPassword, $session_id);
-                $user['Login']["Groups"] = array();
+                $user = $dataService->prepareUserForStorage($userName, $clearPassword, $session_id, $loginUser['systemId']);
+                $user['login']["groups"] = array();
                 $user = $dataService->savePerson($user);
                 //error_log("!!!! LOGIN PROCESSING Saved Person: " . json_encode($user));
                 $loginJSON = $dataService->massageForClientConsumption($dataService, $user);
@@ -134,9 +134,9 @@ switch($action) {
         $user = $dataService->loadUserByForgotPasswordToken($_REQUEST['token']);
         if($user) {
             //error_log("!!!! LOGIN PROCESSING Found the user");
-            $user["Login"]["ForgotPasswordToken"] = null;
+            $user["login"]["forgotPasswordToken"] = null;
             session_start();
-            $user["Login"]["SessionId"] = session_id();
+            $user["login"]["sessionId"] = session_id();
             $user = $dataService->savePerson($user);
             $loginJSON = $dataService->massageForClientConsumption($dataService, $user);
             $output = json_encode($loginJSON);
@@ -150,7 +150,7 @@ switch($action) {
         $user = $dataService->loadUserByUsername($formData->Username);
         if($user) {
             $token = uniqid();
-            $user["Login"]["ForgotPasswordToken"] = $token;
+            $user["login"]["forgotPasswordToken"] = $token;
             $user = $dataService->savePerson($user);
             $loginJSON = $dataService->massageForClientConsumption($dataService, $user);
             $output = json_encode($loginJSON);
@@ -163,7 +163,7 @@ switch($action) {
     case 'find': {
         $login = $dataService->findUserLogin();
 
-        error_log("!!!! LOGIN PROCESSING find Getting user login attempt count " . incrementLoginAttemptCount($formData->Username));
+        //error_log("!!!! LOGIN PROCESSING find Getting user login attempt count " . incrementLoginAttemptCount($formData->Username));
 //error_log("!!!! LOGIN PROCESSING Calling FIND and returning user: " .  json_encode($login) . "\n headers " . json_encode(getallheaders()));
         if($login) {
             $loginJSON = $dataService->massageForClientConsumption($dataService, $login);
@@ -194,17 +194,7 @@ if(array_key_exists("callback", $_REQUEST)) {
 echo $output;
 
 function curPageURL() {
-    $pageURL = 'http';
-    $path = $_SERVER["ORIG_PATH_INFO"];
-
-    if (array_key_exists('HTTPS', $_SERVER) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
-    $pageURL .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$path;
-    } else {
-        $pageURL .= $_SERVER["SERVER_NAME"]. $path;
-    }
-    return $pageURL;
+    return URL_STEM."/php/services/authenticate.php";
 }
 
 
@@ -224,8 +214,13 @@ function waitForToken($token, $tokenState) {
         $message = "Authenticate.php failed because waitForToken exceeded maximum wait time.\nClient: " . CLIENT_DATA_DIR . "\nRequest: ". json_encode($_REQUEST);
         error_log($message);
         //error_log($message, 1, SYS_ADMIN_EMAIL);
+    } else {
+        if(file_exists($tokenToConfirm)) {
+            error_log("!!!! LOGIN PROCESSING Token waited for and found " . $tokenToConfirm);
+        } else {
+            error_log("!!!! LOGIN PROCESSING Token was never found " . $tokenToConfirm);
+        }
     }
-    error_log("!!!! LOGIN PROCESSING Token waited for and found " . $tokenToConfirm);
     return $tokenToConfirm;
 }
 
@@ -240,7 +235,7 @@ function consumeToken($token, $tokenState) {
     $tokenFileName = waitForToken($token, "confirmed");
     $userJSON = file_get_contents($tokenFileName);
     //error_log("!!!! LOGIN PROCESSING 3. Consuming token for $tokenFileName\n" . $userJSON);
-    //unlink($tokenFileName);
+    unlink($tokenFileName);
     if(isset($userJSON)) {
         return json_decode($userJSON, true);
     } else {
@@ -278,7 +273,7 @@ function getLoginAttemptCount($userName) {
         $lastAttemptAge = $currentTime - $lastModified;
         error_log("!!!! LOGIN PROCESSING $attemptCountFile was last modified: " . $lastModified . " current time is: " . $currentTime . ". That's " . $lastAttemptAge . "s ago.");
         if($lastAttemptAge > $PCI_COMPLIANT_LOGIN_ATTEMPT_AGE * 60) {
-            error_log("!!!! LOGIN PROCESSING But its older than " . $PCI_COMPLIANT_LOGIN_ATTEMPT_AGE . "m old. So more attempts can be made.");
+            error_log("!!!! PCI COMPIANCE BLOCK.  TO MANY ATTEMPTS LOGIN PROCESSING But its older than " . $PCI_COMPLIANT_LOGIN_ATTEMPT_AGE . "m old. So more attempts can be made.");
             resetLoginAttemptCount($userName);
         } else {
             $count = file_get_contents($attemptCountFile);
@@ -330,7 +325,7 @@ function setUserToken($dataService, $user, $errorMessage) {
     $token = $_REQUEST['tokenSet'];
     if (isset($user)) {
         $loginRequestSessionId = session_id();
-        $user['Login']['SessionId'] = $loginRequestSessionId;
+        $user['Login']['sessionId'] = $loginRequestSessionId;
         createToken($token, $user, $errorMessage);
         $dataService->saveUser($user);
         //error_log("!!!! LOGIN PROCESSING 1. Setting Token for user " . json_encode($user, JSON_PRETTY_PRINT) . "only valid user gets the session id persisted for them");
@@ -342,6 +337,8 @@ function setUserToken($dataService, $user, $errorMessage) {
     //call to get verified session will succeed. Needs to happen wether they're authorized or not.
     //error_log("!!!! LOGIN PROCESSING Token set is being called.");
     $newLocation = "Location: " . curPageURL() . "?action=completeTokenProcessing&token=" . $token;
+    error_log("New location: $newLocation");
+    $newLocation = $newLocation;
     //error_log("!!!! LOGIN PROCESSING Location built: redirecting.");
     header($newLocation);
 }
@@ -352,20 +349,23 @@ function finishTokenProcessing($dataService) {
     $hasErrorMessage = array_key_exists('errorMessage', $potentialUser);
     error_log("!!!! LOGIN PROCESSING Examining potential user " . json_encode($potentialUser)  . " for token: " . $token);
     if(!$hasErrorMessage) {
-        $username = $potentialUser['Login']['Username'];
-        $userLogin = $dataService->loadUserByUsername($username);
-        error_log("!!!! LOGIN PROCESSING 4. Getting Token. Cookie should be set. Potential User from the previously consumed token being compared to " .
-                  "\nLogin loaded from the token\n" . json_encode($potentialUser, JSON_PRETTY_PRINT));
-        if ($userLogin != null) {
-            $loginRequestSessionId = session_id();
-            error_log("!!!! LOGIN PROCESSING Associating session id with user " . $loginRequestSessionId);
-            $userLogin['Login']['SessionId'] = $loginRequestSessionId;
-            $dataService->saveUser($userLogin);
+        $username = $potentialUser['login']['username'];
+        if($username) {
+            $userLogin = $dataService->loadUserByUsername($username);
+            error_log("!!!! LOGIN PROCESSING 4. Getting Token. Cookie should be set. Potential User from the previously consumed token being compared to " .
+                "\nLogin loaded from the token\n" . json_encode($potentialUser, JSON_PRETTY_PRINT));
+            if ($userLogin != null) {
+                $loginRequestSessionId = session_id();
+                error_log("!!!! LOGIN PROCESSING Associating session id with user " . $loginRequestSessionId . "User: " . json_encode($userLogin));
+                $userLogin['login']['sessionId'] = $loginRequestSessionId;
+                $dataService->saveUser($userLogin);
 
-            $loginJSON = $dataService->massageForClientConsumption($dataService, $userLogin);
-            $output = json_encode($loginJSON);
-            resetLoginAttemptCount($username);
-            return $output;
+                $loginJSON = $dataService->massageForClientConsumption($dataService, $userLogin);
+                $output = json_encode($loginJSON);
+                resetLoginAttemptCount($username);
+                return $output;
+            }
+
         }
     }
 
