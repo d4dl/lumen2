@@ -92,8 +92,9 @@ switch($action) {
                 $clearPassword = $formData->Password;
                 $user = $dataService->prepareUserForStorage($userName, $clearPassword, $session_id, $loginUser['systemId']);
                 $user['login']["groups"] = array();
+                $user = array_merge($user, $loginUser);
                 $user = $dataService->savePerson($user);
-                //error_log("!!!! LOGIN PROCESSING Saved Person: " . json_encode($user));
+                error_log("!!!! LOGIN PROCESSING Saved Person: " . json_encode($user));
                 $loginJSON = $dataService->massageForClientConsumption($dataService, $user);
                 $output = json_encode($loginJSON);
             }
@@ -164,7 +165,7 @@ switch($action) {
         $login = $dataService->findUserLogin();
 
         //error_log("!!!! LOGIN PROCESSING find Getting user login attempt count " . incrementLoginAttemptCount($formData->Username));
-//error_log("!!!! LOGIN PROCESSING Calling FIND and returning user: " .  json_encode($login) . "\n headers " . json_encode(getallheaders()));
+        error_log("!!!! LOGIN PROCESSING Calling FIND and returning user: " .  json_encode($login));
         if($login) {
             $loginJSON = $dataService->massageForClientConsumption($dataService, $login);
             if($login != null) {
@@ -325,10 +326,11 @@ function setUserToken($dataService, $user, $errorMessage) {
     $token = $_REQUEST['tokenSet'];
     if (isset($user)) {
         $loginRequestSessionId = session_id();
-        $user['Login']['sessionId'] = $loginRequestSessionId;
+        $user['login']['sessionId'] = $loginRequestSessionId;
+        error_log("Saving User: " . json_encode($user));
         createToken($token, $user, $errorMessage);
         $dataService->saveUser($user);
-        //error_log("!!!! LOGIN PROCESSING 1. Setting Token for user " . json_encode($user, JSON_PRETTY_PRINT) . "only valid user gets the session id persisted for them");
+        error_log("!!!! LOGIN PROCESSING 1. Setting Token for user " . json_encode($user, JSON_PRETTY_PRINT) . "only valid user gets the session id persisted for them");
         //error_log("!!!! LOGIN PROCESSING User is authenticated and login should proceed with session $loginRequestSessionId!!!!");
     }  else {
         createToken($token, null, $errorMessage);
@@ -361,7 +363,7 @@ function finishTokenProcessing($dataService) {
                 $dataService->saveUser($userLogin);
 
                 $loginJSON = $dataService->massageForClientConsumption($dataService, $userLogin);
-                $output = json_encode($loginJSON);
+                $output = json_encode(array("Person"=>$loginJSON));
                 resetLoginAttemptCount($username);
                 return $output;
             }

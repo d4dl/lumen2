@@ -244,6 +244,7 @@ class DataService
             if ($method == "GET" || $method == "DELETE") {
                 $url .= "?$fields_string";
             } else {
+                error_log("Setting post fields string " . $fields_string);
                 curl_setopt($endpoint, CURLOPT_POSTFIELDS, $fields_string);
                 $headers[] = 'Content-Length: ' . strlen($fields_string);
             }
@@ -868,13 +869,13 @@ class DataService
     public function findUserLogin() {
         $sessionId = session_id();
         $userLogin = $this->findByLogin(array("name" => "sessionId", "value" => $sessionId));
-        //error_log("Looking for user with session " . $sessionId . " and found " . json_encode($userLogin, JSON_PRETTY_PRINT));
+        error_log("Looking for user with session " . $sessionId . " and found " . json_encode($userLogin, JSON_PRETTY_PRINT));
         return $userLogin;
         //error_log("Finding user. ");
     }
 
     public function saveUser($user) {
-        //error_log("Saving user " . json_encode($user, JSON_PRETTY_PRINT));
+        error_log("Saving user " . json_encode($user, JSON_PRETTY_PRINT));
         $user = $this->savePerson($user);
         return $user;
     }

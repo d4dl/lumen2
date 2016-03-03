@@ -10,7 +10,7 @@ var store = Ext.define('Lumen.store.Authentication', {
                 url : Lumen.DATA_SERVICE_URL_ROOT + '/authenticate.php',
                 reader: {
                 type: 'json',
-                idProperty: '_id.$id'
+                idProperty: 'id'
             }
         }
         this.callParent(arguments);
