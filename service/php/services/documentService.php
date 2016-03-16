@@ -63,17 +63,8 @@ if(array_key_exists('action', $_REQUEST)) {
         $jsonDocument['Person']['Email']    = $jsonDocument['Person']['Email'];
         //error_log("Merged Person into document " . json_encode($jsonDocument, JSON_PRETTY_PRINT));
     } else if ($documentType == "DebitSchedule") {
-        if(array_key_exists("debitScheduleEntries", $jsonDocument)) {
-            $debitScheduleEntries = $jsonDocument["debitScheduleEntries"];
-            $count = count($debitScheduleEntries);
-            for($i=0; $i < $count; $i++) {
-                $debitScheduleEntry = $debitScheduleEntries[$i];
-                if(array_key_exists("dateToExecute", $debitScheduleEntry)) {
-                    $dateToExecute = array_key_exists('sec', $debitScheduleEntry["dateToExecute"]) ? $debitScheduleEntry["dateToExecute"]['sec'] : $debitScheduleEntry["dateToExecute"];
-                    $jsonDocument["debitScheduleEntries"][$i]["dateToExecute"] = new MongoDate($dateToExecute);
-                }
-            }
-        }
+        //Schedules are accessed here and in financeService depending on where the ui sends the request too. Yuck.
+        require("./financeProxy.php");
     }
 
     $document = $jsonDocument;

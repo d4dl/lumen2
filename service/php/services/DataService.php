@@ -43,6 +43,7 @@ class DataService
     private $log;
 
     private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/people/";
+    private $studentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/students/";
 
     static function getInstance() {
         if (DataService::$SINGLETON == null) {
@@ -61,7 +62,7 @@ class DataService
 //        error_log("Received a request from " . $ipAddress);
         // connect
 
-        error_log("Connecting to mongo with " . MONGO_CONNECTION);
+        //error_log("Connecting to mongo with " . MONGO_CONNECTION);
         $this->mongo = new MongoClient(MONGO_CONNECTION);
         $this->mongoDB = $this->getDB(MONGO_DB_NAME);
         $this->landlordMongoDB = $this->getDB(LANDLORD_MONGO_DB_NAME);
@@ -104,7 +105,6 @@ class DataService
     public function getUser() {
         if ($this->user == null) {
             $this->user = $this->findUserLogin();
-            $loginPID = "" . $this->user["_id"];
             //error_log("Login: " . json_encode($this->user) . " The login pid is " . $loginPID);
         }
 
@@ -113,7 +113,7 @@ class DataService
 
     public function getUserFullName() {
         $user = $this->loadPerson($this->getUser()['_id'])['Person'];
-        error_log("Getting full user name from " . json_encode($user));
+        //error_log("Getting full user name from " . json_encode($user));
         $userName = $user['FirstName'] . " " . $user['LastName'];
         return $userName;
     }
@@ -244,7 +244,7 @@ class DataService
             if ($method == "GET" || $method == "DELETE") {
                 $url .= "?$fields_string";
             } else {
-                error_log("Setting post fields string " . $fields_string);
+                error_log("Setting post fields for $url \n to string\n" . $fields_string);
                 curl_setopt($endpoint, CURLOPT_POSTFIELDS, $fields_string);
                 $headers[] = 'Content-Length: ' . strlen($fields_string);
             }
@@ -253,7 +253,7 @@ class DataService
         if($url == "http://localhost:8089/quickmit-rest-1.1/v1.1/localhost/people/" && $method == "GET") {
             throw new Exception("WTF");
         }
-        error_log("Sent request to " . $url);
+        //error_log("Sent request to " . $url);
 
         curl_setopt($endpoint, CURLOPT_URL, $url);
         return $endpoint;
@@ -349,7 +349,7 @@ class DataService
             "Rejected");
         $applicationData = $this->loadAdmissionApplication($applicationId);
         $currentStatus = $applicationData['Status'];
-        error_log("Current status: $currentStatus \nRequested status: $status");
+        //error_log("Current status: $currentStatus \nRequested status: $status");
 
         $setStatus = true;
         if (!$currentStatus) {
@@ -391,47 +391,6 @@ class DataService
         return $applications;
     }
 
-    /**
-     * Count applications that are not rejected
-     * @return mixed
-     */
-    public function countValidApplications()
-    {
-        $query = $this->activeApplicationQuery;
-        error_log("Finding appss: " . json_encode($query));
-        $applications = $this->countDocuments("AdmissionApplication", $query);
-        return $applications;
-    }
-
-    function loadAllAdmissionApplications($start = null, $limit = null, $sort)
-    {
-        $query = $this->activeApplicationQuery;
-
-//        $applicationCursor = $this->AdmissionApplication->find($query, $limit);
-
-        $applications = $this->sortCursor("AdmissionApplication", $query, $sort, $limit, $start);
-        //error_log("2. About to reconstitute " . json_encode($applications));
-        $applications = $this->reconstituteApplicationData($applications);
-        //error_log("Found Applications: " . json_encode($applications));
-        return $applications;
-    }
-
-    /**
-    function loadUsers($start = null, $limit = null, $sort = null, $criteria = null, $loadParents = false)
-    {
-        throw new Exception("not this");
-        $persons = $this->sortCursor("Person", $criteria, $sort, $limit, $start);
-        if ($loadParents) {
-            for ($i = 0; $i < count($persons); $i++) {
-                $person = $persons[$i];
-                $hasChildArray = array_key_exists("HasChildArray", $person) ? $person["HasChildArray"] : array();
-                error_log("The user's parents: " . json_encode($hasChildArray, JSON_PRETTY_PRINT));
-                $persons[$i]["HasChildArray"] = $this->reconstituteParents($hasChildArray);
-            }
-        }
-        return $persons;
-    }
-     */
 
     public function sortCursor($documentType, $query, $sort = null, $limit = null, $start = null)
     {
@@ -460,6 +419,7 @@ class DataService
         }
 
         $applications = iterator_to_array($cursor, false);
+        //error_log("Returning Applications: " . json_encode($applications));
         return $applications;
     }
 
@@ -537,8 +497,7 @@ class DataService
      * thing as one document to send back to the client.
      * extractAndPersistDataObjectsFromApplication does the inverse operation
      */
-    public function reconstituteApplicationData($applications, $loadFullEvaluations = false, $fields = null)
-    {
+    public function reconstituteApplicationData($applications, $loadFullEvaluations = false, $fields = null, $studentMap=array()) {
         //error_log("3. Reconstituting " . json_encode($applications));
         $returnApps = array();
         $chargeApplicationMap = array();
@@ -557,23 +516,22 @@ class DataService
                 error_log("There is no child associated with this application!!!!");
                 $childData = array();
             } else {
-                if ($fields && array_key_exists('Child', $fields)) {
-                    $childData = $this->loadPerson($childId, $fields['Child']);
+                $student = $studentMap[$childId];
+                if($student) {
+                    $childData = $student;
                 } else {
                     $childData = $this->loadPerson($childId);
                 }
             }
             //The id needs to stay on
             //unset($childData['_id']);
+            //error_log("Where are my has child arrays " . json_encode($childData, JSON_PRETTY_PRINT));
 
-            $hasChildArray = $childData['HasChildArray'];
-            //error_log("Where are my has child arrays " . json_encode($hasChildArray, JSON_PRETTY_PRINT));
-            if (!$hasChildArray) {
+            $guardianList = $childData['guardianList'];
+            //error_log("Where are my has child arrays " . json_encode($guardianList, JSON_PRETTY_PRINT));
+            if (!$guardianList) {
                 error_log("!!!!\n!!!!\nThere is no child array for '$childId''. This is a problem.\n!!!!\n!!!!");
                 //continue;
-            } else {
-                $parentals = $this->reconstituteParents($hasChildArray);
-                $childData['HasChildArray'] = $parentals;
             }
 
             $application['Child'] = $childData;
@@ -603,6 +561,8 @@ class DataService
 
         }
         //error_log("Processing charges " . json_encode(array_keys($chargeApplicationMap)));
+        error_log("Warning: Charges are not being sent.  They may not be being acccounted for.");
+        /**
         $cursor = $this->Charge->find(array(
             'ChargeId' => array('$in' => array_keys($chargeApplicationMap)
             )));
@@ -620,26 +580,9 @@ class DataService
                 $returnApps[$i] = $application;
             }
         }
+         * **/
 
         return $returnApps;
-    }
-
-    public function reconstituteParents($hasChildArray)
-    {
-        $i = 0;
-        $parentals = array();
-        foreach ($hasChildArray as $parental) {
-            error_log("Loading Person:  " . json_encode($parental));
-            $person = $this->loadPerson($parental['ParentId']);
-            //error_log("Looking at parental " . json_encode($parental, JSON_PRETTY_PRINT) . " loaded " . json_encode($person));
-            $parentals[$i] = $parental;
-            //The id needs to stay on
-            //unset($person['_id']);
-            $parentals[$i]['Parental'] = $person;
-            $i++;
-        }
-        //error_log("Returning " . json_encode($parentals, JSON_PRETTY_PRINT));
-        return $parentals;
     }
 
     public function saveStudentEvaluations($studentEvaluationArray, $childId, $ownerId)
@@ -703,6 +646,34 @@ class DataService
         return $person;
     }
 
+    public function loadStudents($criteria, $loadDebitSchedules=false) {
+        error_log("Loading people with request ");
+        $url = $this->studentServiceURL . "findAll?";
+        $url .= "limit=".$_REQUEST["limit"] ;
+        $url .= "&page=".$_REQUEST["page"];
+        $sorters = json_decode($_REQUEST["sort"]);
+        $query = isset($_REQUEST["query"]) ? $_REQUEST["query"] : null;
+        if($query) {
+            $criteria[] = array("name" => "firstName", "value" => $query, "operation"=>"like", "conjunction"=>"or");
+            $criteria[] = array("name" => "lastName",  "value" => $query, "operation"=>"like", "conjunction"=>"or");
+        }
+        foreach($sorters as $sorter) {
+            $url .= "&sort=".$sorter->property.",".strtolower($sorter->direction);
+        }
+        $url .= "&loadDebitSchedules=" . ($loadDebitSchedules ? "true" : "false");
+        $persons = $this->post($url, isset($criteria) ? $criteria : array());
+        error_log("Loaded PERSONS" . json_encode($persons));
+        $personCount = count($persons['content']);
+        for($i=0; $i < $personCount; $i++) {
+            if(isset($persons['content'][$i]['login'])) {
+                unset($persons['content'][$i]['login']['password']);
+                unset($persons['content'][$i]['login']['forgotPasswordToken']);
+                unset($persons['content'][$i]['login']['temporaryPassword']);
+                unset($persons['content'][$i]['login']['username']);
+            }
+        }
+        return $persons;
+    }
 
     public function loadPerson($personId, $projectedFields = null) {
         $Person = $this->get($this->personServiceURL . $personId);
@@ -861,7 +832,6 @@ class DataService
 
     public function loadUserByForgotPasswordToken($token)
     {
-        throw new Exception("not this");
         $user = $this->findByLogin(array("name" => "forgotPasswordToken", "value" => $token));
         return $user;
     }
@@ -869,7 +839,7 @@ class DataService
     public function findUserLogin() {
         $sessionId = session_id();
         $userLogin = $this->findByLogin(array("name" => "sessionId", "value" => $sessionId));
-        error_log("Looking for user with session " . $sessionId . " and found " . json_encode($userLogin, JSON_PRETTY_PRINT));
+        //error_log("Looking for user with session " . $sessionId . " and found " . json_encode($userLogin, JSON_PRETTY_PRINT));
         return $userLogin;
         //error_log("Finding user. ");
     }
@@ -1037,7 +1007,7 @@ class DataService
         //$this->getAllGroups($allGroups, $person['Groups']);
 
         foreach ($allGroups as $group) {
-            if ($group == "admin") {
+            if ($group["groupName"] == "admin") {
                 return true;
             }
         }
@@ -1066,16 +1036,21 @@ class DataService
      * is true.
      * this and buildProcessUrl are very different but should not be.
      */
-    private function httpRequest($url, $fields, $data, $method, $useAuthorizedUser = false, $useBinary = false)
-    {
-
-//error_log("Requesting for actor: " . $this->getActor()->first_name);
+    public function httpRequest($url, $fields = null, $data = null, $method = null, $useAuthorizedUser = false, $useBinary = false) {
+        if(!$fields && !$data) {
+            $body = file_get_contents('php://input');
+            if($body) {
+                $data = json_encode($body);
+            }
+        }
+        $method = $method != null ? $method : filter_input(INPUT_SERVER, 'REQUEST_METHOD');
+        error_log("Making http request to $url with method = $method");
         //error_log("Making request: " . $action . " to " . $url);
         $endpoint = $this->createEndpoint($url, $fields, $data, $method, $useBinary);
 
         $startTime = time();
 
-        error_log("Requesting process information from " . $url);
+        //error_log("Requesting process information from " . $url);
         $results = curl_exec($endpoint);
         if ($results === false) {
             throw new Exception("There was a problem connecting to " . $url . "\nError: " . curl_error($endpoint));
@@ -1086,7 +1061,7 @@ class DataService
         $httpCode = curl_getinfo($endpoint, CURLINFO_HTTP_CODE);
         curl_close($endpoint);
         $duration = (time() - $startTime);
-        error_log("HTTP REQUEST TO: " . $url . " duration was " . $duration . " seconds. Retrieved: $body");
+        //error_log("HTTP REQUEST TO: " . $url . " duration was " . $duration . " seconds. Retrieved: $body");
         return $body === FALSE ? null : json_decode($body, true);
     }
 

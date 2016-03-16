@@ -61,7 +61,7 @@ Ext.define('Lumen.controller.UserStartup', {
         var hasAdmin = false;
         var application = Lumen.getApplication();
         Lumen.ownerId = userData._id;//Hack until we have a real live userData store.
-        Lumen.username = authenticationStore.first().get("Login.Username");//Hack until we have a real live userData store.
+        Lumen.username = authenticationStore.first().get("login.username");//Hack until we have a real live userData store.
         application.fireEvent(Lumen.OWNER_LOADED, {owner: userData});
         hasAdmin = Lumen.getApplication().userIsAdmin();
         var uiStateStore = this.getApplication().getUIStateStore();
@@ -90,7 +90,7 @@ Ext.define('Lumen.controller.UserStartup', {
                             var applicationName = "App";
 
                             if (admissionApplication.Child && admissionApplication.Child.Person) {
-                                applicationName = admissionApplication.Child.Person.FirstName + " " + admissionApplication.Child.Person.LastName;
+                                applicationName = admissionApplication.Child.firstName + " " + admissionApplication.Child.lastName;
                             }
                             var appEntry = Ext.create('Ext.Component', {
                                 html: applicationName,

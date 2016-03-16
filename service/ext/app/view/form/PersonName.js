@@ -7,9 +7,9 @@ Ext.define('Lumen.view.form.PersonName', {
 
     getOutputHtml: function() {
          var output = "<div>"+(this.personData.Title ? this.personData.Title : "") + " " +
-                      (this.personData.FirstName ? this.personData.FirstName : "") + " " +
-                      (this.personData.LastName ? this.personData.LastName : "") + " " +
-                      (this.personData.Suffix ? this.personData.Suffix : "")+"</div>";
+                      (this.personData.firstName ? this.personData.firstName : "") + " " +
+                      (this.personData.lastName ? this.personData.lastName : "") + " " +
+                      (this.personData.suffix ? this.personData.suffix : "")+"</div>";
         return output;
     },
     setRenderObject: function(personData) {
@@ -39,9 +39,9 @@ Ext.define('Lumen.view.form.PersonName', {
                     },
                     items: [
                         //{xtype: 'textfield', listeners:{change: this.onChange, scope: this}, fieldLabel: 'Title', width: 30, allowBlank: true},
-                        {xtype: 'textfield', name: "FirstName", fieldLabel: 'First', fieldCls: 'leftInput', width: 160, allowBlank: false},
-                        {xtype: 'textfield', name: "LastName", fieldLabel: 'Last', width: 180, fieldCls: 'middleInput', allowBlank: false},
-                        {xtype: 'textfield', name: "Suffix", fieldLabel: 'Suffix', width: 94, fieldCls: 'rightInput', allowBlank: true}
+                        {xtype: 'textfield', name: "firstName", fieldLabel: 'first', fieldCls: 'leftInput', width: 160, allowBlank: false},
+                        {xtype: 'textfield', name: "lastName", fieldLabel: 'last', width: 180, fieldCls: 'middleInput', allowBlank: false},
+                        {xtype: 'textfield', name: "suffix", fieldLabel: 'suffix', width: 94, fieldCls: 'rightInput', allowBlank: true}
                     ]
                 }
             ]

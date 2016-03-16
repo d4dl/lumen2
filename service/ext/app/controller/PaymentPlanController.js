@@ -13,29 +13,32 @@ Ext.define('Lumen.controller.PaymentPlanController', {
     },
 
     loadPaymentPlanForm: function (paymentPlanFormContainer, creditCardForm, saveDebitScheduleButton, sendEnrollmentButton, planAdminControlBox) {
-        var self = this;
-        if(Lumen.getApplication().userIsAdmin()) {
+        if (Lumen.getApplication().userIsAdmin()) {
             var paymentPlanOwnerSelector = this.addPaymentPlanOwnerSelector(sendEnrollmentButton, paymentPlanFormContainer, creditCardForm, planAdminControlBox);
         }
 
         var scheduleStore = this.getDebitScheduleStore();
-        var storeNeedsLoading = true;//The schedules copying might trigger data changes when it copies templates to the scheduleStore
-        self.nonAdminScheduleStoreListener = scheduleStore.on("datachanged", function() {
-            if(self.nonAdminScheduleStoreListener) {
-                self.nonAdminScheduleStoreListener.destroy();//enclose any previously defined listeners and destroy it before assigning the about to be created one.
-            }
-            if(storeNeedsLoading) {
-                storeNeedsLoading = false;
-                if(scheduleStore.getCount() == 0) {
-                    console.log("----Empty schedule store found copying templates");
-                    self.copyScheduleTemplatesToScheduleStore();
-                }
+        if (!this.nonAdminScheduleStoreListener) {
+            this.loadSchedules(paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm);
+        }
+        this.nonAdminScheduleStoreListener = scheduleStore.on("datachanged", function () {
+            this.loadSchedules(paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm);
+        }, this, {destroyable: true});
 
-                self.bindScheduleStoreToForms(paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm);
-                storeNeedsLoading = true;
-            }
-        }, self, {destroyable: true});
-        self.addButtonListeners(paymentPlanFormContainer, saveDebitScheduleButton, sendEnrollmentButton, paymentPlanOwnerSelector);
+        this.addButtonListeners(paymentPlanFormContainer, saveDebitScheduleButton, sendEnrollmentButton, paymentPlanOwnerSelector);
+    },
+
+    loadSchedules: function (paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm) {
+        var scheduleStore = this.getDebitScheduleStore();
+        if (this.nonAdminScheduleStoreListener) {
+            this.nonAdminScheduleStoreListener.destroy();//enclose any previously defined listeners and destroy it before assigning the about to be created one.
+        }
+        if (scheduleStore.getCount() == 0) {
+            console.log("----Empty schedule store found copying templates");
+            this.copyScheduleTemplatesToScheduleStore();
+        }
+
+        this.bindScheduleStoreToForms(paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm);
     },
 
     bindScheduleStoreToForms: function (paymentPlanFormContainer, paymentPlanOwnerSelector, creditCardForm) {
@@ -44,14 +47,13 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         var isAdmin = Lumen.getApplication().userIsAdmin();
         var radioGroup = [];
         //First destroy any previous payment plan forms.
-        for(var i=0; i < self.paymentPlanForms.length; i++) {
+        for (var i = 0; i < self.paymentPlanForms.length; i++) {
             self.paymentPlanForms[i].destroy();
         }
         self.paymentPlanForms = [];
         var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
-        creditCardForm.ChildId = applicantStore.first().getId();
         creditCardForm.OwnerId = (isAdmin && paymentPlanOwnerSelector) ? paymentPlanOwnerSelector.getValue() : Lumen.getApplication().getUserId();
-        var activeDebitSchedules = scheduleStore.query("isActive", true);
+        var activeDebitSchedules = scheduleStore.query("active", true);
         if (activeDebitSchedules && activeDebitSchedules.first()) {
             activeDebitSchedules.each(function (debitScheduleModel, index) {
                 self.addDebitSchedule(debitScheduleModel, isAdmin, paymentPlanFormContainer, scheduleStore, creditCardForm);
@@ -59,18 +61,18 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             creditCardForm.destroy();
             //If they're an admin, only show the form if they've selected an owner.
 
-        } else if(!isAdmin || creditCardForm.OwnerId) {
+        } else if (!isAdmin || creditCardForm.OwnerId) {
             scheduleStore.each(function (debitScheduleModel, index) {
                 self.addDebitSchedule(debitScheduleModel, isAdmin, paymentPlanFormContainer, scheduleStore, creditCardForm, radioGroup);
             });
         }
     },
 
-    createPaymentPlanSummaryTitle: function(debitSchedule) {
+    createPaymentPlanSummaryTitle: function (debitSchedule) {
         var totalDue = debitSchedule.get("totalDue");
 
         var today = new Date();
-        if(totalDue === "") {
+        if (totalDue === "") {
             totalDue = null;
         }
         var totalCalculated = debitSchedule.get("downPaymentAmount") || 0;
@@ -82,16 +84,16 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         var nextPaymentAmount = 0;
         //This totalToBeCurrent stuff is busted.
         var totalToBeCurrent = totalCalculated;
-        debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
+        debitSchedule.debitEntries().each(function (entryModel, index) {
             var debitAmount = entryModel.get("debitAmount") || 0;
             var executedDate = entryModel.get("executedDate");
             var dateToExecute = entryModel.get("dateToExecute");
             //if(dateToExecute) {
-                totalCalculated += debitAmount;
+            totalCalculated += debitAmount;
             //}
             var alreadyPaid = false;
 
-            if(executedDate) {
+            if (executedDate) {
                 totalPaid += debitAmount;
                 totalToBeCurrent = totalToBeCurrent - debitAmount;
                 alreadyPaid = true;
@@ -110,11 +112,11 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         var totalToBeCurrentText = Ext.util.Format.currency(totalToBeCurrent);
 
         var title = "Active Payment Plan: " + (totalDue == null ? totalCalculatedText : totalDueText) + "<br/>Total Paid to date: " + totalPaidText;
-        if(totalDue != null && totalDue != totalCalculated) {
+        if (totalDue != null && totalDue != totalCalculated) {
             title += "<br/>Plan total: " + totalDueText + " is different from the planned payment <br/>amounts totalling: " +
-                                          totalCalculatedText + ".  <br/>Adjust the payment amounts.";
+                totalCalculatedText + ".  <br/>Adjust the payment amounts.";
         }
-        if(nextPaymentAmountText) {
+        if (nextPaymentAmountText) {
             //title += "<br/>A payment of " + totalToBeCurrentText + " will bring this account current.";
             title += "<br/>" + nextPaymentAmountText + " is scheduled to be debited from their <br/> credit card or checking account.";
         } else {
@@ -127,27 +129,27 @@ Ext.define('Lumen.controller.PaymentPlanController', {
     addDebitScheduleEntryView: function (isAdmin, entryModel, debitScheduleModel, scheduleCount, templateView) {
         var scheduleStore = this.getDebitScheduleStore();
         var newModel = entryModel == null;
-        if(newModel) {
-            var scheduleEntries = debitScheduleModel.debitScheduleEntries();
+        if (newModel) {
+            var scheduleEntries = debitScheduleModel.debitEntries();
             //entryModel = new Lumen.model.DebitScheduleEntry();
             entryModel = scheduleEntries.add({
                 cls: "debitEntry",
                 readOnly: !isAdmin,
-                name: "debitScheduleEntries[" + scheduleCount + "]"
+                name: "debitEntries[" + scheduleCount + "]"
             })[0];
             entryModel.commit();
-            //debitScheduleModel.associations.add("debitScheduleEntries", scheduleEntries);
+            //debitScheduleModel.associations.add("debitEntries", scheduleEntries);
         }
         var entryView = new Lumen.view.finance.DebitScheduleEntry({
             cls: !!entryModel.raw.executedDate ? "paidDebitEntry" : "debitEntry",
             readOnly: !isAdmin || !!entryModel.raw.executedDate,
-            name: "debitScheduleEntries[" + scheduleCount + "]"
+            name: "debitEntries[" + scheduleCount + "]"
         });
         if (entryModel.raw.executedDate) {
             entryView.showPaidDate();
         }
         templateView.add(entryView);
-        if(newModel) {
+        if (newModel) {
             Lumen.getApplication().fireEvent(Lumen.BIND_FORM_FIELDS, {formRoot: entryView, data: entryModel.raw});
         }
     },
@@ -170,8 +172,8 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
         var title = "Payment Plan";
         var addEntryButton = null;
-        if(isAdmin && debitSchedule.get("isActive")) {
-            if(radioGroup) {
+        if (isAdmin && debitSchedule.get("active")) {
+            if (radioGroup) {
                 title = "Payment Plan Template";
             } else {
                 // title = !radioGroup ? self.createPaymentPlanSummaryTitle(debitSchedule) : "Payment Plan Template";
@@ -179,12 +181,13 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 var addEntryButton = Ext.create("Ext.button.Button", {
                     itemId: "addEntryButton",
                     text: Lumen.i18n("Add a Payment Entry"),
-                    handler: function() {
-                        self.addDebitScheduleEntryView(isAdmin, null, debitScheduleModel, debitSchedule.debitScheduleEntries().getCount(), templateView);
+                    handler: function () {
+                        self.addDebitScheduleEntryView(isAdmin, null, debitScheduleModel, debitSchedule.debitEntries().getCount(), templateView);
                     }
                 });
             }
-        };
+        }
+        ;
         paymentPlanForm.setTitle(title);
 
         console.log("Loading template " + debitSchedule.name);
@@ -197,7 +200,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
         debitSchedule.fees().each(function (feeModel, index) {
             var amount = feeModel.get('amount');
-            if(amount > 0 || isAdmin) {
+            if (amount > 0 || isAdmin) {
                 totalDue += amount;
                 var feeView = new Lumen.view.finance.Fee({
                     readOnly: !isAdmin,
@@ -207,7 +210,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             }
         });
 
-        debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
+        debitSchedule.debitEntries().each(function (entryModel, index) {
             var debitAmount = entryModel.get("debitAmount");
             if (debitAmount > 0) {
                 self.addDebitScheduleEntryView(isAdmin, entryModel, null, index, templateView);
@@ -215,7 +218,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         });
         paymentPlanForm.add(templateView);
         paymentPlanFormContainer.add(paymentPlanForm);
-        if(addEntryButton) {
+        if (addEntryButton) {
             paymentPlanForm.add(addEntryButton);
         }
 
@@ -225,10 +228,10 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             html: "<div><span class='totalDueLabel'></span>"
         });
         paymentPlanForm.add(totalDueBox);
-        if(radioGroup && !isAdmin) {
+        if (radioGroup && !isAdmin) {
             //This button needs to be disabled for admins and ignored unless a payment plan is being setup
             var planSelectionButton = new Ext.form.field.Radio({
-                name: "isActive",
+                name: "active",
                 boxLabelCls: 'selectedPaymentPlanLabel',
                 boxLabel: "Choose this plan and pay ",
                 debitScheduleName: debitSchedule.get("name"),
@@ -245,7 +248,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                                     creditCardForm.amount = totalDue * 100;
                                     creditCardForm.description = radio.debitScheduleName;
                                 } else {
-                                    nextSchedule.raw.isActive = false;
+                                    nextSchedule.raw.active = false;
                                 }
                             });
                             for (var i = 0; i < radioGroup.length; i++) {
@@ -273,7 +276,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         Lumen.getApplication().fireEvent(Lumen.BIND_FORM_FIELDS, {formRoot: paymentPlanForm, data: boundData});
     },
 
-    setTotalsText: function(totalDueBox, radioButton, debitSchedule) {
+    setTotalsText: function (totalDueBox, radioButton, debitSchedule) {
         if (totalDueBox.getEl()) {
             var self = this;
             var debitScheduleData = debitSchedule.raw;
@@ -281,20 +284,20 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
             Ext.each(debitScheduleData.fees, function (fee, index) {
                 var amount = fee.amount;
-                if(amount) {
+                if (amount) {
                     totalDue += amount;
                 }
             });
 
             var totalCost = totalDue;
-            Ext.each(debitScheduleData.debitScheduleEntries, function (entry, index) {
+            Ext.each(debitScheduleData.debitEntries, function (entry, index) {
                 var debitAmount = entry.debitAmount;
-                if(debitAmount) {
+                if (debitAmount) {
                     totalCost += debitAmount;
                 }
             });
 
-            if(radioButton) {
+            if (radioButton) {
                 var totalDueText = Ext.util.Format.currency(totalDue);
                 var totalCostText = Ext.util.Format.currency(totalCost);
                 var html = "<div><span class='totalDueLabel'>Total Due Now:</span>" + "<span class='totalDueAmount'>" + totalDueText + "</span></div>";
@@ -311,7 +314,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         if (scheduleStore.getCount() == 0) {
             var scheduleStore = this.getDebitScheduleStore();
             var scheduleTemplateStore = this.getDebitScheduleTemplateStore();
-            if(newScheduleTemplates && newScheduleTemplates.length > 0) {
+            if (newScheduleTemplates && newScheduleTemplates.length > 0) {
                 Ext.each(newScheduleTemplates, function (debitScheduleTemplate, index) {
                     self.copyDebitScheduleTemplateToScheduleStore(debitScheduleTemplate, scheduleStore);
                 });
@@ -332,12 +335,12 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         scheduleStore.loadRawData(debitScheduleData, true);
     },
 
-    addPaymentPlanOwnerSelector: function(sendEnrollmentButton, paymentPlanFormContainer, creditCardForm, planAdminControlBox) {
+    addPaymentPlanOwnerSelector: function (sendEnrollmentButton, paymentPlanFormContainer, creditCardForm, planAdminControlBox) {
         var self = this;
         var paymentPlanOwnerSelector = Ext.create("Ext.form.field.ComboBox", {
             itemId: "paymentPlanOwnerSelector",
             fieldLabel: Lumen.i18n("Payment plan owner"),
-            emptyText:Lumen.i18n('Select a parent...'),
+            emptyText: Lumen.i18n('Select a parent...'),
             valueField: "OwnerId",
             displayField: "OwnerName",
             multiSelect: false,
@@ -346,26 +349,21 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         planAdminControlBox.add(paymentPlanOwnerSelector);
         var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
         var ownerIdData = [];
-        applicantStore.on("datachanged", function() {
-            self.childId = applicantStore.first().getId();
-            applicantStore.each(function (debitScheduleModel, index) {
-                var parents = debitScheduleModel.raw.HasChildArray;
-                for(var i=0; i < parents.length; i++) {
-                    var person = parents[i].Parental.Person;
-                    var name = person.FirstName + " " + person.LastName;
-                    var parentId = parents[i].ParentId;
-                    ownerIdData.push({OwnerId: parentId, OwnerName: name});
-                }
-                //debitScheduleModel.set(.applicationId = Lumen.getApplication().getApplicationId();
-            });
-        });
+        if (!self.applicantStoreListener) {
+            this.populatePaymentPlanSelector(ownerIdData);
+        } else {
+            self.applicantStoreListener.destroy();
+        }
+        self.applicantStoreListener = applicantStore.on("datachanged", function () {
+            this.populatePaymentPlanSelector(ownerIdData);
+        }, self, {destroyable: true});
         //paymentPlanOwnerSelector.data = ownerIdData;
         var parentStore = Ext.create('Ext.data.Store', {
             fields: ['OwnerId', 'OwnerName'],
-            data : ownerIdData
+            data: ownerIdData
         });
         paymentPlanOwnerSelector.bindStore(parentStore);
-        paymentPlanOwnerSelector.on("change", function(selector, newValue, oldValue, eOpts){
+        paymentPlanOwnerSelector.on("change", function (selector, newValue, oldValue, eOpts) {
             var allFormsClean = true;
             //Disabling this check for now.
 //            for(var i=0; i < self.paymentPlanForms.length; i++) {
@@ -374,7 +372,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 //                    break;
 //                }
 //            }
-            if(allFormsClean) {
+            if (allFormsClean) {
                 self.switchToSelectedUser(sendEnrollmentButton, selector, paymentPlanFormContainer, creditCardForm);
             } else {
                 var popup = Ext.widget('window', {
@@ -406,6 +404,20 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         return paymentPlanOwnerSelector;
     },
 
+    populatePaymentPlanSelector: function (ownerIdData) {
+        var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
+        this.childId = applicantStore.first().getId();
+        applicantStore.each(function (debitScheduleModel, index) {
+            var guardians = debitScheduleModel.raw.guardianList;
+            for (var i = 0; i < guardians.length; i++) {
+                var person = guardians[i].guardian
+                var name = person.firstName + " " + person.LastName;
+                ownerIdData.push({OwnerId: person.id, OwnerName: name});
+            }
+            //debitScheduleModel.set(.applicationId = Lumen.getApplication().getApplicationId();
+        });
+    },
+
     switchToSelectedUser: function (sendEnrollmentButton, selector, paymentPlanFormContainer, creditCardForm) {
         var self = this;
         sendEnrollmentButton.setText(self.enrollmentButtonPrefix + selector.getDisplayValue());
@@ -424,10 +436,20 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         debitScheduleStore.load({
             params: {
                 documentType: "DebitSchedule",
-                queryCriteria: Ext.encode({
-                    OwnerId: selector.getValue(),
-                    ChildId: self.childId
-                })
+                method: "POST",
+                action: "find",
+                criteria: JSON.stringify([
+                    {
+                        name: "payor",
+                        value: selector.getValue(),
+                        conjunction: "and"
+                    },
+                    {
+                        name: "student",
+                        value: self.childId,
+                        conjunction: "and"
+                    }
+                ]),
             }, callback: function () {
                 if (debitScheduleStore.getCount() == 0) {
                     self.copyScheduleTemplatesToScheduleStore(newScheduleTemplates);
@@ -469,7 +491,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
     savePaymentPlan: function (ownerId) {
         var self = this;
         var scheduleStore = self.getDebitScheduleStore();
-        if(!ownerId) {
+        if (!ownerId) {
             var popup = this.forceParentSelection();
         } else {
             scheduleStore.each(function (debitSchedule, index) {
@@ -478,9 +500,9 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 debitSchedule.raw.OwnerId = ownerId;
                 debitSchedule.raw.ChildId = self.childId;
                 var jsonForm = Ext.apply({}, debitSchedule.raw);
-                jsonForm.debitScheduleEntries = [];
-                debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
-                    jsonForm.debitScheduleEntries.push(entryModel.raw);
+                jsonForm.debitEntries = [];
+                debitSchedule.debitEntries().each(function (entryModel, index) {
+                    jsonForm.debitEntries.push(entryModel.raw);
                 });
                 self.saveJSONForm(jsonForm, "DebitSchedule");
             });
@@ -521,7 +543,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         var self = this;
         var ownerId = paymentPlanOwnerSelector.getValue();
         var scheduleStore = self.getDebitScheduleStore();
-        if(!ownerId) {
+        if (!ownerId) {
             var popup = this.forceParentSelection();
         } else {
             var popup = Ext.widget('window', {
@@ -568,9 +590,11 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             autoScroll: true,
 
             buttons: [
-                {text: Lumen.i18n('OK'), handler: function () {
+                {
+                    text: Lumen.i18n('OK'), handler: function () {
                     popup.close()
-                }}
+                }
+                }
             ]
         })
         return popup;

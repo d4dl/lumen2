@@ -1,6 +1,6 @@
-Ext.define('Lumen.controller.MainDisplayController',{
+Ext.define('Lumen.controller.MainDisplayController', {
     extend: 'Ext.app.Controller',
-    stores: ['Lumen.store.AdmissionApplicationList','Lumen.store.Authentication','Lumen.store.Applicant', 'Lumen.store.JSONForm'],
+    stores: ['Lumen.store.AdmissionApplicationList', 'Lumen.store.Authentication', 'Lumen.store.Applicant', 'Lumen.store.JSONForm'],
     currentMenu: null,
     currentDisplay: null,
     init: function (application) {
@@ -8,28 +8,28 @@ Ext.define('Lumen.controller.MainDisplayController',{
         application.on({
             "REPLACE_MAIN_DISPLAY": function (options) {
                 Lumen.getApplication().fireEvent(Lumen.DESTROY_ALL_FORMS);
-                this.currentDisplay = this.replaceClient(options.newClient,this.currentDisplay,"mainDisplay",options.anchorTarget, options);
+                this.currentDisplay = this.replaceClient(options.newClient, this.currentDisplay, "mainDisplay", options.anchorTarget, options);
                 Lumen.getApplication().fireEvent(Lumen.MAIN_DISPLAY_REPLACED);
             },
             "SHOW_MENU": function (options) {
-                this.currentMenu = this.replaceClient(options.newClient,this.currentMenu, "menuContainer1",options.anchorTarget)
+                this.currentMenu = this.replaceClient(options.newClient, this.currentMenu, "menuContainer1", options.anchorTarget)
             },
-            "APPLICATION_ERROR": function(options) {
+            "APPLICATION_ERROR": function (options) {
                 this.showErrorPopup(options.title, options.message);
             },
-            "SHOW_ENROLLMENT_DOCUMENTS": function(options) {
-                this.showEnrollmentDocuments(options.applicantId, options.applicationId);
+            "SHOW_ENROLLMENT_DOCUMENTS": function (options) {
+                this.showEnrollmentDocuments(options.applicant);
             },
             "SHOW_APPLICATION_FORM": this.showApplicationForm,
             "AJAXIFY": this.ajaxify,
             scope: this
         });
-        var splash = Ext.select("#splash",true);
+        var splash = Ext.select("#splash", true);
         splash = splash.getCount() == 0 ? null : splash.item(0);
 
         if (splash) {
             setTimeout(function () {
-                Ext.create('Ext.fx.Anim',{
+                Ext.create('Ext.fx.Anim', {
                     target: splash,
                     duration: 800,
                     to: {
@@ -47,7 +47,7 @@ Ext.define('Lumen.controller.MainDisplayController',{
                         }
                     }
                 });
-            },1000);
+            }, 1000);
         }
     },
 
@@ -89,96 +89,99 @@ Ext.define('Lumen.controller.MainDisplayController',{
         };
     },
 
-    showEnrollmentDocuments: function(applicantId, applicationId) {
+    showEnrollmentDocuments: function (applicant) {
+        var applicantId = applicant.systemId;
+        var applicationId;
+        for (var i = 0; i < applicant.documentRightList.length; i++) {
+            var documentList = applicant.documentRightList[i];
+            if (documentList.documentType == "Enrollment") {
+                applicationId = documentList.systemId;
+            }
+        }
         var self = this;
-        var newClient = Ext.create("Lumen.view.UIContent",{params: {
-            json: true,
-            contentUrl: Lumen.CONTENT_PREFIX + "/Enrollment.js"
-        }});
-        newClient.addListener({afterrender: function() {
-            self.initializeApplicant(applicantId, applicationId);
-        }});
-        Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY,{newClient: newClient});
-    },
-
-    initializeApplicant: function(applicantId, applicationId) {
-        var self = this;
-        Lumen.getApplication().getAdmissionApplicationStore().removeAll();
-        Ext.ModelMgr.getModel('Lumen.model.Applicant').load(applicantId, {
-            scope: this,
-            params: {id: applicantId},
-            success: function(person) {
-                //selfy.down('form').getForm().loadRecord(firstPerson);
-                var authenticationStore = this.getApplication().getAuthenticationStore();
-                var userData = authenticationStore.first() ? authenticationStore.first().raw : null;
-                var debitScheduleStore = Ext.data.StoreManager.lookup('DebitSchedule');
-                debitScheduleStore.load({//eww! PaymentPlanController has special knowledge that this is going to happen.
-                    params: {
-                        documentType: "DebitSchedule",
-                        queryCriteria: Ext.encode({
-                            OwnerId: userData._id['$id'],
-                            //isActive: true,
-                            ChildId: applicantId
-                        })
-                    }
-                });
-                //var loadedPerson = Lumen.getApplication().getAuthenticationStore().getById(applicantId);
-                var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
-                applicantStore.loadData([person]);
-                var formContainers = Ext.ComponentQuery.query("jsonformcontainer");
-                for(var i=0; i < formContainers.length; i++) {
-                    var formContainer = formContainers[i];
-                    var formStore = this.getStore("Lumen.store.JSONForm");
-
-                    formStore.iseeYou = true;
-                    //Lumen.getApplication().fireEvent(Lumen.DESTROY_ALL_FORMS);
-                    formStore.load({
-                        params: {
-                            documentType: "JSONForm",
-                            queryCriteria: Ext.encode({
-                                ChildId: person.getId(),
-                                applicationType: formContainer.applicationType
-                            })
-                        },
-                        callback: function(forms, success) {
-                            if (success) {
-                                if (forms.length == 0) {
-                                    var newForm = Ext.create("Lumen.model.JSONForm");
-                                    newForm.raw = {};//ewww
-                                    formStore.loadData([newForm]);
-                                }
-                                if (formStore.getCount() == 1) {
-                                    Lumen.log("\n\n\n\n\n------1 Maybe this is why child data doesn't always load ChildInformation.js may not be 'loaded' by the time this is called");
-                                    //Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {formRoot: formContainer.down("[dataRoot]"), JSONPathPrefix: ""});
-                                    var dataRoot = formContainer.down("[dataRoots]");
-
-                                    var firstForm = formStore.first();
-                                    firstForm.set("applicationId", applicationId);
-                                    Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {modelToLoad: firstForm.raw, formRoot: formContainer, JSONPathPrefix: ""});
-                                    //You haven't copied all the right deployment stuff so your dataRoots aren't set.
-                                    Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {modelToLoad: {Child: person.raw}, formRoot: dataRoot, JSONPathPrefix: ""});
-                                    if (formStore.getCount() == 0) {//WTF??? How could this ever be true?
-                                        formStore.loadData(forms, false);
-                                    }
-                                    var loginAndEmails = Lumen.getApplication().getParentLoginEmailAndPasswordForParents(person.raw.HasChildArray);
-
-                                    var parentFirstNames = Lumen.getApplication().getParentFirstNamesFromChild(person.raw);
-                                    var studentApplicantFirstName = Lumen.getApplication().getStudentApplicantFirstNameForChild(person.raw);
-                                    self.addAdminToolbar(person.raw.Person.FirstName + " " + person.raw.Person.LastName, parentFirstNames, studentApplicantFirstName, loginAndEmails);
-                                }
-                            } else {
-                                alert("Problem loading form store.");
-                            }
-                        }
-                    });
-                    //Lumen.log("-2 Maybe this ad the other asynchronicity is why child data doesn't always load");
-                    //Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {modelToLoad: {Child: person.raw}, formRoot: formContainer.down("[dataRoot]"), JSONPathPrefix: ""});
-                }
-            },
+        var newClient = Ext.create("Lumen.view.UIContent", {
             params: {
-                formData: JSON.stringify({ authAction: "person"})
+                json: true,
+                contentUrl: Lumen.CONTENT_PREFIX + "/Enrollment.js"
             }
         });
+        newClient.addListener({
+            afterrender: function () {
+                self.initializeApplicant(applicant, applicationId);
+            }
+        });
+        Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: newClient});
+    },
+
+    initializeApplicant: function (applicant, applicationId) {
+        var self = this;
+        Lumen.getApplication().getAdmissionApplicationStore().removeAll();
+        //selfy.down('form').getForm().loadRecord(firstPerson);
+        var authenticationStore = this.getApplication().getAuthenticationStore();
+        var userData = authenticationStore.first() ? authenticationStore.first().raw : null;
+        var debitScheduleStore = Ext.data.StoreManager.lookup('DebitSchedule');
+        debitScheduleStore.load({//eww! PaymentPlanController has special knowledge that this is going to happen.
+            params: {
+                id: applicant.debitScheduleSummary.id
+            }
+        });
+        //var loadedPerson = Lumen.getApplication().getAuthenticationStore().getById(applicantId);
+        var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
+        applicantStore.loadData([applicant]);
+        var formContainers = Ext.ComponentQuery.query("jsonformcontainer");
+        for (var i = 0; i < formContainers.length; i++) {
+            var formContainer = formContainers[i];
+            var formStore = this.getStore("Lumen.store.JSONForm");
+
+            formStore.iseeYou = true;
+            //Lumen.getApplication().fireEvent(Lumen.DESTROY_ALL_FORMS);
+            formStore.load({
+                params: {
+                    documentType: "JSONForm",
+                    id: applicationId
+                },
+                callback: function (forms, success) {
+                    if (success) {
+                        if (forms.length == 0) {
+                            var newForm = Ext.create("Lumen.model.JSONForm");
+                            newForm.raw = {};//ewww
+                            formStore.loadData([newForm]);
+                        }
+                        if (formStore.getCount() == 1) {
+                            Lumen.log("\n\n\n\n\n------1 Maybe this is why child data doesn't always load ChildInformation.js may not be 'loaded' by the time this is called");
+                            //Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {formRoot: formContainer.down("[dataRoot]"), JSONPathPrefix: ""});
+                            var dataRoot = formContainer.down("[dataRoots]");
+
+                            var firstForm = formStore.first();
+                            firstForm.set("applicationId", applicationId);
+                            Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {
+                                modelToLoad: firstForm.raw,
+                                formRoot: formContainer,
+                                JSONPathPrefix: ""
+                            });
+                            //You haven't copied all the right deployment stuff so your dataRoots aren't set.
+                            Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {
+                                modelToLoad: {Child: applicant},
+                                formRoot: dataRoot,
+                                JSONPathPrefix: ""
+                            });
+                            if (formStore.getCount() == 0) {//WTF??? How could this ever be true?
+                                formStore.loadData(forms, false);
+                            }
+                            var loginAndEmails = Lumen.getApplication().getParentLoginEmailAndPasswordForParents(applicant.guardianList);
+
+                            var parentFirstNames = Lumen.getApplication().getParentFirstNamesFromChild(applicant);
+                            var studentApplicantFirstName = Lumen.getApplication().getStudentApplicantFirstNameForChild(applicant);
+                            self.addAdminToolbar(applicant.firstName + " " + applicant.LastName, parentFirstNames, studentApplicantFirstName, loginAndEmails);
+                        }
+                    } else {
+                        alert("Problem loading form store.");
+                    }
+                }
+            });
+            //Lumen.log("-2 Maybe this ad the other asynchronicity is why child data doesn't always load");
+            //Lumen.getApplication().fireEvent(Lumen.POPULATE_FORM, {modelToLoad: {Child: applicant}, formRoot: formContainer.down("[dataRoot]"), JSONPathPrefix: ""});
+        }
     },
 
     addAdminToolbar: function (personName, parentFirstNames, studentApplicantFirstName, loginEmailAndPasswords) {
@@ -195,7 +198,7 @@ Ext.define('Lumen.controller.MainDisplayController',{
                             fn: function () {
                                 for (var i = 0; i < loginEmailAndPasswords.length; i++) {
                                     var temporaryPassword = loginEmailAndPasswords[i].temporaryPassword;
-                                    if(temporaryPassword) {
+                                    if (temporaryPassword) {
                                         var loginEmail = loginEmailAndPasswords[i].email;
                                         Lumen.getApplication().fireEvent(Lumen.SEND_NOTIFICATION, {
                                             notifyParams: {
@@ -239,7 +242,7 @@ Ext.define('Lumen.controller.MainDisplayController',{
                 });
             }
             var applicationStatus = null;
-            if(Lumen.getApplication().getAdmissionApplicationStore().getCount() > 0) {
+            if (Lumen.getApplication().getAdmissionApplicationStore().getCount() > 0) {
                 applicationStatus = Lumen.getApplication().getApplicationData().Status;
             }
 
@@ -453,7 +456,8 @@ Ext.define('Lumen.controller.MainDisplayController',{
                 adminMenu.addToolbarButtons(toolbarButtons);
             }
         }
-    },
+    }
+    ,
 
     /**
      * Searches for elements with a class
@@ -465,23 +469,23 @@ Ext.define('Lumen.controller.MainDisplayController',{
      */
     ajaxify: function (options) {
         var selfy = this;
-        var targets = Ext.query(".ajaxTarget",options.root);
+        var targets = Ext.query(".ajaxTarget", options.root);
         if (selfy.getApplication().getAuthenticationStore().first()) {
 
-            var anonymousOnly = Ext.query('.anonymousOnly',options.root);
-            if(anonymousOnly) {
+            var anonymousOnly = Ext.query('.anonymousOnly', options.root);
+            if (anonymousOnly) {
                 Ext.Array.each(anonymousOnly, function (target) {
                     Ext.removeNode(target);
                 })
             }
         }
-        Ext.Array.each(targets,function () {
+        Ext.Array.each(targets, function () {
             var element = Ext.fly(this);
-            var links = element.select("a","true");
+            var links = element.select("a", "true");
             var link = links.item(0);
             if (link && !link.ajaxified) {
                 link.ajaxified = true;
-                element.on('click',function (e,t,eOpts) {
+                element.on('click', function (e, t, eOpts) {
                     e.preventDefault();
                     e.stopEvent();
 
@@ -494,18 +498,19 @@ Ext.define('Lumen.controller.MainDisplayController',{
                         var url = queryData.url;
                         params.contentUrl = url;
                         if (selfy.getApplication().getAuthenticationStore().first()) {
-                            var newClient = Ext.create("Lumen.view.UIContent",{params: params});
-                            Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY,{newClient: newClient});
+                            var newClient = Ext.create("Lumen.view.UIContent", {params: params});
+                            Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: newClient});
                         } else {
                             Lumen.getApplication().getUIStateStore().nextViewOptions = {params: params};
                             var loginPanel = Ext.create("Lumen.view.LoginPanel");
-                            Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY,{newClient: loginPanel});
+                            Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: loginPanel});
                         }
                     }
                 });
             }
         });
-    },
+    }
+    ,
 
     showApplicationForm: function (opts) {
         var self = this;
@@ -516,18 +521,24 @@ Ext.define('Lumen.controller.MainDisplayController',{
             scope: this,
             callback: function (data) {
                 var application = data[0].raw;
-                var newClient = Ext.create("Lumen.view.UIContent",{params: {json: true, contentUrl: Lumen.CONTENT_PREFIX + "/" + application.ApplicationType + ".js"}});
-                Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY,{newClient: newClient});
+                var newClient = Ext.create("Lumen.view.UIContent", {
+                    params: {
+                        json: true,
+                        contentUrl: Lumen.CONTENT_PREFIX + "/" + application.ApplicationType + ".js"
+                    }
+                });
+                Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: newClient});
 
                 var parentFirstNames = Lumen.getApplication().getParentFirstNames();
                 var studentApplicantFirstName = Lumen.getApplication().getStudentApplicantFirstName();
                 self.addAdminToolbar(Lumen.getApplication().getStudentApplicantName(),
-                                     parentFirstNames,
-                                     studentApplicantFirstName,
-                                     Lumen.getApplication().getParentloginEmailAndPasswords());
+                    parentFirstNames,
+                    studentApplicantFirstName,
+                    Lumen.getApplication().getParentloginEmailAndPasswords());
             }
         });
-    },
+    }
+    ,
 
     _replace: function (replacement, containerName, anchorTarget) {
         var container = Ext.getCmp(containerName);
@@ -544,43 +555,45 @@ Ext.define('Lumen.controller.MainDisplayController',{
         replacement.el.setOpacity(0);
         //container.doLayout();
         replacement.el.fadeIn({
-                opacity: 1,
-                duration: 800,
-                listeners: {
-                    afteranimate: function (anim) {
-                        if (anchorTarget) {
-                            var anchorTarget = replacement.select("a[name=" + anchorTarget + "]");
-                            anchorTarget.scrollIntoView();
-                            anchorTarget.highlight();
-                        }
+            opacity: 1,
+            duration: 800,
+            listeners: {
+                afteranimate: function (anim) {
+                    if (anchorTarget) {
+                        var anchorTarget = replacement.select("a[name=" + anchorTarget + "]");
+                        anchorTarget.scrollIntoView();
+                        anchorTarget.highlight();
                     }
                 }
-            });
+            }
+        });
 
         if (anchorTarget) {
             var anchorTarget = replacement.select("a[name=" + anchorTarget + "]");
             anchorTarget.scrollIntoView();
             anchorTarget.highlight();
         }
-    },
+    }
+    ,
 
-    replaceClient: function (newClient,currentClient,containerId,anchorTarget,options) {
+    replaceClient: function (newClient, currentClient, containerId, anchorTarget, options) {
 
         var selfy = this;
         if (currentClient && currentClient != newClient) {
             currentClient.el.fadeOut({
                 listeners: {
                     afteranimate: function (anim) {
-                        selfy._replace(newClient,containerId,anchorTarget);
+                        selfy._replace(newClient, containerId, anchorTarget);
                     }
                 }
             });
         } else {
-            this._replace(newClient,containerId,anchorTarget);
+            this._replace(newClient, containerId, anchorTarget);
         }
         return newClient;
 
-    },
+    }
+    ,
 
     refs: [
         {
@@ -589,4 +602,5 @@ Ext.define('Lumen.controller.MainDisplayController',{
             ref: 'applicationGrid'
         }
     ]
-});
+})
+;

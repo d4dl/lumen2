@@ -17,17 +17,7 @@ Ext.define('Lumen.store.DebitSchedule', {
     createProxy: function () {
         var proxy = this.callParent(arguments);
         Ext.apply(proxy, {
-            url: Lumen.DATA_SERVICE_URL_ROOT + "/documentService.php",
-            //url: Lumen.REST_DATA_SERVICE_URL_ROOT + '/finance/debitSchedules/khabelestrong',
-//            reader: {
-//                root: 'content',
-//                type: 'json',
-//                totalProperty: 'totalElements',
-//                idProperty: "name"
-//            },
-            extraParams: {
-                documentType: "DebitSchedule"
-            }
+            url: Lumen.DATA_SERVICE_URL_ROOT + "/financeService.php"
         });
         return proxy;
     }

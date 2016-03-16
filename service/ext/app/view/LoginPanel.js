@@ -147,8 +147,8 @@ Ext.define('Lumen.view.LoginPanel',{
                                                                         var link = Lumen.DATA_SERVICE_URL_ROOT + "/authenticate.php?newUser=true";
                                                                         var jsonData = JSON.parse(response.responseText);
                                                                         var responseData = jsonData;
-                                                                        if (responseData.Login && responseData.Login.Username && responseData.Login.ForgotPasswordToken) {
-                                                                            link = Lumen.DATA_SERVICE_URL_ROOT + "/authenticate.php?action=redeem&token=" + responseData.Login.ForgotPasswordToken;
+                                                                        if (responseData.login && responseData.login.username && responseData.login.forgotPasswordToken) {
+                                                                            link = Lumen.DATA_SERVICE_URL_ROOT + "/authenticate.php?action=redeem&token=" + responseData.login.forgotPasswordToken;
                                                                         }
                                                                         var popup = Ext.widget('window',{
                                                                             title: 'Reminder Sent',
@@ -176,7 +176,7 @@ Ext.define('Lumen.view.LoginPanel',{
                                                                                 subject: "Request to reset your password",
                                                                                 link: link,
                                                                                 templateURL: Lumen.URL_FORGOT_PASSWORD,
-                                                                                notify: responseData.Login.Username
+                                                                                notify: responseData.login.username
                                                                             }
                                                                         });
                                                                     }

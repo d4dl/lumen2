@@ -7,34 +7,25 @@ Ext.define('Lumen.model.DebitSchedule', {
             name: 'name'
         },
         {
-            name: 'templateRole'
+            name: 'manual'
         },
         {
-            name: 'totalDue'
+            name: 'planTotal'
         },
         {
             name: 'downPaymentAmount'
         },
         {
-            name: 'OwnerId'
-        },
-        {
-            name: 'applicationId'
-        },
-        {
             name: 'description'
         },
         {
-            name: 'ChildId'
-        },
-        {
-            name: 'isActive'
+            name: 'active'
         },
         {
             name: 'chargeType'
         }
     ],
-    hasMany: [{model: 'Lumen.model.DebitScheduleEntry', name: 'debitScheduleEntries'},
+    hasMany: [{model: 'Lumen.model.DebitScheduleEntry', name: 'debitEntries'},
               {model: 'Lumen.model.Fee', name: 'fees'}]
 
 });

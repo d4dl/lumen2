@@ -73,7 +73,6 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                 collapsed: false,
                 border: false,
                 collapsible: false,
-                //baseInputName: "Child.HasChildArray[0].Parental.Person.AddressArray[0]"
                 baseItemIdentifier: "PaymentAddress"
             },
             {

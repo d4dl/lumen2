@@ -41,11 +41,11 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
         applicationList.each(function (record) {
             var childName = "New application";
             var applicationData = record.raw;
-            if (applicationData.Child.Person.FirstName) {
-                var childName = applicationData.Child.Person.FirstName;
+            if (applicationData.Child.firstName) {
+                var childName = applicationData.Child.firstName;
             }
-            if (applicationData.Child.Person.LastName) {
-                childName = childName + " " + applicationData.Child.Person.LastName;
+            if (applicationData.Child.lastName) {
+                childName = childName + " " + applicationData.Child.lastName;
             }
             if(applicationData.Status == "Enrolling" || applicationData.Status == "Enrolled" || applicationData.Status == "Admitted") {
                 listMenu.add(Ext.create("Ext.Button", {

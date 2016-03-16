@@ -63,13 +63,13 @@ var grid = Ext.define('Lumen.view.PersonGrid', {
     columns: [
         {
             text: "First name",
-            dataIndex: 'FirstName',
+            dataIndex: 'firstName',
             flex: 5,
             sortable: true
         },
         {
             text: "Last name",
-            dataIndex: 'LastName',
+            dataIndex: 'lastName',
             flex: 5,
             sortable: true
         },
@@ -81,7 +81,7 @@ var grid = Ext.define('Lumen.view.PersonGrid', {
         },
         {
             text: "Grade",
-            dataIndex: 'Grade',
+            dataIndex: 'schoolAttributes.level',
             flex: 1,
             sortable: true
         }

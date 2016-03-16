@@ -51,9 +51,6 @@ if(array_key_exists('applicationId', $_REQUEST)) {
     $applications = $dataService->findAdmissionApplications(array("ApplicationType"=>$_REQUEST['applicationType'], "Status"=>"Submitted"), $fields);
     $totalCount = count($applications);
 
-} else if($dataService->userIsAdmin($dataService->getUser())) {//Get'em all.
-    $totalCount = $dataService->countValidApplications();
-    $applications = $dataService->loadAllAdmissionApplications($_REQUEST['start'], $_REQUEST['limit'], $sort, $fields);
 } else if(array_key_exists('ownerId', $_REQUEST) && $_REQUEST['ownerId'] !== '') {
     //$criteria = array('$and'=>array("Status"=>array('$ne'=>'Deleted'), array('$or' => array(array("OwnerId" => $_REQUEST['ownerId']), array("AccessIds" => $_REQUEST['ownerId'])))));
 

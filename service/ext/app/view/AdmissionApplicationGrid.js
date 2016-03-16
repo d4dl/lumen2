@@ -1,46 +1,50 @@
 var pluginExpanded = true;
 var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
-    extend:"Ext.grid.Panel",
-    minHeight:377,
+    extend: "Ext.grid.Panel",
+    minHeight: 377,
     width: "100%",
     frame: true,
-    title:'Admission Applications',
-    store:"Lumen.store.AdmissionApplicationList",
-    disableSelection:true,
-    loadMask:true,
+    title: 'Admission Applications',
+    store: "Student",
+    disableSelection: true,
+    loadMask: true,
     autoDestroy: true,
     pageSize: 10,
+    loadOptions: {
+        criteria: JSON.stringify([{
+            name: "status",
+            value: "lead",
+            conjunction: "and"
+        }]),
+        loadDebitSchedules: false
+    },
 
-    viewConfig:{
-        trackOver:false,
-        stripeRows:true
+    viewConfig: {
+        trackOver: false,
+        stripeRows: true
     },
     listeners: {
         afterrender: {
-            fn: function(grid) {
-                grid.getStore().load({
-                    params: {
-                        applicationType: this.applicationType
-                    }});
+            fn: function (grid) {
+                grid.getStore().getProxy().extraParams = grid.loadOptions;
+                grid.getStore().load();
             }
         }
     },
-    refresh: function(options) {
+    refresh: function (options) {
         this.getStore().removeAll();
-        this.getStore().load({
-            params: {
-                applicationType: options.applicationType
-        }});
+        this.getStore().getProxy().extraParams = this.loadOptions;
+        this.getStore().load();
     },
     // grid columns
-    constructor: function() {
+    constructor: function () {
         this.columns = [
             {
-                xtype:'actioncolumn',
-                width:32,
+                xtype: 'actioncolumn',
+                width: 32,
                 icon: Lumen.IMAGES_URL_ROOT + '/icons/view.png',
                 tooltip: 'View Application',
-                handler: function(grid, rowIndex, colIndex) {
+                handler: function (grid, rowIndex, colIndex) {
                     var record = grid.getStore().getAt(rowIndex);
                     Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId()})
                 }
@@ -56,61 +60,44 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
             //            }
             //        },
             {
-                text:"First name",
-                dataIndex:'Child.Person.FirstName',
+                text: "First name",
+                dataIndex: 'firstName',
                 flex: 1,
-                sortable:false,
-                renderer: function(value, metadata, application, rowIndex, colIndex, store, view) {
-                    return application.raw.Child.Person.FirstName;
-                }
+                sortable: true
             },
             {
-                text:"Last name",
-                dataIndex:'Child.Person.LastName',
-                width:200,
-                sortable:false,
-                renderer: function(value, metadata, application, rowIndex, colIndex, store, view) {
-                    return application.raw.Child.Person.LastName;
-                }
+                text: "Last name",
+                dataIndex: 'lastName',
+                width: 200,
+                sortable: true
             },
             {
-                text:"Age",
-                dataIndex:'age',
-                width:100,
-                sortable:false
+                text: "Age",
+                dataIndex: 'age',
+                width: 100,
+                sortable: false
             },
             {
                 text: Lumen.i18n("Grade"),
-                dataIndex:'Grade',
-                renderer : function(value, cell, model, index) {
-                    if(value) {
-                        if(model.raw.Child.Person.Grade) {
-                            model.raw.Child.Person.Grade;
-                        } else {
-                            return model.raw.Grade;
-                        }
-                    } else {
-                        return "";
-                    }
-                },
-                width:80,
-                sortable:true
+                dataIndex: 'schoolAttributes.level',
+                width: 80,
+                sortable: false
             },
             {
-                text:"Amount Paid",
-                dataIndex:'AmountPaid',
+                text: "Amount Paid",
+                dataIndex: 'AmountPaid',
                 flex: 1,
-                sortable:true
+                sortable: false
             },
             {
-                text:"Date Submitted",
-                dataIndex:'DateSubmitted',
+                text: "Date Submitted",
+                dataIndex: 'DateSubmitted',
                 xtype: 'datecolumn',
-                format:'M-d-Y H:i',
-                renderer : function(value, cell, model, index) {
-                    if(value) {
+                format: 'M-d-Y H:i',
+                renderer: function (value, cell, model, index) {
+                    if (value) {
                         var data = new Date();
-                        if(value < 10000000000) {
+                        if (value < 10000000000) {
                             value = value * 1000;
                         }
                         data.setTime(value);
@@ -119,32 +106,23 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
                         return "";
                     }
                 },
-                width:140,
-                sortable:true
+                width: 140,
+                sortable: false
             }
             ,
             {
-                text:"Status",
-                dataIndex:'Status',
-                width:100,
-                sortable:true
-            },
-            {
-                xtype:'actioncolumn',
-                width:32,
-                icon: Lumen.IMAGES_URL_ROOT + '/icons/clipboard.png',
-                tooltip: 'View Enrollment',
-                handler: function(grid, rowIndex, colIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicationId: record.getId(), applicantId: record.get("ChildId")})
-                }
+                text: "Status",
+                dataIndex: 'Status',
+                width: 100,
+                sortable: false
             }
         ];
         this.callParent(arguments);
+        this.getStore().getProxy().extraParams = this.loadOptions;
     },
     dockedItems: [{
         xtype: 'pagingtoolbar',
-        store:"Lumen.store.AdmissionApplicationList",
+        store: "Lumen.store.AdmissionApplicationList",
         dock: 'bottom',
         pageSize: 10, // items per page
         displayInfo: true

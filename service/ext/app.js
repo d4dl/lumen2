@@ -11,7 +11,7 @@ Ext.Loader.setConfig({
         'Overrides': 'app/overrides'
     }
 });
-Ext.Loader.config.disableCaching = true;
+Ext.Loader.config.disableCaching = false;
 
 Ext.application({
     name: 'Lumen',
@@ -58,6 +58,7 @@ Ext.application({
     stores: [
         'AdmissionApplicationList',
         'Person',
+        'Student',
         'DebitSchedule',
         'JSONForm',
         'DebitScheduleTemplate',
@@ -71,7 +72,8 @@ Ext.application({
         'DebitScheduleEntry',
         'DebitScheduleTemplate',
         'Principal',
-        'Person'
+        'Person',
+        'Student'
     ],
 
     controllers: [
@@ -165,6 +167,7 @@ Ext.application({
         'Ext.grid.plugin.CellEditing',
         'Lumen.store.CountryStore',
         'Lumen.store.Person',
+        'Lumen.store.Student',
         'Lumen.store.Applicant',
         'Lumen.store.StateStore',
         'Lumen.model.JSONForm',
@@ -187,6 +190,7 @@ Ext.application({
         'Lumen.controller.util.JSONPath',
         'Lumen.controller.util.Base64',
         'Lumen.model.Person',
+        'Lumen.model.Student',
         'Lumen.model.Applicant',
         'Lumen.view.outputgenerators.HtmlOutputGenerator',
         'Lumen.view.outputgenerators.OutputGenerator',
@@ -408,8 +412,8 @@ Ext.application({
         var loginEmailAndPasswords = [];
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            if (parent.Parental && parent.Parental.Login && parent.Parental.Login && parent.Parental.Login) {
-                var login = parent.Parental.Login;
+            if (parent.Parental && parent.Parental.login && parent.Parental.login && parent.Parental.login) {
+                var login = parent.Parental.login;
                 loginEmailAndPasswords.push({
                     email: login.Username,
                     temporaryPassword: login.TemporaryPassword
@@ -460,10 +464,10 @@ Ext.application({
 
         var personData = authenticationStore.first() ? authenticationStore.first().raw : null;
 
-        if (personData && personData['Login']['Groups']) {
-            var groups = personData['Login']['Groups'];
+        if (personData && personData['login']['groups']) {
+            var groups = personData['login']['groups'];
             for (var i = 0; i < groups.length; i++) {
-                if (groups[i] == "admin") {
+                if (groups[i].groupName == "admin") {
                     return true;
                 }
             }

@@ -17,26 +17,37 @@ var grid = Ext.define('Lumen.view.StudentParentTree', {
     width: "100%",
     frame: true,
     title: 'People',
-    store: "Person",
+    store: "Student",
     disableSelection: true,
     loadMask: true,
     autoDestroy: true,
     pageSize: 10,
     rootVisible: false,
-    constructor: function() {
+    loadOptions: {
+        criteria: JSON.stringify([{
+            name: "firstName",
+            operation: "not null",
+            conjunction: "and"
+        }, {
+            name: "status",
+            value: "enrolled",
+            conjunction: "and"
+        }]),
+        loadDebitSchedules: true
+    },
+    constructor: function () {
         var self = this;
-        var store = Ext.data.StoreManager.lookup('Person');
-        Ext.apply(store.proxy.extraParams, {criteria: JSON.stringify({"School.Role": "Student"}), loadParents: true});
-        store.on("datachanged", function(){
+        var store = Ext.data.StoreManager.lookup('Student');
+        store.on("datachanged", function () {
         });
         this.dockedItems = [
-//            {
-//                xtype: 'pagingtoolbar',
-//                store: "Person",
-//                dock: 'bottom',
-//                pageSize: 10, // items per page
-//                displayInfo: true
-//            },
+            {
+                xtype: 'pagingtoolbar',
+                store: "Student",
+                dock: 'bottom',
+                pageSize: 10, // items per page
+                displayInfo: true
+            },
             {
                 dock: 'top',
                 xtype: 'toolbar',
@@ -54,11 +65,13 @@ var grid = Ext.define('Lumen.view.StudentParentTree', {
         this.listeners = {
             afterrender: {
                 fn: function (grid) {
-                    grid.getStore().load(self.loadOptions);
+                    grid.getStore().getProxy().extraParams = grid.loadOptions;
+                    grid.getStore().load();
                 }
             }
         }
         this.callParent(arguments);
+        this.getStore().getProxy().extraParams = self.loadOptions
     },
     viewConfig: {
         trackOver: false,
@@ -69,48 +82,115 @@ var grid = Ext.define('Lumen.view.StudentParentTree', {
     //    })],
     refresh: function (options) {
         this.getStore().removeAll();
-        this.getStore().load(self.loadOptions);
+        this.getStore().getProxy().extraParams = self.loadOptions
+        this.getStore().load();
     },
     initComponent: function () {
         Ext.apply(this, {
             // grid columns
             columns: [
-//                {
-//                    xtype: 'treecolumn', //this is so we know which column will show the tree
-//                    text: Lumen.i18n('First Name'),
-//                    flex: 2,
-//                    sortable: true,
-//                    dataIndex: 'Person.FirstName'
-//                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 32,
+                    icon: Lumen.IMAGES_URL_ROOT + '/icons/view.png',
+                    tooltip: 'View Application',
+                    handler: function (grid, rowIndex, colIndex) {
+                        var record = grid.getStore().getAt(rowIndex);
+                        Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId()})
+                    }
+                },
+            /**
+             {
+                 xtype: 'treecolumn', //this is so we know which column will show the tree
+                 text: Lumen.i18n('Guardian'),
+                 flex: 2,
+                 sortable: true,
+                 dataIndex: 'guardianList'
+             },
+             **/
                 {
                     text: "First name",
-                    dataIndex: 'Person.FirstName',
+                    dataIndex: 'firstName',
                     flex: 5,
                     sortable: true
                 },
                 {
                     text: "Last name",
-                    dataIndex: 'Person.LastName',
+                    dataIndex: 'lastName',
                     flex: 5,
                     sortable: true
                 },
-                {
-                    text: "Role",
-                    dataIndex: 'School.Role',
-                    flex: 5,
-                    sortable: true
-                },
-//                {
-//                    text: "Age",
-//                    dataIndex: 'age',
-//                    flex: 1,
-//                    sortable: false
-//                },
                 {
                     text: "Grade",
-                    dataIndex: 'School.Grade',
+                    dataIndex: 'schoolAttributes.level',
                     flex: 1,
-                    sortable: true
+                    sortable: false
+                },
+                {
+                    text: "Schedule Total",
+                    dataIndex: 'debitScheduleSummary.scheduleTotal',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return Ext.util.Format.currency(value);
+                    }
+                },
+                {
+                    text: "Last Payment",
+                    dataIndex: 'debitScheduleSummary.lastPaymentDate',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return value ? Ext.Date.format(new Date(value), 'm-d-Y') : "";
+                    }
+                },
+                {
+                    text: "Last Amount",
+                    dataIndex: 'debitScheduleSummary.lastPaymentAmount',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return Ext.util.Format.currency(value);
+                    }
+                },
+                {
+                    text: "Pending Debit Amount",
+                    dataIndex: 'debitScheduleSummary.nextDebitAmount',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return Ext.util.Format.currency(value);
+                    }
+                },
+                {
+                    text: "Pending Debit",
+                    dataIndex: 'debitScheduleSummary.nextScheduledDebit',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return value ? Ext.Date.format(new Date(value), 'm-d-Y') : "";
+                    }
+                },
+                {
+                    text: "Future Due Date",
+                    dataIndex: 'debitScheduleSummary.nextDueDate',
+                    flex: 5,
+                    sortable: false,
+                    renderer: function (value) {
+                        return value ? Ext.Date.format(new Date(value), 'm-d-Y') : "";
+                    }
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 32,
+                    icon: Lumen.IMAGES_URL_ROOT + '/icons/clipboard.png',
+                    tooltip: 'View Enrollment',
+                    handler: function (grid, rowIndex, colIndex) {
+                        var record = grid.getStore().getAt(rowIndex);
+                        Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {
+                            applicant: record.raw
+                        })
+                    }
                 }
             ]
         });

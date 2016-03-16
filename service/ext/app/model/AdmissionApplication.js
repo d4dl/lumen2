@@ -2,8 +2,6 @@ Ext.define('Lumen.model.AdmissionApplication',{
     extend: 'Ext.data.Model',
     idProperty: '_id.$id',
     fields: [
-//        {name: 'Child.Person.FirstName'},
-//        {name: 'Child.Person.LastName'},
         {name: 'ApplicationType'},
         {name: 'Status'},
         {name: 'DateSubmitted'},

@@ -1014,8 +1014,8 @@ Ext.define('Lumen.controller.JsonPathFormController',{
 
         var JSONFormData = this.getJSONFormData();
         var studentName = "";
-        if(JSONFormData.Child && JSONFormData.Child.Person.FirstName) {
-            studentName = JSONFormData.Child.Person.FirstName + " " + JSONFormData.Child.Person.LastName;
+        if(JSONFormData.Child && JSONFormData.Child.firstName) {
+            studentName = JSONFormData.Child.firstName + " " + JSONFormData.Child.lastName;
         }
 
         Lumen.getApplication().updateApplicationStatus(null, "Enrolling");
@@ -1121,11 +1121,10 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             //If the user is not an admin. Make the user the first parent in the application
             if (!Lumen.getApplication().userIsAdmin()) {
                 applicationData.Child = {
-                    HasChildArray: [
+                    guardianList: [
                         {
                             Parental: {
-                                Person: personData.Person,
-                                _id: personData._id
+                                Person: personData.Person
                             }
                         }
                     ]

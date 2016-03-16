@@ -192,7 +192,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
     },
     sorters: [
         {
-            property: 'firstname',
+            property: 'firstName',
             direction: 'DESC'
         }
     ]

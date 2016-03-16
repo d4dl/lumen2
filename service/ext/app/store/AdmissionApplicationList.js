@@ -12,10 +12,6 @@ Ext.define('Lumen.store.AdmissionApplicationList', {
             url: Lumen.DATA_SERVICE_URL_ROOT + '/applicationFinder.php',
             extraParams: {
                 fields: JSON.stringify({
-                    "Child": {
-                        "Person.FirstName": true,
-                        "Person.LastName": true
-                    },
                     "AdmissionApplication": {
                         Age: true,
                         AmountPaid: true,
@@ -38,7 +34,7 @@ Ext.define('Lumen.store.AdmissionApplicationList', {
 
     sorters: [
         {
-            property: 'firstname',
+            property: 'firstName',
             direction: 'DESC'
         }
     ]

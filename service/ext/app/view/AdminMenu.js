@@ -78,8 +78,7 @@ Ext.define('Lumen.view.AdminMenu', {
             ]
         });
         if (Lumen.getApplication().userIsAdmin()) {
-            this.adminToolbar = new Ext.toolbar.Toolbar({
-            });  // toolbar is rendered
+            this.adminToolbar = new Ext.toolbar.Toolbar({});  // toolbar is rendered
             this.adminToolbar.add(Ext.create('Ext.button.Button', {
                 text: Lumen.i18n("Admissions"),
                 handler: self.onButtonClick,
@@ -87,28 +86,32 @@ Ext.define('Lumen.view.AdminMenu', {
                 iconCls: 'blist',
                 // Menus can be built/referenced by using nested menu config objects
                 menu: {
-                    items: [
-                        {
-                            text: '<b>' + Lumen.i18n("Admission Applications") + '</b>', handler: function () {
+                    items: [{
+                        text: Lumen.i18n("Admission Applications"), handler: function () {
                             var grid = Ext.create("Lumen.view.AdmissionApplicationGrid", {});
                             Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
                         }
-                        },
+                    },
+                    /**
+                        {
+                            text: Lumen.i18n("Enrollment"), handler: function () {
+                            var grid = Ext.create("Lumen.view.AdmissionApplicationGrid", {});
+                            Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
+                        }
+                        }
+                     **/
                         {
                             text: Lumen.i18n("Begin a new application"),
                             handler: function () {
                                 Lumen.getApplication().fireEvent(Lumen.NEW_APPLICATION);
                             }
                         }
-                        ,
-                                                    {
-                                                    text: '<i>'+Lumen.i18n("Enrollment")+'</i>', handler: function(){
-                                                        var grid = Ext.create("Lumen.view.AdmissionApplicationGrid",{});
-                                                        Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
-                                                    }
-                                                }, {
-                                                    text: '<i>'+Lumen.i18n("Financial Aid Applications")+'</i>', handler: self.onPendingFunctionality
-                                                }
+                    /**
+                     {
+                         text: '<i>' + Lumen.i18n("Financial Aid Applications") + '</i>',
+                         handler: self.onPendingFunctionality
+                     }
+                     **/
                     ]
                 }
             }));
@@ -116,61 +119,63 @@ Ext.define('Lumen.view.AdminMenu', {
                 Ext.create('Ext.button.Button', {
                     text: Lumen.i18n("Students"),
                     handler: self.onButtonClick,
-                    tooltip: {text:'Student and Family Administration', title:'Student'},
+                    tooltip: {text: 'Student and Family Administration', title: 'Student'},
                     iconCls: 'blist',
                     // Menus can be built/referenced by using nested menu config objects
-                    menu : {
+                    menu: {
                         items: [{
-                            text: '<b>'+Lumen.i18n("Families")+'</b>', handler: function(){
-                                var grid = Ext.create("Lumen.view.StudentParentTree",{});
+                            text: '<b>' + Lumen.i18n("Students") + '</b>', handler: function () {
+                                var grid = Ext.create("Lumen.view.StudentParentTree", {});
                                 Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
                             }
                         }
-                            , {
-                            text: '<b>'+Lumen.i18n("Students")+'</b>', handler: function(){
-                                var grid = Ext.create("Lumen.view.PersonGrid",{});
-                                Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
+                        /**
+                         , {
+                                text: '<b>' + Lumen.i18n("Students") + '</b>', handler: function () {
+                                    var grid = Ext.create("Lumen.view.PersonGrid", {});
+                                    Lumen.getApplication().fireEvent(Lumen.REPLACE_MAIN_DISPLAY, {newClient: grid});
+                                }
                             }
+                         **/
+                        ]
+                    }
+                }));
+            /**
+             this.adminToolbar.add(
+             Ext.create('Ext.button.Button', {
+                    text: Lumen.i18n("Surveys"),
+                    handler: self.onButtonClick,
+                    tooltip: {text: 'Student and Family Administration', title: 'Student'},
+                    iconCls: 'blist',
+                    // Menus can be built/referenced by using nested menu config objects
+                    menu: {
+                        items: [{
+                            text: '<b>' + Lumen.i18n("Applications") + '</b>', handler: self.onPendingFunctionality
                         }, {
-                            text: '<i>'+Lumen.i18n("Enrollment")+'</i>', handler: self.onPendingFunctionality
+                            text: '<i>' + Lumen.i18n("Enrollment") + '</i>', handler: self.onPendingFunctionality
                         }
                         ]
                     }
                 }));
-                        this.adminToolbar.add(
-                            Ext.create('Ext.button.Button', {
-                                text: Lumen.i18n("Surveys"),
-                                handler: self.onButtonClick,
-                                tooltip: {text:'Student and Family Administration', title:'Student'},
-                                iconCls: 'blist',
-                                // Menus can be built/referenced by using nested menu config objects
-                                menu : {
-                                    items: [{
-                                        text: '<b>'+Lumen.i18n("Applications")+'</b>', handler: self.onPendingFunctionality
-                                    }, {
-                                        text: '<i>'+Lumen.i18n("Enrollment")+'</i>', handler: self.onPendingFunctionality
-                                    }
-                                    ]
-                                }
-                            }));
-                        this.adminToolbar.add(
-                            Ext.create('Ext.button.Button', {
-                                text: Lumen.i18n("Attendance"),
-                                handler: self.onButtonClick,
-                                tooltip: {text:'Student and Family Administration', title:'Student'},
-                                iconCls: 'blist',
-                                // Menus can be built/referenced by using nested menu config objects
-                                menu : {
-                                    items: [{
-                                        text: '<b>'+Lumen.i18n("Applications")+'</b>', handler: self.onPendingFunctionality
-                                    }, {
-                                        text: '<i>'+Lumen.i18n("Enrollment")+'</i>', handler: self.onPendingFunctionality
-                                    }
-                                    ]
-                                }
-                            }));
+             this.adminToolbar.add(
+             Ext.create('Ext.button.Button', {
+                    text: Lumen.i18n("Attendance"),
+                    handler: self.onButtonClick,
+                    tooltip: {text: 'Student and Family Administration', title: 'Student'},
+                    iconCls: 'blist',
+                    // Menus can be built/referenced by using nested menu config objects
+                    menu: {
+                        items: [{
+                            text: '<b>' + Lumen.i18n("Applications") + '</b>', handler: self.onPendingFunctionality
+                        }, {
+                            text: '<i>' + Lumen.i18n("Enrollment") + '</i>', handler: self.onPendingFunctionality
+                        }
+                        ]
+                    }
+                }));
+             **/
 
-                        menu.add('&#160;');
+            menu.add('&#160;');
 
             Ext.ComponentQuery.query('adminmenu')[0].add(this.adminToolbar);
             return this.adminToolbar;

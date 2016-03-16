@@ -121,7 +121,7 @@ Ext.define('Lumen.view.JSONForm',{
 //                                    tag:'input',
 //                                    type: 'hidden',
 //                                    name: "filename",
-//                                        value: Ext.String.htmlEncode(applicationData.Child.Person.FirstName + "_" + applicationData.Child.Person.LastName + ".pdf")
+//                                        value: Ext.String.htmlEncode(applicationData.Child.firstName + "_" + applicationData.Child.lastName + ".pdf")
 //                                });
                                 loadMask.hide();
 //
@@ -129,7 +129,7 @@ Ext.define('Lumen.view.JSONForm',{
 //                                    url: Lumen.DATA_SERVICE_URL_ROOT + "printService.php",
 //                                    params: {
 //                                        applicationData: Ext.JSON.encode(htmlMessage),
-//                                        filename: applicationData.Child.FirstName + "_" + applicationData.Child.LastName + ".pdf"
+//                                        filename: applicationData.Child.firstName + "_" + applicationData.Child.lastName + ".pdf"
 //                                    },
 //                                    method: "POST",
 //                                    context: this,

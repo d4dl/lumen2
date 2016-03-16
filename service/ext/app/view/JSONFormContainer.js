@@ -86,7 +86,7 @@ Ext.define('Lumen.view.JSONFormContainer',{
                                 //                                    tag:'input',
                                 //                                    type: 'hidden',
                                 //                                    name: "filename",
-                                //                                        value: Ext.String.htmlEncode(applicationData.Child.Person.FirstName + "_" + applicationData.Child.Person.LastName + ".pdf")
+                                //                                        value: Ext.String.htmlEncode(applicationData.Child.firstName + "_" + applicationData.Child.lastName + ".pdf")
                                 //                                });
                                 loadMask.hide();
                                 //
