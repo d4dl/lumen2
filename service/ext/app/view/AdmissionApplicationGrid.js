@@ -46,7 +46,16 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
                 tooltip: 'View Application',
                 handler: function (grid, rowIndex, colIndex) {
                     var record = grid.getStore().getAt(rowIndex);
-                    Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId()})
+                    var documentRights = record.raw.documentRightList;
+                    var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
+                    //Find the application that the student is the subject of.
+                    for(var i in documentRights) {
+                        var right = documentRights[i];
+                        if(right.accessType == "subject" && right.documentType == "AdmissionApplication") {
+                            applicationId = right.systemId;
+                        }
+                    }
+                    Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: applicationId})
                 }
             },
             //        {

@@ -11,7 +11,7 @@ Ext.Loader.setConfig({
         'Overrides': 'app/overrides'
     }
 });
-Ext.Loader.config.disableCaching = false;
+Ext.Loader.config.disableCaching = true;
 
 Ext.application({
     name: 'Lumen',

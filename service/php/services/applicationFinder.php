@@ -39,7 +39,7 @@ if(array_key_exists('applicationId', $_REQUEST)) {
 
     $userIsAdmin = $dataService->userIsAdmin($dataService->getUser());
     $applicationData = $dataService->loadAdmissionApplication($_REQUEST['applicationId']);
-    //error_log("Found Application " . json_encode($applicationData));
+    error_log("Found Application " . json_encode($applicationData));
     //error_log("3. About to reconstitute " . json_encode($applicationData));
 
     $applications = $dataService->reconstituteApplicationData(array($applicationData), $userIsAdmin);

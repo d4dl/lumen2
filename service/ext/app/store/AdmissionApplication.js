@@ -12,7 +12,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
             reader: {
                 root: 'applications',
                 type: 'json',
-                idProperty: '_id.$id'
+                idProperty: 'id.$id'
             }
         }
         this.callParent(arguments);
