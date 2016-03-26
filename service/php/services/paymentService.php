@@ -48,6 +48,21 @@ if ($params->paymentType == 'applicationFee') {
                 "description" => $charge->description,
                 "status" => "paid"
             );
+            /**
+            array(
+            "status"=>"PAID",
+            "description"=> $description,
+            "processorProcessingFee"=>0.029,
+            "usageFee"=>
+            "amount"=>
+            "creditedToTenant"=>
+            "paymentProcessorCustomer"=>
+            "paymentProcessorTransactionID"=>
+            "executedDate"=>
+            "payor"=>
+            "student"=>
+            )
+             */
             //Removes empty keys that stripe sends back.
             $charge = json_decode($charge->__toJSON());
             $charge->ChargeId = $charge->id;

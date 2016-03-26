@@ -12,7 +12,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
             reader: {
                 root: 'applications',
                 type: 'json',
-                idProperty: 'id.$id'
+                idProperty: '_id.$id'
             }
         }
         this.callParent(arguments);
@@ -43,6 +43,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
         }
         return charges;
     },
+
     applicationFeeIsPaid: function() {
         var charges = this.getCharges();
         for(var i=0; (!!charges && i < charges.length); i++) {
@@ -53,6 +54,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
         }
         return false;
     },
+
     addStudentEvaluation: function(evaluation) {
         var applicationData = this.first();
 
@@ -62,6 +64,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
         }
         applicationData.StudentEvaluationArray.push(evaluation);
     },
+
     setGuestDaysRequested: function (completed, args) {
         var applicationData = this.first();
 

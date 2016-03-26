@@ -65,7 +65,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId()})
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {record: record, type: "AdmissionApplication"})
                             }
                         }
                     }
@@ -79,7 +79,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicantId: applicationData.ChildId});
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicantId: applicationData.ChildId, type: "AdmissionApplication"});
                             }
                         }
                     }

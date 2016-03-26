@@ -6,7 +6,7 @@ ini_set("log_errors", "on");
 define('DOMAIN_NAME', "quickmit.net");
 define('PROTOCOL', "https");
 
-define("CLIENT_ID", 'khabelestrong');//Substituted by the init script
+define("CLIENT_ID", 'localhost');//Substituted by the init script
 define('MAIN_CONTAINER_WIDTH', 950);//925 is a good value
 define("APPLICATION_LINK", "http://khabelestrong.org/admission-application");// id http://yourdomain/content/admission-application
 define("CLIENT_URL", "http://khabelestrong.org");

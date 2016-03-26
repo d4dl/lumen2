@@ -26,7 +26,9 @@ Ext.define('Lumen.store.DebitScheduleTemplate', {
 //                idProperty: "name"
 //            },
             extraParams: {
-                documentType: "DebitScheduleTemplate"
+                documentType: "DebitScheduleTemplate",
+                //agg. Required parameter indicating a search instead of a create
+                queryCriteria: 0
             }
         });
         return proxy;

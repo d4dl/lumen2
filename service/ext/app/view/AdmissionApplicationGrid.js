@@ -38,6 +38,34 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
     },
     // grid columns
     constructor: function () {
+        var self = this;
+        var store = Ext.data.StoreManager.lookup('Student');
+        store.on("datachanged", function () {
+        });
+        this.dockedItems = [
+            {
+                xtype: 'pagingtoolbar',
+                store: "Student",
+                dock: 'bottom',
+                pageSize: 10, // items per page
+                displayInfo: true
+            },
+            /**
+            {
+                dock: 'top',
+                xtype: 'toolbar',
+                items: [
+                    {
+                        width: 400,
+                        fieldLabel: 'Search',
+                        labelWidth: 120,
+                        xtype: 'searchfield',
+                        store: store
+                    }
+                ]
+            }
+             **/
+        ];
         this.columns = [
             {
                 xtype: 'actioncolumn',
@@ -46,16 +74,10 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
                 tooltip: 'View Application',
                 handler: function (grid, rowIndex, colIndex) {
                     var record = grid.getStore().getAt(rowIndex);
-                    var documentRights = record.raw.documentRightList;
-                    var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
-                    //Find the application that the student is the subject of.
-                    for(var i in documentRights) {
-                        var right = documentRights[i];
-                        if(right.accessType == "subject" && right.documentType == "AdmissionApplication") {
-                            applicationId = right.systemId;
-                        }
-                    }
-                    Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: applicationId})
+                    Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {
+                        record: record,
+                        type: "AdmissionApplication"
+                    })
                 }
             },
             //        {
@@ -121,19 +143,12 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
             ,
             {
                 text: "Status",
-                dataIndex: 'Status',
+                dataIndex: 'applicationStatus',
                 width: 100,
                 sortable: false
             }
         ];
         this.callParent(arguments);
         this.getStore().getProxy().extraParams = this.loadOptions;
-    },
-    dockedItems: [{
-        xtype: 'pagingtoolbar',
-        store: "Lumen.store.AdmissionApplicationList",
-        dock: 'bottom',
-        pageSize: 10, // items per page
-        displayInfo: true
-    }]
+    }
 });

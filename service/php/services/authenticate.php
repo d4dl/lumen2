@@ -7,7 +7,7 @@ header('Content-type: application/json;charset=UTF-8');
 define("NO_HANDLE_ERRORS", true);
 require("./DataService.php");
 $dataService = DataService::getInstance();
-//error_log("!!!! LOGIN PROCESSING Auth::: ");
+error_log("\n\n\n!!!! LOGIN PROCESSING Auth::: ");
 
 $PCI_COMPLIANT_LOGIN_ATTEMPT_AGE = 30;
 
@@ -15,9 +15,8 @@ if(array_key_exists("action", $_GET) && $_GET['action'] == 'logout') {
     $userLogin = $dataService->findUserLogin();
     setcookie(session_id(), null, -1);
     session_destroy();
-    session_write_close();
-    $userLogin['login']['sessionId'] = null;
-    $dataService->saveUser($userLogin);
+    session_write_close();;
+    $dataService->savePerson($userLogin, null, true);
     header("Location: ".APP_ENTRY_URL);
     exit;
 }
@@ -326,10 +325,8 @@ function setUserToken($dataService, $user, $errorMessage) {
     $token = $_REQUEST['tokenSet'];
     if (isset($user)) {
         $loginRequestSessionId = session_id();
-        $user['login']['sessionId'] = $loginRequestSessionId;
-        error_log("Saving User: " . json_encode($user));
         createToken($token, $user, $errorMessage);
-        $dataService->saveUser($user);
+        $dataService->savePerson($user, $loginRequestSessionId);
         error_log("!!!! LOGIN PROCESSING 1. Setting Token for user " . json_encode($user, JSON_PRETTY_PRINT) . "only valid user gets the session id persisted for them");
         //error_log("!!!! LOGIN PROCESSING User is authenticated and login should proceed with session $loginRequestSessionId!!!!");
     }  else {
@@ -358,9 +355,8 @@ function finishTokenProcessing($dataService) {
                 "\nLogin loaded from the token\n" . json_encode($potentialUser, JSON_PRETTY_PRINT));
             if ($userLogin != null) {
                 $loginRequestSessionId = session_id();
-                error_log("!!!! LOGIN PROCESSING Associating session id with user " . $loginRequestSessionId . "User: " . json_encode($userLogin));
-                $userLogin['login']['sessionId'] = $loginRequestSessionId;
-                $dataService->saveUser($userLogin);
+                error_log("!!!! LOGIN PROCESSING Associating session id with user " . $loginRequestSessionId);
+                $dataService->savePerson($userLogin, $loginRequestSessionId);
 
                 $loginJSON = $dataService->massageForClientConsumption($dataService, $userLogin);
                 $output = json_encode(array("Person"=>$loginJSON));

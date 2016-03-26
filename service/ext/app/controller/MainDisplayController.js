@@ -514,10 +514,32 @@ Ext.define('Lumen.controller.MainDisplayController', {
 
     showApplicationForm: function (opts) {
         var self = this;
-        Lumen.HACK_APPLICATION_ID = opts.applicationId;
+
+        var record = opts.record;
+        var documentRights = record.raw.documentRightList;
+        var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
+        //Find the application that the student is the subject of.
+        for(var i in documentRights) {
+            var right = documentRights[i];
+            if(right.accessType == "subject" && right.documentType == "AdmissionApplication") {
+                applicationId = right.systemId;
+                Lumen.HACK_APPLICATION_ID = applicationId;
+            }
+        }
+        var documentRights = record.raw.documentRightList;
+        var applicationId = null;
+        //Find the application that the student is the subject of.
+        for(var i in documentRights) {
+            var right = documentRights[i];
+            if(right.accessType == "subject" && right.documentType == opts.type) {
+                Lumen.log("!!!! There were more than one applications found.");
+                applicationId = right.systemId;
+            }
+        }
+        applicationId = applicationId || "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
         Lumen.RENDER_FOR_PRINT = opts.renderForPrint;
         Lumen.getApplication().getAdmissionApplicationStore().load({
-            params: {applicationId: opts.applicationId},
+            params: {applicationId: applicationId},
             scope: this,
             callback: function (data) {
                 var application = data[0].raw;

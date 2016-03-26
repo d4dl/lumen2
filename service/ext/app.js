@@ -350,26 +350,20 @@ Ext.application({
     getStudentApplicantName: function() {
         var child = this.getChildFromDataStore();
         if(child) {
-            if(child.Person) {
-                return ((child.Person.FirstName ? child.Person.FirstName : "") + " " +
-                    (child.Person.LastName ? child.Person.LastName : "")).trim();
-            } else {
-                return "No Name";
-            }
+            return ((child.firstName ? child.firstName : "") + " " +
+                (child.lastName ? child.lastName : "")).trim();
+        } else {
+            return "No Name";
         }
     },
 
     getStudentApplicantFirstNameForChild: function (child) {
-        return child.Person.FirstName ? child.Person.FirstName : "";
+        return child.firstName ? child.firstName : "";
     },
 
     getStudentApplicantFirstName: function() {
         var child = this.getChildFromDataStore();
-        if(child.Person) {
-            return this.getStudentApplicantFirstNameForChild(child);
-        } else {
-            return "No Name";
-        }
+        return this.getStudentApplicantFirstNameForChild(child);
     },
     getChildFromDataStore: function() {
         var admissionApplicationStore = this.getAdmissionApplicationStore();
@@ -383,17 +377,17 @@ Ext.application({
         }
     },
     getParentFirstNamesFromChild: function (child) {
-        var parents = child.HasChildArray;
+        var parents = child.guardianList;
         var names = "";
         var seenParent = false;
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            if (parent.Parental && parent.Parental.Person && parent.Parental.Person.FirstName) {
+            if (parent.guardian && parent.guardian.firstName) {
                 if (seenParent) {
                     names += Lumen.i18n(" and" + " ");
                 }
                 seenParent = true;
-                names += parent.Parental.Person.FirstName.trim();
+                names += parent.guardian.firstName.trim();
             }
         }
         return names;
@@ -402,7 +396,7 @@ Ext.application({
     getParentFirstNames: function() {
         var child = this.getChildFromDataStore();
 
-        if(child && child.HasChildArray) {
+        if(child && child.guardianList) {
                 return this.getParentFirstNamesFromChild(child);
             } else {
                 return "No Name";
@@ -412,8 +406,8 @@ Ext.application({
         var loginEmailAndPasswords = [];
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            if (parent.Parental && parent.Parental.login && parent.Parental.login && parent.Parental.login) {
-                var login = parent.Parental.login;
+            if (parent.guardian && parent.guardian.login) {
+                var login = parent.guardian.login;
                 loginEmailAndPasswords.push({
                     email: login.Username,
                     temporaryPassword: login.TemporaryPassword
@@ -426,25 +420,25 @@ Ext.application({
     getParentloginEmailAndPasswords: function() {
         var child = this.getChildFromDataStore();
         if(child) {
-            if(child.HasChildArray) {
-                return this.getParentLoginEmailAndPasswordForParents(child.HasChildArray);
+            if(child.guardianList) {
+                return this.getParentLoginEmailAndPasswordForParents(child.guardianList);
             }
         }
     },
     getParentEmails: function() {
         var emails = "";
         var child = this.getChildFromDataStore();
-        if(child && child.HasChildArray) {
+        if(child && child.guardianList) {
             var seenParent = false;
-            var parents = child.HasChildArray;
+            var parents = child.guardianList;
             for(var i=0; i < parents.length; i++) {
                 var parent = parents[i];
-                if(parent.Parental && parent.Parental.Person && parent.Parental.Person.Email) {
+                if(parent.guardian && parent.guardian.emailList && parent.guardian.emailList[0].emailAddress) {
                     if(seenParent) {
                         emails +=",";
                     }
                     seenParent = true;
-                    emails += parent.Parental.Person.Email.trim();
+                    emails += parent.guardian.emailList[0].emailAddress.trim();
                 }
             }
         } else {
@@ -636,3 +630,16 @@ Ext.define('Ext.ux.ComponentRowExpander', {
         }) ;
     }
 });
+
+//Polyfill for endsWith
+if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(searchString, position) {
+        var subjectString = this.toString();
+        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+            position = subjectString.length;
+        }
+        position -= searchString.length;
+        var lastIndex = subjectString.indexOf(searchString, position);
+        return lastIndex !== -1 && lastIndex === position;
+    };
+}

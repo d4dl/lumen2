@@ -186,7 +186,7 @@ Ext.define('Lumen.view.JSONForm',{
     },
 
     relevantTabToFront: function() {
-        var paid = Lumen.getApplication().getAdmissionApplicationStore().applicationFeeIsPaid();
+        //var paid = Lumen.getApplication().getAdmissionApplicationStore().applicationFeeIsPaid();
         var guestDaysComplete = Lumen.getApplication().getGuestDaysRequested();
 
         var self = this;

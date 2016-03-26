@@ -1,9 +1,20 @@
 Ext.define('Lumen.model.Person', {
     extend: 'Ext.data.Model',
     requires: ["Ext.Ajax"],
-    idProperty: 'StudentId',
+    proxy: {
+        type: 'ajax',
+        url : Lumen.DATA_SERVICE_URL_ROOT + '/userService.php',
+        reader: {
+            type: 'json'
+        }
+    },
 
-    fields: [{name: "firstName"},{name: "lastName"},{name: "schoolAttributes.level"},{name: "schoolAttributes.role"}],
+    fields: [
+        {name: "firstName"},
+        {name: "lastName"},
+        {name: "schoolAttributes.level"},
+        {name: "schoolAttributes.role"}
+    ],
 
 
     hasMany: [{model: 'Lumen.model.Person', name: 'guardianList', associationKeyFunction: function(person, index) {

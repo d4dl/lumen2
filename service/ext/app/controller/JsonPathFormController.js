@@ -364,9 +364,10 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             }
             //0 length arrays get returned when empty objects should.
             //The server has no way to distinguish the difference and sends [] when it should send {}.  An object is needed.                                                      field.getEl().getHTML()
-            if(Ext.isArray(boundObject) && boundObject.length == 0) {
-                boundObject = {};
-                JSONPath.setValue(dataItem, JSONPath.getParentPath(childPathPrefix), boundObject);
+            var phantomBoundObject = null;
+            if(!boundObject || (Ext.isArray(boundObject) && boundObject.length == 0)) {
+                //Create a phantom object that will only be placed into the data hierarchy when it gets a value.
+                phantomBoundObject = {};
             }
             //Lumen.log("\nBound to " + JSON.stringify(boundObject));
             //Lumen.log("With Key " + JSON.stringify(bindingKey));
@@ -380,10 +381,10 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             //    field.wasModifiedByJsonPathFormController = true;
             //    Lumen.log("Change name from " + oldName + " to: " + field.name);
             //}
-            this.bindEXTFieldsToData(bindingKey, boundObject, field, topLevelItem);
+            this.bindEXTFieldsToData(bindingKey, boundObject, phantomBoundObject, field, dataItem, childPathPrefix, topLevelItem);
         }
 
-        return {childDataItem: childDataItem, value: value, boundObject: boundObject, bindingKey: bindingKey};
+        return {childDataItem: childDataItem, value: value, boundObject: boundObject || phantomBoundObject, bindingKey: bindingKey};
     },
 
     /**
@@ -393,14 +394,14 @@ Ext.define('Lumen.controller.JsonPathFormController',{
      * They're garden variety ExtJS fields.
      * @param dataItem
      */
-    bindEXTFieldsToData: function (bindingKey, boundObject, field, topLevelItem) {
+    bindEXTFieldsToData: function (bindingKey, boundObject, phantomBoundObject, field, dataItem, childPathPrefix, topLevelItem) {
         if(field.destroyableChangeListener) {
             field.destroyableChangeListener.destroy();
         }
 
-        if(!boundObject.debugTag) {
-            boundObject.debugTag = (Math.random() * 1000000000000000).toFixed(0);
-        }
+        //if(!boundObject.debugTag) {
+            //boundObject.debugTag = (Math.random() * 1000000000000000).toFixed(0);
+        //}
         var JSONPath = new Lumen.controller.util.JSONPath();
         if(field.setDataItem) {
             field.setDataItem(boundObject);
@@ -410,6 +411,10 @@ Ext.define('Lumen.controller.JsonPathFormController',{
                     var fieldValue = field.getValue();
                     var top = topLevelItem;//This is just for debugging.
                     if (fieldValue !== undefined) {
+                        if(phantomBoundObject) {
+                            boundObject = phantomBoundObject;
+                            JSONPath.setValue(dataItem, JSONPath.getParentPath(childPathPrefix), boundObject);
+                        }
                         if(Ext.isObject(fieldValue) && boundObject[bindingKey]) {
                             Ext.merge(boundObject[bindingKey], fieldValue);
                         } else {

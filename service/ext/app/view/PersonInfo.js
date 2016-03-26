@@ -7,7 +7,7 @@ Ext.define('Lumen.view.PersonInfo',{
         this.addListener ({afterrender: {
             fn: function() {
                 var firstPerson = Lumen.getApplication().getAuthenticationStore().first();
-                Ext.ModelMgr.getModel('Lumen.model.Person').load(firstPerson.getId(), {
+                Ext.ModelMgr.getModel('Lumen.model.Person').load(firstPerson.raw.systemId, {
                     success: function(user) {
                         //selfy.down('form').getForm().loadRecord(firstPerson);
                     },

@@ -11,6 +11,7 @@ Ext.define('Lumen.view.finance.DebitScheduleEntry', {
     },
     initComponent: function() {
         this.items = [
+            /**
             {
                 xtype: "textfield",
                 name: "debitType",
@@ -19,6 +20,7 @@ Ext.define('Lumen.view.finance.DebitScheduleEntry', {
                 disabled: this.readOnly,
                 fieldLabel: "Type"
             },
+             **/
             {
                 xtype: "numberfield",
                 name: "debitAmount",

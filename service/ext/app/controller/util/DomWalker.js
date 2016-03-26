@@ -1,7 +1,7 @@
 Ext.define('Lumen.controller.util.DomWalker', {
 
 
-     /**
+    /**
      * Iterate over data object populating the form with any data that matches either name
      * or dataItemKey.  dataItemKey shouldn't be usejd. It should always be name. This is controversial
      * given the question response value array strategy... which needs to be resolved.
@@ -22,6 +22,9 @@ Ext.define('Lumen.controller.util.DomWalker', {
                     continue;
                 }
                 var fieldName = field.name;
+                if(fieldName) {
+                    fieldName = this.replaceLegacyFieldNames(fieldName, field.xtype);
+                }
 
                 //If the field has a name, it can be used for i18n and whatnot.
                 //If not and it has the question use it.
@@ -40,15 +43,14 @@ Ext.define('Lumen.controller.util.DomWalker', {
                     var isArrayIndex = Ext.isNumeric(fieldName);
                     var childPathPrefix = JSONPathPrefix ? (JSONPathPrefix + (isArrayIndex ? ("[" + fieldName + "]") : ("." + fieldName))) : fieldName;
                     //newValue being empty will force the json data structure to get built even when there aren't values
-                    var jsonPathOptions = {create: true};
+                    var jsonPathOptions = {create: false};
                     //if(isArrayIndex)
                     var childDataItem = JSONPath.find(dataItem, childPathPrefix, jsonPathOptions);
                     if (Ext.isArray(childDataItem)) {
-                        if (Ext.isObject(childDataItem[0] && isValueField)) {
+                        if (Ext.isObject(childDataItem[0]) && isValueField) {
                             //Special case where there was no data and JSONPath created new data (as it needs to) but
                             //it had no way of determining what kind of data so it just created an object.
-                            delete childDataItem[0];
-                            delete childDataItem;
+                            childDataItem = null;
                         } else {
                             childDataItem = childDataItem[0];
                         }
@@ -86,6 +88,56 @@ Ext.define('Lumen.controller.util.DomWalker', {
             }
             return payload;
         }
+    },
+
+    //These need to be ordered from most specific to least specific
+    legacyFieldNameMap: {
+        "Child.Person.Grade":"Child.schoolAttributes.level",
+        "Child.Person.BirthDate":"Child.birthDate",
+        "Child.Person.Gender":"Child.gender",
+        "Parental.Person.AddressArray": "guardian.addressList",
+        "Parental.Person.PhoneArray": "guardian.phoneList",
+        "Parental.Person.Email": "guardian.emailList[0].emailAddress",
+        "Child.Person.DateOfBirth":"Child.birthDate",
+        "Parental.Person.HasChildArray":"Parental.guardianList",
+        "Login.Username":"login.username",
+        "Login.Password": "login.password",
+        "Child.Person":"Child",
+        "ParentalStatus":"parentalStatus",
+        "Parental.Person":"guardian",
+        "HasChildArray":"guardianList",
+        "Person.Email": "emailList[0].emailAddress",
+        "Login.Username": "login.username",
+        "Person.PhoneArray": "phoneList",
+        "Person.AddressArray[0]": "addressList[0]",
+        "Street": "street1",
+        "Street2": "street2",
+        "City": "city",
+        "State": "state",
+        "PostalCode": "postalCode",
+        "Country": "country"
+    },
+
+
+    replaceLegacyFieldNames: function (fieldName, xtype) {
+        //Lumen.log("Processing fieldName " + fieldName);
+        if(fieldName == "Person" && xtype == "personname") {
+            Lumen.log("Kluding Person.personname. Fix this");
+            return null;
+        }
+        for(var key in this.legacyFieldNameMap) {
+            var legacyNameIndex = fieldName.indexOf(key);
+
+            Lumen.log("Processing fieldName " + fieldName)
+            //Lumen.log("\"" + fieldName + "\": \"XXX\",")
+            if(legacyNameIndex >= 0) {
+                var suggestedFieldName = this.legacyFieldNameMap[key];
+                var newFieldName = fieldName.replace(key, suggestedFieldName);
+                Lumen.log("Found a legacy field name '" + fieldName + "'.  These should all be replaced with '" + newFieldName + "' . Its a legacy format and is no longer valid.");
+                fieldName = newFieldName;
+            }
+        }
+        return fieldName;
     },
 
     shouldContinue: function (currentComponent, topLevelItem) {

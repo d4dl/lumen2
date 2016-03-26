@@ -64,7 +64,7 @@ Ext.define('Lumen.view.form.PhoneNumber', {
                         //fieldCls: "phone"
                     },
                     items: [
-                        {xtype: 'textfield',name: "0", OrderIndex: 0, fieldLabel: 'Phone 1', width: 152, allowBlank: true}
+                        {xtype: 'textfield',name: "0.phoneNumber", fieldLabel: 'Phone 1', width: 152, allowBlank: true}
                     ]
                 },
                 {
@@ -78,7 +78,7 @@ Ext.define('Lumen.view.form.PhoneNumber', {
                         hideLabel: true
                     },
                     items: [
-                        {xtype: 'textfield', name: "1", OrderIndex: 1, fieldLabel: 'Phone 2',  width: 152, allowBlank: true}
+                        {xtype: 'textfield', name: "1.phoneNumber", fieldLabel: 'Phone 2',  width: 152, allowBlank: true}
                     ]
                 },
                 {
@@ -92,7 +92,7 @@ Ext.define('Lumen.view.form.PhoneNumber', {
                         hideLabel: true
                     },
                     items: [
-                        {xtype: 'textfield',name: "2", OrderIndex: 2, fieldLabel: 'Phone 3', width: 152, allowBlank: true}
+                        {xtype: 'textfield',name: "2.phoneNumber", fieldLabel: 'Phone 3', width: 152, allowBlank: true}
                     ]
                 },
                 {
@@ -107,7 +107,7 @@ Ext.define('Lumen.view.form.PhoneNumber', {
                         hideLabel: true
                     },
                     items: [
-                        {xtype: 'textfield',name: "3", OrderIndex: 3, fieldLabel: 'Phone 4', width: 152, allowBlank: true}
+                        {xtype: 'textfield',name: "3.phoneNumber", fieldLabel: 'Phone 4', width: 152, allowBlank: true}
                     ]
                 }
             ];

@@ -1,4 +1,5 @@
 <?php
+//TODO make sure logins for parents don't get destroyed when somebody is saving their person data.
 date_default_timezone_set('America/Chicago');
 include_once('clientConfig.php');
 include_once('vendor/autoload.php');
@@ -43,6 +44,7 @@ class DataService
     private $log;
 
     private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/people/";
+    private $chargesServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/charges/";
     private $studentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/students/";
 
     static function getInstance() {
@@ -112,7 +114,7 @@ class DataService
     }
 
     public function getUserFullName() {
-        $user = $this->loadPerson($this->getUser()['_id'])['Person'];
+        $user = $this->loadPerson($this->getUser()['systemId']);
         //error_log("Getting full user name from " . json_encode($user));
         $userName = $user['FirstName'] . " " . $user['LastName'];
         return $userName;
@@ -380,7 +382,7 @@ class DataService
         error_log("Searching for applications with fields: " . json_encode($fields));
         $applications = $this->findDocuments("AdmissionApplication", $criteria, $fields);
         //error_log("1. About to reconstitute " . json_encode($applications));
-        $applications = $this->reconstituteApplicationData($applications, false, $fields);
+        $applications = $this->reconstituteApplicationData($applications, false);
 //        $parentIds = array();
 //        $childIds = array();
 //        foreach($applications as $application) {
@@ -430,17 +432,16 @@ class DataService
      */
     public function extractAndPersistDataObjectsFromApplication($applicationData)
     {
-        $parents = $applicationData['Child']['HasChildArray'];
+        $parents = $applicationData['Child']['guardianList'];
         //error_log("Evaluation IDs " . json_encode($evaluationIds, JSON_PRETTY_PRINT));
 
         $persistableParents = $this->saveAndSwapParentsAndMakePersistable($parents);
-        $applicationData['Child']['HasChildArray'] = $persistableParents;
         $child = $this->savePersonAndSwapForId($applicationData, 'Child', 'ChildId');
 
         if (array_key_exists('StudentEvaluationArray', $applicationData)) {
             $studentEvaluationArray = $applicationData['StudentEvaluationArray'];
             unset($applicationData['StudentEvaluationArray']);
-            $evaluationIds = $this->saveStudentEvaluations($studentEvaluationArray, $child['_id'], $applicationData['OwnerId']);
+            $evaluationIds = $this->saveStudentEvaluations($studentEvaluationArray, $applicationData['ChildId'], $applicationData['OwnerId']);
             $applicationData['StudentEvaluationIds'] = $evaluationIds;
         } else {
             error_log("No Student Evaluation Array.  This could be problematic. Not sure.");
@@ -462,14 +463,15 @@ class DataService
     {
         $persistableParents = array();
         foreach ($parents as $parent) {
-            $parental = $this->savePersonAndSwapForId($parent, 'Parental', 'ParentId');
+            $parental = $this->savePersonAndSwapForId($parent, 'guardian', 'ParentId');
             $parent["ParentId"] = "" . $parental['_id']; //Coerce toString();
             $persistableParents[] = $parent;
         }
         return $persistableParents;
     }
 
-    public function savePersonAndSwapForId(&$containingData, $dataMemberName/** Child */, $dataMemberId/** ChildId  **/)
+    public function savePersonAndSwapForId(&$containingData, $dataMemberName/** Child */, $dataMemberId/** ChildId  **/, $lookupKey = null)
+    //public function savePersonAndSwapForId(&$containingData, $dataMemberName/** Child */, $dataMemberId/** ChildId  **/, $lookupKey = null)
     {
         error_log("Saving sub document $dataMemberId $dataMemberName : " . json_encode($containingData, JSON_PRETTY_PRINT));
         $subData = $containingData[$dataMemberName];
@@ -484,7 +486,11 @@ class DataService
                 $subData['_id'] = new MongoId($documentId);
             }
         }
-        $subDocument = $this->savePerson($subData);
+        //if($lookupKey) {
+            //$subDocument = $this->savePerson($subData[$lookupKey]);
+        //} else {
+            $subDocument = $this->savePerson($subData);
+        //}
         //error_log("Saved Person " . json_encode($subDocument, JSON_PRETTY_PRINT));
         $containingData[$dataMemberId] = "" . $subDocument['_id'];//Coerce toString();
         //error_log("Would like to save " . json_encode($containingData, JSON_PRETTY_PRINT));
@@ -497,32 +503,26 @@ class DataService
      * thing as one document to send back to the client.
      * extractAndPersistDataObjectsFromApplication does the inverse operation
      */
-    public function reconstituteApplicationData($applications, $loadFullEvaluations = false, $fields = null, $studentMap=array()) {
+    public function reconstituteApplicationData($applications, $loadFullEvaluations = false) {
         //error_log("3. Reconstituting " . json_encode($applications));
         $returnApps = array();
         $chargeApplicationMap = array();
         $applicationMap = array();
         foreach ($applications as $application) {
-            //error_log("3. Reconstituting application " . json_encode($application, JSON_PRETTY_PRINT));
+            error_log("3. Reconstituting application " . json_encode($application, JSON_PRETTY_PRINT));
             //BIG Optimization opportunity.  This does two queries per application
             if (array_key_exists("Charges", $application)) {
                 foreach ($application['Charges'] as $charge) {
                     $chargeApplicationMap[$charge["ChargeId"]] = $application['_id'] . "";
                 }
             }
-            $childId = $application['ChildId'];
-            if (!$childId) {
-
+            $childSystemId = $application['ChildId'];
+            if (!$childSystemId) {
+                trigger_error("There is not childSystemId specified. Either figure out a way to send it in, or figure out the right way to handle not having it.", E_USER_ERROR);
+                exit();
                 error_log("There is no child associated with this application!!!!");
-                $childData = array();
-            } else {
-                $student = $studentMap[$childId];
-                if($student) {
-                    $childData = $student;
-                } else {
-                    $childData = $this->loadPerson($childId);
-                }
             }
+            $childData = $this->loadPerson($childSystemId);
             //The id needs to stay on
             //unset($childData['_id']);
             //error_log("Where are my has child arrays " . json_encode($childData, JSON_PRETTY_PRINT));
@@ -530,7 +530,7 @@ class DataService
             $guardianList = $childData['guardianList'];
             //error_log("Where are my has child arrays " . json_encode($guardianList, JSON_PRETTY_PRINT));
             if (!$guardianList) {
-                error_log("!!!!\n!!!!\nThere is no child array for '$childId''. This is a problem.\n!!!!\n!!!!");
+                error_log("!!!!\n!!!!\nThere is no child array for '$childSystemId''. This is a problem.\n!!!!\n!!!!");
                 //continue;
             }
 
@@ -556,7 +556,7 @@ class DataService
             }
             $application['StudentEvaluationArray'] = $evaluations;
 
-            //error_log("====Loading child for application for id " . $childId . " got " . json_encode($childData));
+            //error_log("====Loading child for application for id " . $childSystemId . " got " . json_encode($childData));
             $returnApps[] = $application;
 
         }
@@ -585,14 +585,23 @@ class DataService
         return $returnApps;
     }
 
-    public function saveStudentEvaluations($studentEvaluationArray, $childId, $ownerId)
+    public function saveCharge($charge) {
+        $charge = $this->post($this->chargesServiceURL, $charge);
+        return $charge;
+    }
+    public function loadCharge($chargeId) {
+        $charge = $this->get($this->chargesServiceURL, $chargeId);
+        return $charge;
+    }
+
+    public function saveStudentEvaluations($studentEvaluationArray, $childSystemId, $ownerId)
     {
         $studentEvaluationIds = array();
         foreach ($studentEvaluationArray as &$studentEvaluation) {
             if (!array_key_exists('_id', $studentEvaluation)) {
                 $accessCode = uniqid();
                 $studentEvaluation['AccessCode'] = $accessCode;
-                $studentEvaluation['ChildId'] = "" . $childId; //Coerce to string
+                $studentEvaluation['ChildId'] = "" . $childSystemId; //Coerce to string
                 $studentEvaluation['OwnerId'] = "" . $ownerId;
                 $studentEvaluation = $this->saveEvaluation($studentEvaluation);
                 //error_log("Saved student evaluation " . json_encode($studentEvaluation, JSON_PRETTY_PRINT));
@@ -610,38 +619,37 @@ class DataService
 
     /**
      * Person Data Access
+     * session id if the user was just authenticated.
      */
-    public function savePerson($person)
-    {
+    public function savePerson($person, $sessionId=null, $clearSession) {
         error_log("Saving person " . json_encode($person, JSON_PRETTY_PRINT));
-        $sessionId = null;
-        if (array_key_exists('login', $person) && array_key_exists('sessionId', $person['login'])) {
-            $sessionId = $person['login']['sessionId'];
+        $clearPassword = isset($person['password2']) ? $person['password2'] : null;
+        unset($person['password2']);
+        error_log("Thisis hte person getting persissted " . json_encode($person, JSON_PRETTY_PRINT));
+        if (array_key_exists('id', $person)) {
+            if ($clearPassword) {
+                error_log("Password found... encrypting '" . $clearPassword . "'");
+                $person['login']['password'] = $this->encryptPassword($clearPassword);
+            }
+            $storedPerson = $this->loadPerson($person['systemId']);
+            $userIsAdmin = $this->userIsAdmin($storedPerson);
+            $user = $this->getUser();
+            if (isset($person['login']) && !$userIsAdmin && $storedPerson['id'] != $user['id']) {
+                //User must be an admin or the person to change login info
+                //Putting it back to what it was
+                error_log("Replacing persons login with the original\n" . json_encode($storedPerson));
+                $person['login'] = $storedPerson['login'];
+            }
+        }
+        if (isset($person['login']) && ($clearSession || $sessionId)) {
+            $person['login']['sessionId'] = $clearSession ? null : $sessionId;
+        }
+
+
+        if (isset($person["login"]) && !$userIsAdmin) {
+            $person['login']['groups'] = $storedPerson['login']['groups'];
         }
         unset($person['password2']);
-        if (array_key_exists("_id", $person)) {
-            if ($person['_id'] instanceof MongoId) {
-                $id = $person["_id"];
-            } else {
-                $id = new MongoId($person['_id']['$id']);
-            }
-
-            $savedPerson = $this->findOnePerson(array(name => "systemId", "value" => $id));//Cast to string
-            error_log("Found a  saved person " . json_encode($savedPerson, JSON_PRETTY_PRINT));
-            if (array_key_exists("login", $savedPerson)) {
-                if (array_key_exists("login", $person)) {
-                    error_log("Setting the login on the person. " . json_encode($savedPerson["login"], JSON_PRETTY_PRINT));
-                    //Slam the login stuff with whatever's in the database.
-                    $person["login"] = array_merge($person["login"], $savedPerson["login"]);
-                } else {
-                    $person["login"] = $savedPerson["login"];
-                }
-            }
-        }
-        if ($sessionId) {
-            $person['login']['sessionId'] = $sessionId;
-        }
-        error_log("Thisis hte person getting persissted " . json_encode($person, JSON_PRETTY_PRINT));
         $person = $this->post($this->personServiceURL, $person);
         return $person;
     }
@@ -844,12 +852,6 @@ class DataService
         //error_log("Finding user. ");
     }
 
-    public function saveUser($user) {
-        error_log("Saving user " . json_encode($user, JSON_PRETTY_PRINT));
-        $user = $this->savePerson($user);
-        return $user;
-    }
-
     /** ***************************************************************************************************************** */
 
 
@@ -858,7 +860,8 @@ class DataService
         error_log("Massaging User " . json_encode($user, JSON_PRETTY_PRINT));
         $groups = array_key_exists('groups', $user['login']) ? $user['login']['groups'] : array();
         unset($user['login']['password']);
-        unset($user['login']['sessionId']);
+        unset($user['login']['temporaryPassword']);
+        unset($user['login']['forgotPasswordToken']);
         $user['login']['groups'] = $groups;
         return $user;
     }
