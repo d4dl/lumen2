@@ -16,6 +16,7 @@ $dataService = DataService::getInstance();
 // set your secret key: remember to change this to your live secret key in production
 // see your keys here https://manage.stripe.com/account
 Stripe::setApiKey(STRIPE_API_KEY);
+$paymentService = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/payments";
 
 $feeParameter = $params->fee;
 $fee = strpos($feeParameter, '%') > 0 ? (str_replace('%', '', $feeParameter) / 100) : $feeParameter;
@@ -31,6 +32,9 @@ if ($params->paymentType == 'applicationFee') {
         $userName = $dataService->getUserFullName();
         $name = $applicant['FirstName'] . " " . $applicant['LastName'];
         error_log("Loaded child " . json_encode($applicant, JSON_PRETTY_PRINT));
+        $bin = substr($params->cc_num, 0, 6);
+        $binListURL = "https://binlist.net/json/$bin";
+        $verified_debit = verifyCardIsDebit($dataService, $binListURL);
         list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
 
         if ($charge->failure_message) {
@@ -143,6 +147,20 @@ function updateScheduleEntryDetails($charge, &$debitScheduleEntry, $chargeType)
     $executedDate = new MongoDate($charge->created);
     $debitScheduleEntry["executedDate"] = $executedDate;
     return $debitScheduleEntry;
+}
+
+function verifyCardIsDebit($dataService, $serviceUrl) {
+    $isDebit = false;
+    try {
+        $output = file_get_contents($serviceUrl);
+        $binInfo = json_decode($output);
+        if($binInfo && $binInfo->card_category == "DEBIT") {
+            $isDebit = true;
+        }
+    } catch (Exception $e) {
+        error_log("Couldn't verify wether the card was debit or credit." . json_encode(array("errorMessage" => $e->getMessage())));
+    }
+    return $isDebit;
 }
 
 // create the charge on Stripe's servers - this will charge the user's card

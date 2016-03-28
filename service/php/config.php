@@ -46,7 +46,7 @@ define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 #############################################################################
 # URL and URL Prefix configs
 #############################################################################
-define("IMAGES_URL_ROOT", "../../../service/img");
+defined("IMAGES_URL_ROOT") || define("IMAGES_URL_ROOT", "../../../service/img");
 #define("APPLICATION_LINK", PROTOCOL . "://khablestrong.org/admissions");
 define("REST_DATA_SERVICE_URL_ROOT", PROTOCOL . "://localhost:8089/quickmit-rest-1.1/v1.1/");
 define("SHARED_SECRET", "qEIqDjBWx9GxpDUTyE1aVuPLMpk3jPKz4NSDCkDmVjcyBe7MqI3ykIoT6o0jcq6gIEPjacZ2wlCRLBs7mTKlAAORlmCPbXDScLGb");

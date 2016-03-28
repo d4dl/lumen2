@@ -136,11 +136,10 @@ Ext.define('Lumen.store.AdmissionApplication', {
         //Its a new application.  The creator is the owner.
         //The field have the same reference so its also in the
         //submission data
+        var authenticationStore = Lumen.getApplication().getAuthenticationStore();
+        var owner = authenticationStore.first().raw;
         if (!applicationData.OwnerId) {
-            //TODO doing it this way will allow the user to specify groups they
-            //want to be in.  This needs to be protected.  Its very bad.
-            var owner = Lumen.getApplication().getAuthenticationStore().first().raw;
-            applicationData.OwnerId = owner["_id"]["$id"];
+            applicationData.OwnerId = owner.systemId;
         }
 
         var callback = function (response) {
@@ -151,6 +150,8 @@ Ext.define('Lumen.store.AdmissionApplication', {
                 //TODO hack to associate saved GuestDays form with a new app.... pretty much the same hack as above.
                 // applicationData.GenericResponseFormArray[0].Id = admissionApplicationResponse.applicationData.GenericResponseFormArray[0].Id;
                 Ext.merge(applicationData, admissionApplicationResponse.applicationData);
+                owner.documentRightList.push({acessType: "owner", "systemId": applicationData['_id']['$id']});
+                authenticationStore.save(owner);
 
                 Lumen.getApplication().fireEvent(Lumen.ADMISSION_APPLICATION_SAVED);
                 if (args.callback) {
@@ -161,7 +162,7 @@ Ext.define('Lumen.store.AdmissionApplication', {
                 }
                 Lumen.getApplication().getAdmissionApplicationListStore().load({
                     params: {
-                        ownerId: Lumen.ownerId
+                        ownerId: owner.systemId
                     }
                 });
             }

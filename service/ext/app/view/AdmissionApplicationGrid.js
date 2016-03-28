@@ -73,9 +73,9 @@ var grid = Ext.define('Lumen.view.AdmissionApplicationGrid', {
                 icon: Lumen.IMAGES_URL_ROOT + '/icons/view.png',
                 tooltip: 'View Application',
                 handler: function (grid, rowIndex, colIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
+                    var person = grid.getStore().getAt(rowIndex);
                     Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {
-                        record: record,
+                        person: person,
                         type: "AdmissionApplication"
                     })
                 }

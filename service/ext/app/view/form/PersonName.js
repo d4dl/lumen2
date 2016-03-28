@@ -4,6 +4,7 @@ Ext.define('Lumen.view.form.PersonName', {
     alias: 'widget.personname',
     personData: null,
     border: false,
+    preventDanglingData: true,
 
     getOutputHtml: function() {
          var output = "<div>"+(this.personData.Title ? this.personData.Title : "") + " " +

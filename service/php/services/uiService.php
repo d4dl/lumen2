@@ -18,6 +18,7 @@ $contentUrl = $_REQUEST['contentUrl'];
 error_log("Loading content " . $contentUrl);
 if(strpos($contentUrl, "http") === 0) {
     $output = $dataService->file_get_contents($contentUrl);
+    //error_log("Loaded content " . $output);
 } else {
     $output = file_get_contents($contentUrl);
 }

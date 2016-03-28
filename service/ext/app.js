@@ -450,7 +450,7 @@ Ext.application({
     getUserId: function() {
         var authenticationStore = this.getAuthenticationStore();
         var personData = authenticationStore.first() ? authenticationStore.first().raw : null;
-        return personData['_id']['$id'];
+        return personData.systemId
     },
 
     userIsAdmin: function () {

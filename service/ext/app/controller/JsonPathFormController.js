@@ -349,15 +349,15 @@ Ext.define('Lumen.controller.JsonPathFormController',{
                 JSONPath.unSetValue(dataItem, childPathPrefix);
             }
         }
-        var boundObject = JSONPath.getValueHolder(childPathPrefix, dataItem);
+        var boundObject = JSONPath.getValueHolder(childPathPrefix, dataItem, false);
         if(field.contentIsValue) {
             var value =  field.html || field.getEl().getHTML();
             if(field.subsituteVariables) {
                 value = value.replace("__STUDENT_NAME__", Lumen.getApplication().getStudentApplicantName());
                 field.html = value;
             }
-            JSONPath.setValue(dataItem, childPathPrefix, value);
-        } else {
+            JSONPath.setValue(dataItem, childPathPrefix, value, true);
+        } else if(dataItem) {
             var bindingKey = JSONPath.getValueKey(childPathPrefix);
             if(bindingKey === "") {
                 throw new Error("Wasn't able to create a bindingKey from " + childPathPrefix + " it must have invalid characters.  Remove all non alpha ones.");
@@ -409,11 +409,11 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             var changeListener = field.on({
                 change: function (target, newValue, oldValue, eOpts) {
                     var fieldValue = field.getValue();
-                    var top = topLevelItem;//This is just for debugging.
+                    var top = topLevelItem;//This is just for debugging
                     if (fieldValue !== undefined) {
                         if(phantomBoundObject) {
                             boundObject = phantomBoundObject;
-                            JSONPath.setValue(dataItem, JSONPath.getParentPath(childPathPrefix), boundObject);
+                            JSONPath.setValue(dataItem, JSONPath.getParentPath(childPathPrefix), boundObject, true);
                         }
                         if(Ext.isObject(fieldValue) && boundObject[bindingKey]) {
                             Ext.merge(boundObject[bindingKey], fieldValue);
@@ -1125,14 +1125,7 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             applicationData = admissionApplicationStore.first().data;
             //If the user is not an admin. Make the user the first parent in the application
             if (!Lumen.getApplication().userIsAdmin()) {
-                applicationData.Child = {
-                    guardianList: [
-                        {
-                            Parental: {
-                                Person: personData.Person
-                            }
-                        }
-                    ]
+                applicationData.Child = {guardianList: [personData]
                 }
             }
 

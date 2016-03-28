@@ -7,7 +7,11 @@ Ext.define('Lumen.view.form.CreditCardForm', {
     constructor: function (config) {
         this.items = this.createItems();
         this.dockedItems = this.createDockedItems();
-        Stripe.setPublishableKey(ExternalResources.stripePublicKey);
+        if(Stripe) {
+            Stripe.setPublishableKey(ExternalResources.stripePublicKey);
+        } else {
+            Lumen.log("There is no stripe install!!");
+        }
         this.callParent(arguments);
         this.addListener({
             submit: {

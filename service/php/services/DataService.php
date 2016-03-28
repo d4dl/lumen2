@@ -435,8 +435,8 @@ class DataService
         $parents = $applicationData['Child']['guardianList'];
         //error_log("Evaluation IDs " . json_encode($evaluationIds, JSON_PRETTY_PRINT));
 
-        $persistableParents = $this->saveAndSwapParentsAndMakePersistable($parents);
-        $child = $this->savePersonAndSwapForId($applicationData, 'Child', 'ChildId');
+        $this->saveParents($parents);
+        $child = $this->saveStudentAndSwapForId($applicationData);
 
         if (array_key_exists('StudentEvaluationArray', $applicationData)) {
             $studentEvaluationArray = $applicationData['StudentEvaluationArray'];
@@ -459,42 +459,27 @@ class DataService
         return $applicationData;
     }
 
-    public function saveAndSwapParentsAndMakePersistable($parents)
-    {
-        $persistableParents = array();
+    public function saveParents($parents) {
         foreach ($parents as $parent) {
-            $parental = $this->savePersonAndSwapForId($parent, 'guardian', 'ParentId');
-            $parent["ParentId"] = "" . $parental['_id']; //Coerce toString();
-            $persistableParents[] = $parent;
-        }
-        return $persistableParents;
-    }
-
-    public function savePersonAndSwapForId(&$containingData, $dataMemberName/** Child */, $dataMemberId/** ChildId  **/, $lookupKey = null)
-    //public function savePersonAndSwapForId(&$containingData, $dataMemberName/** Child */, $dataMemberId/** ChildId  **/, $lookupKey = null)
-    {
-        error_log("Saving sub document $dataMemberId $dataMemberName : " . json_encode($containingData, JSON_PRETTY_PRINT));
-        $subData = $containingData[$dataMemberName];
-        unset($containingData[$dataMemberName]);
-        $documentId = null;
-        error_log("Looking for $dataMemberName in containingData");
-        if (array_key_exists($dataMemberId, $containingData)) {
-            //Get the id from the incoming data and set it so a new person isn't created... only updated
-            $documentId = $containingData[$dataMemberId];
-            error_log("Setting a new document id '$documentId'");
-            if ($documentId) {
-                $subData['_id'] = new MongoId($documentId);
+            if(!empty($parental)) {
+                $this->savePerson($parental);
             }
         }
-        //if($lookupKey) {
-            //$subDocument = $this->savePerson($subData[$lookupKey]);
-        //} else {
-            $subDocument = $this->savePerson($subData);
-        //}
-        //error_log("Saved Person " . json_encode($subDocument, JSON_PRETTY_PRINT));
-        $containingData[$dataMemberId] = "" . $subDocument['_id'];//Coerce toString();
-        //error_log("Would like to save " . json_encode($containingData, JSON_PRETTY_PRINT));
-        return $subDocument;
+    }
+
+    public function saveStudentAndSwapForId(&$containingData)
+    {
+        error_log("Preparing to save student " . json_encode($containingData, JSON_PRETTY_PRINT));
+        $studentData = $containingData['Child'];
+        unset($containingData['Child']);
+        error_log("Looking for Child in containingData");
+        $student = null;
+        if(!empty($studentData)) {
+            error_log(json_encode($studentData) . " is not null");
+            $student = $this->savePerson($studentData);
+            $containingData['ChildId'] = "" . $student['systemId'];
+        }
+        return $student;
     }
 
     /**
@@ -621,7 +606,7 @@ class DataService
      * Person Data Access
      * session id if the user was just authenticated.
      */
-    public function savePerson($person, $sessionId=null, $clearSession) {
+    public function savePerson($person, $sessionId=null, $clearSession=false) {
         error_log("Saving person " . json_encode($person, JSON_PRETTY_PRINT));
         $clearPassword = isset($person['password2']) ? $person['password2'] : null;
         unset($person['password2']);
@@ -650,7 +635,11 @@ class DataService
             $person['login']['groups'] = $storedPerson['login']['groups'];
         }
         unset($person['password2']);
-        $person = $this->post($this->personServiceURL, $person);
+        if(array_key_exists("guardianList", $person)) {
+            $person = $this->post($this->personServiceURL, $person);
+        } else {
+            $person = $this->post($this->studentServiceURL, $person);
+        }
         return $person;
     }
 

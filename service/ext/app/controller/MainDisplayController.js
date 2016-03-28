@@ -18,7 +18,7 @@ Ext.define('Lumen.controller.MainDisplayController', {
                 this.showErrorPopup(options.title, options.message);
             },
             "SHOW_ENROLLMENT_DOCUMENTS": function (options) {
-                this.showEnrollmentDocuments(options.applicant);
+                this.showEnrollmentDocuments(options);
             },
             "SHOW_APPLICATION_FORM": this.showApplicationForm,
             "AJAXIFY": this.ajaxify,
@@ -89,13 +89,15 @@ Ext.define('Lumen.controller.MainDisplayController', {
         };
     },
 
-    showEnrollmentDocuments: function (applicant) {
-        var applicantId = applicant.systemId;
-        var applicationId;
-        for (var i = 0; i < applicant.documentRightList.length; i++) {
-            var documentList = applicant.documentRightList[i];
-            if (documentList.documentType == "Enrollment") {
-                applicationId = documentList.systemId;
+    showEnrollmentDocuments: function (opts) {
+        var applicationId = opts.applicationId;
+        var applicant = opts.applicant;
+        if (!applicationId) {
+            for (var i = 0; i < applicant.documentRightList.length; i++) {
+                var documentList = applicant.documentRightList[i];
+                if (documentList.documentType == "Enrollment") {
+                    applicationId = documentList.systemId;
+                }
             }
         }
         var self = this;
@@ -120,11 +122,13 @@ Ext.define('Lumen.controller.MainDisplayController', {
         var authenticationStore = this.getApplication().getAuthenticationStore();
         var userData = authenticationStore.first() ? authenticationStore.first().raw : null;
         var debitScheduleStore = Ext.data.StoreManager.lookup('DebitSchedule');
-        debitScheduleStore.load({//eww! PaymentPlanController has special knowledge that this is going to happen.
-            params: {
-                id: applicant.debitScheduleSummary.id
-            }
-        });
+        if(applicant.debitScheduleSummary) {
+            debitScheduleStore.load({//eww! PaymentPlanController has special knowledge that this is going to happen.
+                params: {
+                    id: applicant.debitScheduleSummary.id
+                }
+            });
+        }
         //var loadedPerson = Lumen.getApplication().getAuthenticationStore().getById(applicantId);
         var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
         applicantStore.loadData([applicant]);
@@ -515,25 +519,29 @@ Ext.define('Lumen.controller.MainDisplayController', {
     showApplicationForm: function (opts) {
         var self = this;
 
-        var record = opts.record;
-        var documentRights = record.raw.documentRightList;
-        var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
-        //Find the application that the student is the subject of.
-        for(var i in documentRights) {
-            var right = documentRights[i];
-            if(right.accessType == "subject" && right.documentType == "AdmissionApplication") {
-                applicationId = right.systemId;
-                Lumen.HACK_APPLICATION_ID = applicationId;
+        if (opts.applicationId) {
+            applicationId = opts.applicationId
+        } else {
+            var person = opts.person.raw || opts.person;
+            var documentRights = person.documentRightList;
+            var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
+            //Find the application that the student is the subject of.
+            for (var i in documentRights) {
+                var right = documentRights[i];
+                if (right.accessType == "subject" && right.documentType == "AdmissionApplication") {
+                    applicationId = right.systemId;
+                    Lumen.HACK_APPLICATION_ID = applicationId;
+                }
             }
-        }
-        var documentRights = record.raw.documentRightList;
-        var applicationId = null;
-        //Find the application that the student is the subject of.
-        for(var i in documentRights) {
-            var right = documentRights[i];
-            if(right.accessType == "subject" && right.documentType == opts.type) {
-                Lumen.log("!!!! There were more than one applications found.");
-                applicationId = right.systemId;
+            var documentRights = person.documentRightList;
+            var applicationId = null;
+            //Find the application that the student is the subject of.
+            for (var i in documentRights) {
+                var right = documentRights[i];
+                if (right.accessType == "subject" && right.documentType == opts.type) {
+                    Lumen.log("!!!! There were more than one applications found.");
+                    applicationId = right.systemId;
+                }
             }
         }
         applicationId = applicationId || "Could not find the students application id.  Look in AdmissionApplicationGrid.js"

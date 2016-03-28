@@ -137,12 +137,12 @@ Ext.define('Lumen.controller.util.JSONPath',{
      * @param jsonObj
      * @return {*}
      */
-    getValueHolder: function (path, jsonObj) {
+    getValueHolder: function (path, jsonObj, create) {
         var valueHolder = jsonObj;
         var lastPeriodIndex = path.lastIndexOf(".");
         if (lastPeriodIndex >= 0) {
             var parentPath = path.substring(0, lastPeriodIndex);
-            valueHolder = this.find(jsonObj, parentPath, {create: false});
+            valueHolder = this.find(jsonObj, parentPath, {create: create});
             if (Ext.isArray(valueHolder)) {
                 valueHolder = valueHolder[0];
             }
@@ -168,15 +168,17 @@ Ext.define('Lumen.controller.util.JSONPath',{
         }
         return valueKey;
     },
-    setValue: function(jsonObj, path, value) {
+    setValue: function(jsonObj, path, value, create) {
         var valueKey = this.getValueKey(path);
-        var valueHolder = this.getValueHolder(path, jsonObj);
+        var valueHolder = this.getValueHolder(path, jsonObj, !!create);
         valueHolder[valueKey] = value;
     },
     unSetValue: function(jsonObj, path) {
         var valueKey = this.getValueKey(path);
-        var valueHolder = this.getValueHolder(path, jsonObj);
-        delete valueHolder[valueKey];
+        var valueHolder = this.getValueHolder(path, jsonObj, false);
+        if(valueHolder) {
+            delete valueHolder[valueKey];
+        }
     },
     getKeys: function(jsonObj, prefix, keys) {
         var keys = keys || [];

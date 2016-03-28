@@ -60,7 +60,6 @@ Ext.define('Lumen.controller.UserStartup', {
         debitScheduleTemplateStore.load();
         var hasAdmin = false;
         var application = Lumen.getApplication();
-        Lumen.ownerId = userData._id;//Hack until we have a real live userData store.
         Lumen.username = authenticationStore.first().get("login.username");//Hack until we have a real live userData store.
         application.fireEvent(Lumen.OWNER_LOADED, {owner: userData});
         hasAdmin = Lumen.getApplication().userIsAdmin();
@@ -78,7 +77,7 @@ Ext.define('Lumen.controller.UserStartup', {
         } else {
             var appList = this.getApplication().getAdmissionApplicationListStore().load({
                 params: {
-                    ownerId: Lumen.ownerId
+                    ownerId: userData.systemId
                 },
                 scope: this,
                 callback: function (records, operation, success) {

@@ -38,6 +38,8 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
         });
         listMenu.removeAll();
         var useGuidance = null;
+        var authenticationStore = Lumen.getApplication().getAuthenticationStore();
+        var owner = authenticationStore.first().raw;
         applicationList.each(function (record) {
             var childName = "New application";
             var applicationData = record.raw;
@@ -53,7 +55,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicantId: applicationData.ChildId});
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child});
                             }
                         }
                     }
@@ -65,7 +67,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {record: record, type: "AdmissionApplication"})
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId(), type: "AdmissionApplication"})
                             }
                         }
                     }
@@ -79,7 +81,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicantId: applicationData.ChildId, type: "AdmissionApplication"});
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child, applicationId: record.getId(), type: "AdmissionApplication"});
                             }
                         }
                     }

@@ -43,7 +43,9 @@ Ext.define('Lumen.controller.util.DomWalker', {
                     var isArrayIndex = Ext.isNumeric(fieldName);
                     var childPathPrefix = JSONPathPrefix ? (JSONPathPrefix + (isArrayIndex ? ("[" + fieldName + "]") : ("." + fieldName))) : fieldName;
                     //newValue being empty will force the json data structure to get built even when there aren't values
-                    var jsonPathOptions = {create: false};
+                    //If its not there and the content is the value, it needs to be created.
+                    //If its a saveable document that hasn't been created... same
+                    var jsonPathOptions = {create: field.contentIsValue || field.saveableDocument};
                     //if(isArrayIndex)
                     var childDataItem = JSONPath.find(dataItem, childPathPrefix, jsonPathOptions);
                     if (Ext.isArray(childDataItem)) {
@@ -99,7 +101,7 @@ Ext.define('Lumen.controller.util.DomWalker', {
         "Parental.Person.PhoneArray": "guardian.phoneList",
         "Parental.Person.Email": "guardian.emailList[0].emailAddress",
         "Child.Person.DateOfBirth":"Child.birthDate",
-        "Parental.Person.HasChildArray":"Parental.guardianList",
+        "Parental.Person.HasChildArray":"guardianList",
         "Login.Username":"login.username",
         "Login.Password": "login.password",
         "Child.Person":"Child",
@@ -125,11 +127,11 @@ Ext.define('Lumen.controller.util.DomWalker', {
             Lumen.log("Kluding Person.personname. Fix this");
             return null;
         }
+        //Lumen.log("\"" + fieldName + "\": \"XXX\",")
         for(var key in this.legacyFieldNameMap) {
             var legacyNameIndex = fieldName.indexOf(key);
 
-            Lumen.log("Processing fieldName " + fieldName)
-            //Lumen.log("\"" + fieldName + "\": \"XXX\",")
+            //Lumen.log("Processing fieldName " + fieldName)
             if(legacyNameIndex >= 0) {
                 var suggestedFieldName = this.legacyFieldNameMap[key];
                 var newFieldName = fieldName.replace(key, suggestedFieldName);
