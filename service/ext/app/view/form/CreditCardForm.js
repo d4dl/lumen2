@@ -7,7 +7,7 @@ Ext.define('Lumen.view.form.CreditCardForm', {
     constructor: function (config) {
         this.items = this.createItems();
         this.dockedItems = this.createDockedItems();
-        if(Stripe) {
+        if (Stripe) {
             Stripe.setPublishableKey(ExternalResources.stripePublicKey);
         } else {
             Lumen.log("There is no stripe install!!");
@@ -55,7 +55,7 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                         },
                         scope: this
                     },
-                    { xtype: 'component', flex: 1 }
+                    {xtype: 'component', flex: 1}
                 ]
             }
         ]
@@ -212,69 +212,6 @@ Ext.define('Lumen.view.form.CreditCardForm', {
 
         return items;
     },
-    handleSubmit: function () {
-        var self = this;
-        if(this.amount == null) {
-            var popup = Ext.widget('window', {
-                title: 'You must select an amount.',
-                modal: true,
-                html: "Please select an amount before continuing.",
-                width: 350,
-                height: 120,
-                bodyStyle: 'padding: 10px 20px;',
-                autoScroll: true,
-
-                buttons: [
-                    {
-                        text: 'Ok',
-                        handler: function () {
-                            this.up('window').close();
-                        }
-                    }
-                ]
-            });
-            popup.show();
-        } else if(this.getForm().isValid()) {
-            self.queryById('paymentButton').disabled = true;
-            this.loadMask = new Ext.LoadMask(Ext.getCmp("lumenMainApplication"), {msg: "Processing your payment"});
-            this.loadMask.show();
-            var token = Stripe.createToken({
-                number: this.query('[name=ccNumber]')[0].getValue(),
-                cvc: this.query('[name=CVC]')[0].getValue(),
-                exp_month: this.query('[name=ccExpireMonth]')[0].getValue(),
-                exp_year: this.query('[name=ccExpireYear]')[0].getValue(),
-                address_line1: this.query("[fieldLabel='Street']")[0].getValue(),
-                address_line2: this.query("[fieldLabel='Street 2']")[0].getValue(),
-                address_city: this.query("[fieldLabel='City']")[0].getValue(),
-                address_state: this.query("[fieldLabel='State']")[0].getValue(),
-                address_zip: this.query("[fieldLabel='Postal code']")[0].getValue(),
-                address_country: this.query("[fieldLabel='Country']")[0].getValue()
-            }, function (status, response) {
-                self.loadMask.hide();
-                self.stripeResponseHandler(status, response)
-            });
-        } else {
-            var popup = Ext.widget('window', {
-                title: 'Please complete the form',
-                modal: true,
-                html: "Some fields in your form need attention. Please correct the items in red.",
-                width: 350,
-                height: 120,
-                bodyStyle: 'padding: 10px 20px;',
-                autoScroll: true,
-
-                buttons: [
-                    {
-                        text: 'Ok',
-                        handler: function () {
-                            this.up('window').close();
-                        }
-                    }
-                ]
-            });
-            popup.show();
-        }
-    },
     addProductListeners: function () {
         var self = this;
         var productChoices = self.query("checkbox");
@@ -312,13 +249,14 @@ Ext.define('Lumen.view.form.CreditCardForm', {
         }
     },
 
-    stripeResponseHandler: function (status, response) {
-        if (response.error) {
-            this.loadMask.hide();
+    handleSubmit: function () {
+        var self = this;
+        if (this.amount == null) {
+            self.queryById('paymentButton').disabled = false;
             var popup = Ext.widget('window', {
-                title: 'There was a problem processing your payment',
+                title: 'You must select an amount.',
                 modal: true,
-                html: response.error.message,
+                html: "Please select an amount before continuing.",
                 width: 350,
                 height: 120,
                 bodyStyle: 'padding: 10px 20px;',
@@ -334,43 +272,83 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                 ]
             });
             popup.show();
+        } else if (this.getForm().isValid()) {
+            self.queryById('paymentButton').disabled = true;
+            self.processPayment()
         } else {
-            var self = this;
-            var params = {
-                token: response.id,
-                paymentType: self.paymentType,
-                amount: self.amount,
-                fee: self.fee,
-                description: self.description
-            };
-            if(self.ChildId) {
-                params.ChildId = self.ChildId;
-            }
-            if(self.OwnerId) {
-                params.OwnerId = self.OwnerId;
-            }
-            if(self.debitScheduleId) {
-                params.debitScheduleId = self.debitScheduleId;
-            }
-            if(self.debitScheduleTemplateId) {
-                params.debitScheduleTemplateId = self.debitScheduleTemplateId;
-            }
-            if (!this.skipApplicationSave) {
-                var loadMask = new Ext.LoadMask(Ext.getCmp("lumenMainApplication"), {msg: "Saving your application.  Please wait..."});
-                var form = Lumen.getApplication().applicationForm;
-                Lumen.getApplication().fireEvent(Lumen.JSON_PATH_FORM_SUBMIT, {
-                    form: form,
-                    callback: function (application) {
-                        params.applicationId = Lumen.getApplication().getApplicationId();
-                        self.savePaymentInfo(params);
+            var popup = Ext.widget('window', {
+                title: 'Please complete the form',
+                modal: true,
+                html: "Some fields in your form need attention. Please correct the items in red.",
+                width: 350,
+                height: 120,
+                bodyStyle: 'padding: 10px 20px;',
+                autoScroll: true,
+
+                buttons: [
+                    {
+                        text: 'Ok',
+                        handler: function () {
+                            this.up('window').close();
+                        }
                     }
-                });
-            } else {
-                self.savePaymentInfo(params);
-            }
+                ]
+            });
+            popup.show();
         }
     },
-    savePaymentInfo: function (params) {
+
+    processPayment: function () {
+        var self = this;
+        var expiration = this.query('[name=ccExpireMonth]')[0].getValue() +
+            this.query('[name=ccExpireYear]')[0].getValue();
+        var creditCard = {
+            number: this.query('[name=ccNumber]')[0].getValue(),
+            cvc: this.query('[name=CVC]')[0].getValue(),
+            expiration: expiration,
+            address1: this.query("[fieldLabel='Street']")[0].getValue(),
+            address2: this.query("[fieldLabel='Street 2']")[0].getValue(),
+            city: this.query("[fieldLabel='City']")[0].getValue(),
+            state: this.query("[fieldLabel='State']")[0].getValue(),
+            zipCode: this.query("[fieldLabel='Postal code']")[0].getValue(),
+            country: this.query("[fieldLabel='Country']")[0].getValue()
+        }
+
+        var params = {
+            creditCard: creditCard,
+            paymentType: self.paymentType,
+            amount: self.amount,
+            fee: self.fee,
+            description: self.description
+        };
+        if (self.ChildId) {
+            params.ChildId = self.ChildId;
+        }
+        if (self.OwnerId) {
+            params.OwnerId = self.OwnerId;
+        }
+        if (self.debitScheduleId) {
+            params.debitScheduleId = self.debitScheduleId;
+        }
+        if (self.debitScheduleTemplateId) {
+            params.debitScheduleTemplateId = self.debitScheduleTemplateId;
+        }
+        if (!this.skipApplicationSave) {
+            var loadMask = new Ext.LoadMask(Ext.getCmp("lumenMainApplication"), {msg: "Saving your application.  Please wait..."});
+            var form = Lumen.getApplication().applicationForm;
+            Lumen.getApplication().fireEvent(Lumen.JSON_PATH_FORM_SUBMIT, {
+                form: form,
+                callback: function (application) {
+                    params.applicationId = Lumen.getApplication().getApplicationId();
+                    self.doPayment(params);
+                }
+            });
+        } else {
+            self.doPayment(params);
+        }
+    },
+
+    doPayment: function (params) {
         var self = this;
         Ext.Ajax.request({
             url: Lumen.DATA_SERVICE_URL_ROOT + "/paymentService.php",
@@ -381,13 +359,15 @@ Ext.define('Lumen.view.form.CreditCardForm', {
             context: this,
             failure: function (response) {
                 self.loadMask.hide();
+                self.queryById('paymentButton').disabled = false;
             },
             success: function (response, opts) {
                 self.loadMask.hide();
                 var chargeInfo = Ext.JSON.decode(response.responseText);
+                self.queryById('paymentButton').disabled = false;
                 if (chargeInfo.errorMessage) {
                     var popup = Ext.widget('window', {
-                        title: 'We came across a problem.',
+                        title: 'There was a problem processing your payment',
                         modal: true,
                         html: chargeInfo.errorMessage,
                         width: 350,
@@ -423,7 +403,7 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                             }
                         ]
                     });
-                    if(params.applicationId) {
+                    if (params.applicationId) {
                         Lumen.getApplication().getAdmissionApplicationStore().setCharges(chargeInfo.allCharges);
                     }
                     popup.show();

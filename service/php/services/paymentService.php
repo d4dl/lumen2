@@ -36,6 +36,7 @@ if ($params->paymentType == 'applicationFee') {
         $binListURL = "https://binlist.net/json/$bin";
         $verified_debit = verifyCardIsDebit($dataService, $binListURL);
         list($charge, $customerId) = createStripeCharge($dataService, $params->amount, $fee, $params->token, $params->paymentType, $name, $description);
+        error_log("\n\n\nCrack open the credit card and put the verified debit field in\n\n\n");
 
         if ($charge->failure_message) {
             echo(json_encode($charge->failure_message));
@@ -166,7 +167,7 @@ function verifyCardIsDebit($dataService, $serviceUrl) {
 // create the charge on Stripe's servers - this will charge the user's card
 function createStripeCharge($dataService, $amount, $fee, $token, $paymentType, $name, $description)
 {
-    $username = $dataService->getUser()['Login']['Username'];
+    $username = $dataService->getUser()['login']['username'];
     $customer = Stripe_Customer::create(array(
             "source" => $token,
             "email" => $username,
@@ -179,7 +180,7 @@ function createStripeCharge($dataService, $amount, $fee, $token, $paymentType, $
         "email" => $customer->email,
         "source" => $customer->source,
     );
-    $customerArray["UserId"] = $dataService->getUser()["_id"] . "";//Cast to string
+    $customerArray["UserId"] = $dataService->getUser()["systemId"];
     $dataService->saveStripeCustomer($customerArray);
 
     $charge = Stripe_Charge::create(array(

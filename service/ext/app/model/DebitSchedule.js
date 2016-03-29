@@ -25,7 +25,7 @@ Ext.define('Lumen.model.DebitSchedule', {
             name: 'chargeType'
         }
     ],
-    hasMany: [{model: 'Lumen.model.DebitScheduleEntry', name: 'debitEntries'},
+    hasMany: [{model: 'Lumen.model.DebitScheduleEntry', name: 'debitScheduleEntries'},
               {model: 'Lumen.model.Fee', name: 'fees'}]
 
 });

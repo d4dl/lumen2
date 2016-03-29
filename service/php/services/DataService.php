@@ -116,7 +116,7 @@ class DataService
     public function getUserFullName() {
         $user = $this->loadPerson($this->getUser()['systemId']);
         //error_log("Getting full user name from " . json_encode($user));
-        $userName = $user['FirstName'] . " " . $user['LastName'];
+        $userName = $user['firstName'] . " " . $user['lastName'];
         return $userName;
     }
 
@@ -636,9 +636,9 @@ class DataService
         }
         unset($person['password2']);
         if(array_key_exists("guardianList", $person)) {
-            $person = $this->post($this->personServiceURL, $person);
-        } else {
             $person = $this->post($this->studentServiceURL, $person);
+        } else {
+            $person = $this->post($this->personServiceURL, $person);
         }
         return $person;
     }
@@ -858,6 +858,10 @@ class DataService
     function file_get_contents($url, $useragent = 'cURL', $headers = false, $follow_redirects = false, $debug = false)
     {
         $ch = curl_init();
+        if(defined("DEV_MODE")) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_USERAGENT, $useragent);

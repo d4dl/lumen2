@@ -52,7 +52,12 @@ Ext.define('Lumen.controller.util.DomWalker', {
                         if (Ext.isObject(childDataItem[0]) && isValueField) {
                             //Special case where there was no data and JSONPath created new data (as it needs to) but
                             //it had no way of determining what kind of data so it just created an object.
-                            childDataItem = null;
+                            if(childDataItem[0].sec) {
+                                //Its a weird mongodb date item.
+                                childDataItem = new Date(childDataItem[0].sec * 1000);
+                            } else {
+                                childDataItem = null;
+                            }
                         } else {
                             childDataItem = childDataItem[0];
                         }
