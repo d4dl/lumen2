@@ -22,14 +22,14 @@ class SessionManager {
     }
 
     function open($save_path, $session_name) {
-        error_log("=== Opening session");
+        //error_log("=== Opening session");
         global $sess_save_path;
         $sess_save_path = $save_path;
         return true;
     }
 
     function close() {
-        error_log("=== Closing session");
+        //error_log("=== Closing session");
         return true;
 
     }
@@ -42,7 +42,7 @@ class SessionManager {
                           array('expires' => array('$gt' => $time))
                         ));
         $session = $this->sessionCollection->findOne($query);
-        error_log("=== reading session " . json_encode($session) . " for id: " . $safeId . " time: " . $time);
+        //error_log("=== reading session " . json_encode($session) . " for id: " . $safeId . " time: " . $time);
 
         return $session ? $session['session_data'] : null;
     }
@@ -52,9 +52,9 @@ class SessionManager {
         $existingSession = $this->read($id);
         $ip_address = $this->get_ip();
         if($existingSession === null) {
-            error_log("Creating session $id for ip '" . $ip_address . "'");
+            //error_log("Creating session $id for ip '" . $ip_address . "'");
         }
-        error_log("=== PHP Writing session with data " . json_encode($data));
+        //error_log("=== PHP Writing session with data " . json_encode($data));
         $session = $this->sessionCollection->update(
             array("session_id" => (string)$id),
             array("session_id" => (string)$id, "ip_address" => $ip_address, "session_data"=> (string)$data, "expires"=>$time),

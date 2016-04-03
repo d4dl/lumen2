@@ -46,7 +46,14 @@ if (array_key_exists('action', $_REQUEST)) {
         }
     } else if ($documentType == "DebitSchedule") {
         //Schedules are accessed here and in financeService depending on where the ui sends the request too. Yuck.
+
+//$endpoint = filter_var($_REQUEST['endpoint'], FILTER_SANITIZE_STRING);
+        $urlEndpoint = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/schedules";
+        if(isset($_REQUEST['id'])) {
+            $urlEndpoint .= "/" . filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);
+        }
         require("./financeProxy.php");
+        proxy($urlEndpoint, $dataService);
     }
 
     $document = $jsonDocument;

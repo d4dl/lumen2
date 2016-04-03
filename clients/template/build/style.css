@@ -338,10 +338,10 @@ input.rightInput {
     background-repeat: no-repeat;
 }
 .completionTabPanel .completeTab.x-tab {
-    background-image: url('/service/img/icons/checkmark.png');
+    background-image: url('/lumen2/service/img/icons/checkmark.png');
 }
 .completionTabPanel .x-tab {
-    background-image: url('/service/img/icons/uncheckmark.png');
+    background-image: url('/lumen2/service/img/icons/uncheckmark.png');
 }
 
 .completionTabPanel .x-tab-wrap {

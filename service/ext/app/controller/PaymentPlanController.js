@@ -244,12 +244,12 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                         if (newValue === true) {
                             scheduleStore.each(function (nextSchedule) {
                                 if (nextSchedule.get("name") == radio.debitScheduleName) {
-                                    if (debitSchedule.raw['_id']) {
-                                        creditCardForm.debitScheduleId = debitSchedule.raw['_id']['$id'];
+                                    if (debitSchedule.raw['id']) {
+                                        creditCardForm.debitScheduleId = debitSchedule.raw['id'];
                                     } else if (debitSchedule.raw.debitScheduleTemplateId) {
                                         creditCardForm.debitScheduleTemplateId = debitSchedule.raw.debitScheduleTemplateId;
                                     }
-                                    creditCardForm.amount = totalDue * 100;
+                                    creditCardForm.amount = totalDue;
                                     creditCardForm.description = radio.debitScheduleName;
                                 } else {
                                     nextSchedule.raw.active = false;
@@ -443,23 +443,14 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 newScheduleTemplates.push(newScheduleTemplate);
             });
         }
+        /**
         debitScheduleStore.load({
             params: {
                 documentType: "DebitSchedule",
-                method: "POST",
+                method: "GET",
                 action: "find",
-                criteria: JSON.stringify([
-                    {
-                        name: "payor",
-                        value: payorSystemId,
-                        conjunction: "and"
-                    },
-                    {
-                        name: "student",
-                        value: self.childId,
-                        conjunction: "and"
-                    }
-                ]),
+                studentId: Lumen.getApplication().getChildFromDataStore().systemId,
+                payorId: Lumen.getApplication().getUser().systemId
             }, callback: function () {
                 if (debitScheduleStore.getCount() == 0) {
                     self.copyScheduleTemplatesToScheduleStore(newScheduleTemplates);
@@ -469,6 +460,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 self.bindScheduleStoreToForms(paymentPlanFormContainer, selector, creditCardForm);
             }
         });
+         **/
     },
 
     addButtonListeners: function (paymentPlanFormContainer, saveDebitScheduleButton, sendEnrollmentButton, paymentPlanOwnerSelector) {

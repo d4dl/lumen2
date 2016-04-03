@@ -300,12 +300,12 @@ Ext.define('Lumen.view.form.CreditCardForm', {
 
     processPayment: function () {
         var self = this;
-        var expiration = this.query('[name=ccExpireMonth]')[0].getValue() +
-            this.query('[name=ccExpireYear]')[0].getValue();
+        self.loadMask = new Ext.LoadMask(Ext.getCmp("lumenMainApplication"), {msg: "Processing.  Please wait..."});
         var creditCard = {
             number: this.query('[name=ccNumber]')[0].getValue(),
             cvc: this.query('[name=CVC]')[0].getValue(),
-            expiration: expiration,
+            expireMonth: this.query('[name=ccExpireMonth]')[0].getValue(),
+            expireYear: this.query('[name=ccExpireYear]')[0].getValue(),
             address1: this.query("[fieldLabel='Street']")[0].getValue(),
             address2: this.query("[fieldLabel='Street 2']")[0].getValue(),
             city: this.query("[fieldLabel='City']")[0].getValue(),
@@ -314,47 +314,43 @@ Ext.define('Lumen.view.form.CreditCardForm', {
             country: this.query("[fieldLabel='Country']")[0].getValue()
         }
 
-        var params = {
-            creditCard: creditCard,
+        var charge = {
             paymentType: self.paymentType,
+            creditCard: creditCard,
             amount: self.amount,
-            fee: self.fee,
+            usageFee: self.fee,
             description: self.description
         };
-        if (self.ChildId) {
-            params.ChildId = self.ChildId;
-        }
+        charge.studentId = Lumen.applicantId
         if (self.OwnerId) {
-            params.OwnerId = self.OwnerId;
+            charge.payor = Lumen.getApplication().getUser();
         }
         if (self.debitScheduleId) {
-            params.debitScheduleId = self.debitScheduleId;
+            charge.debitScheduleId = self.debitScheduleId;
         }
         if (self.debitScheduleTemplateId) {
-            params.debitScheduleTemplateId = self.debitScheduleTemplateId;
+            charge.debitScheduleTemplateId = self.debitScheduleTemplateId;
         }
         if (!this.skipApplicationSave) {
-            var loadMask = new Ext.LoadMask(Ext.getCmp("lumenMainApplication"), {msg: "Saving your application.  Please wait..."});
             var form = Lumen.getApplication().applicationForm;
             Lumen.getApplication().fireEvent(Lumen.JSON_PATH_FORM_SUBMIT, {
                 form: form,
                 callback: function (application) {
-                    params.applicationId = Lumen.getApplication().getApplicationId();
-                    self.doPayment(params);
+                    charge.documentSystemId = Lumen.getApplication().getApplicationId();
+                    self.doPayment(charge);
                 }
             });
         } else {
-            self.doPayment(params);
+            self.doPayment(charge);
         }
     },
 
-    doPayment: function (params) {
+    doPayment: function (charge) {
         var self = this;
+        self.loadMask.show();
         Ext.Ajax.request({
             url: Lumen.DATA_SERVICE_URL_ROOT + "/paymentService.php",
-            params: {
-                params: JSON.stringify(params)
-            },
+            jsonData: charge,
             method: "POST",
             context: this,
             failure: function (response) {
@@ -365,11 +361,11 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                 self.loadMask.hide();
                 var chargeInfo = Ext.JSON.decode(response.responseText);
                 self.queryById('paymentButton').disabled = false;
-                if (chargeInfo.errorMessage) {
+                if (chargeInfo.failureMessage) {
                     var popup = Ext.widget('window', {
                         title: 'There was a problem processing your payment',
                         modal: true,
-                        html: chargeInfo.errorMessage,
+                        html: chargeInfo.failureMessage,
                         width: 350,
                         height: 320,
                         bodyStyle: 'padding: 10px 20px;',
@@ -403,13 +399,13 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                             }
                         ]
                     });
-                    if (params.applicationId) {
+                    if (charge.documentSystemId) {
                         Lumen.getApplication().getAdmissionApplicationStore().setCharges(chargeInfo.allCharges);
                     }
                     popup.show();
                     Lumen.getApplication().fireEvent(Lumen.SEND_NOTIFICATION, {
                         notifyParams: {
-                            applicationId: params.applicationId || null,
+                            applicationId: charge.documentSystemId || null,
                             emailTitle: Lumen.getApplication().getStudentApplicantName(),
                             subject: "Payment made for " + Lumen.getApplication().getStudentApplicantName(),
                             link: Lumen.APPLICATION_LINK,

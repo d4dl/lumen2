@@ -447,6 +447,12 @@ Ext.application({
         return emails;
     },
 
+    getUser: function() {
+        var authenticationStore = this.getAuthenticationStore();
+        var personData = authenticationStore.first() ? authenticationStore.first().raw : null;
+        return personData
+    },
+
     getUserId: function() {
         var authenticationStore = this.getAuthenticationStore();
         var personData = authenticationStore.first() ? authenticationStore.first().raw : null;

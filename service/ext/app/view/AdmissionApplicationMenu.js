@@ -57,6 +57,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
+                                Lumen.applicantId = applicationData.Child.systemId;
                                 Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child});
                             }
                         }
@@ -69,6 +70,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
+                                Lumen.applicantId = applicationData.Child.systemId;
                                 Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {applicationId: record.getId(), type: "AdmissionApplication"})
                             }
                         }
@@ -83,6 +85,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                     listeners: {
                         click: {
                             fn: function () {
+                                Lumen.applicantId = applicationData.Child.systemId;
                                 Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child, applicationId: record.getId(), type: "AdmissionApplication"});
                             }
                         }
@@ -164,8 +167,5 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
         ];
 
         this.callParent(arguments);
-        if(Lumen.CLIENT_ID == "khabelestrong") {
-            this.down('#beginApplicationButton').destroy();
-        }
     }
 });

@@ -240,7 +240,7 @@ class DataService
                 curl_setopt($endpoint, CURLOPT_POST, count($fields));
             }
         } else if($data) {
-            $fields_string = json_encode($data);
+            $fields_string = is_string($data) ? $data : json_encode($data);
         }
         if (isset($fields_string)) {
             if ($method == "GET" || $method == "DELETE") {
@@ -570,7 +570,7 @@ class DataService
         return $returnApps;
     }
 
-    public function saveCharge($charge) {
+    public function postCharge($charge) {
         $charge = $this->post($this->chargesServiceURL, $charge);
         return $charge;
     }
@@ -1036,7 +1036,7 @@ class DataService
         if(!$fields && !$data) {
             $body = file_get_contents('php://input');
             if($body) {
-                $data = json_encode($body);
+                $data = $body;
             }
         }
         $method = $method != null ? $method : filter_input(INPUT_SERVER, 'REQUEST_METHOD');
