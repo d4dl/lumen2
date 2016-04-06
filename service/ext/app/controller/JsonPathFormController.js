@@ -998,7 +998,7 @@ Ext.define('Lumen.controller.JsonPathFormController',{
         var applicationType = parentTabContainer.applicationType;
         var documentData = {
             applicationType: applicationType,
-            ChildId: store.first().getId()
+            ChildId: store.first().raw.systemId
         };
         if (formData["_id"]) {
             documentData["_id"] = formData["_id"];

@@ -43,6 +43,7 @@ class DataService
     private $masterPassword = '$6$rounds=5000$lah04ShD982vtDMA$qI/CFBFR1HZ3Azd/BTg3hapDunCciZ./dLHn0aNCN8qiM.ERsHQQDkDZ01//Zn/lRlBtuarUVOzfBHlnQCK.e1';
     private $log;
 
+    private $documentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/documents/";
     private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/people/";
     private $chargesServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/charges/";
     private $studentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/students/";
@@ -124,6 +125,7 @@ class DataService
      * Generic CRUD methods
      */
     public function saveDocument($documentType, $document, $loadDocument = true) {
+        $documentIsNew = false;
         if($documentType == "Person") {
             throw new Exception("You can't use this method to save a person. You have to use savePerson");
         }
@@ -143,6 +145,7 @@ class DataService
                     $id = new MongoId($document['_id']['$id']);
                 }
             } else {
+                $documentIsNew = true;
                 $id = new MongoId();
                 $document["Created"] = time();
             }
@@ -164,6 +167,14 @@ class DataService
             );
 
             error_log($e->getMessage() . "\n" . $e->getTraceAsString());
+        }
+        if($documentIsNew) {
+            $rights = array(
+                "systemId"=>$document["_id"]."",
+                "documentType"=>$document["applicationType"],
+                "accessType"=>"subject"
+            );
+            $right = $this->post($this->documentServiceURL . "rights/" . $returnDocument["ChildId"], $rights);
         }
         //error_log("updated document $documentType");// . json_encode($document, JSON_PRETTY_PRINT));
         return $returnDocument;
@@ -213,7 +224,6 @@ class DataService
         $headers = array();
         $headers[] = 'Connection: Keep-Alive';
         $headers[] = 'Accept: application/json';
-        $headers[] = CURLOPT_ENCODING .": gzip";
         if ($method == "GET") {
             $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
         } else {
@@ -233,6 +243,7 @@ class DataService
         }
         curl_setopt($endpoint, CURLOPT_ENCODING, "gzip");
         $sessionRequestDataKeyStr = '';
+        error_log("Creating fields " . json_encode($fields, JSON_PRETTY_PRINT));
         if ($fields) {
             ksort($fields, SORT_STRING);
             $fields_string = http_build_query($fields);
@@ -255,7 +266,7 @@ class DataService
         if($url == "http://localhost:8089/quickmit-rest-1.1/v1.1/localhost/people/" && $method == "GET") {
             throw new Exception("WTF");
         }
-        //error_log("Sent request to " . $url);
+        error_log("Sent request to " . $url . " with headers\n". json_encode($headers));
 
         curl_setopt($endpoint, CURLOPT_URL, $url);
         return $endpoint;
@@ -616,6 +627,7 @@ class DataService
                 error_log("Password found... encrypting '" . $clearPassword . "'");
                 $person['login']['password'] = $this->encryptPassword($clearPassword);
             }
+            error_log("Loading person with system id. " . $person['systemId']);
             $storedPerson = $this->loadPerson($person['systemId']);
             $userIsAdmin = $this->userIsAdmin($storedPerson);
             $user = $this->getUser();
@@ -1033,13 +1045,13 @@ class DataService
      * this and buildProcessUrl are very different but should not be.
      */
     public function httpRequest($url, $fields = null, $data = null, $method = null, $useAuthorizedUser = false, $useBinary = false) {
-        if(!$fields && !$data) {
+        $method = $method != null ? $method : filter_input(INPUT_SERVER, 'REQUEST_METHOD');
+        if(!$fields && !$data && $method != "GET") {
             $body = file_get_contents('php://input');
             if($body) {
                 $data = $body;
             }
         }
-        $method = $method != null ? $method : filter_input(INPUT_SERVER, 'REQUEST_METHOD');
         error_log("Making http request to $url with method = $method");
         //error_log("Making request: " . $action . " to " . $url);
         $endpoint = $this->createEndpoint($url, $fields, $data, $method, $useBinary);

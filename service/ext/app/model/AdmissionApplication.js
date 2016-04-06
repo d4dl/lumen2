@@ -8,7 +8,7 @@ Ext.define('Lumen.model.AdmissionApplication',{
         {name: 'ChildId'},
         {name: 'AmountPaid', convert: function(value, record) {
             if(value) {
-                return "$" + new Number(value/100).toFixed(2);
+                return "$" + new Number(value).toFixed(2);
             }
         }}
     ]

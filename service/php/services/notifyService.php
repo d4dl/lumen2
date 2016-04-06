@@ -25,6 +25,10 @@ if(array_key_exists("applicationId", $notifyParams)) {
     error_log("NOTIFY to " . json_encode($notifyParams));
 
     $applicationData = $dataService->loadAdmissionApplication($notifyParams->applicationId);
+    if($applicationData && array_key_exists("notificationType", $notifyParams) && $notifyParams->notificationType == "applicationPayment") {
+        $applicationData['AmountPaid'] = $notifyParams->amount;
+        $application = $dataService->saveAdmissionApplication($applicationData);
+    }
     //Optimization opportunity.  All the data does NOT need to be returned.
     $application = $dataService->reconstituteApplicationData(array($applicationData))[0];
     error_log("Loading application " . json_encode($application, JSON_PRETTY_PRINT));

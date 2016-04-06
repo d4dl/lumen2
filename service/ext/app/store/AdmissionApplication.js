@@ -29,28 +29,17 @@ Ext.define('Lumen.store.AdmissionApplication', {
         }
         return id;
     },
-    setCharges: function(charges) {
-        var first = this.first();
-        var applicationData = first.raw || first.data;
-        applicationData.Charges = charges;
-    },
-    getCharges: function() {
-        var charges = [];
-        var first = this.first();
-        var applicationData = first.raw || first.data;
-        if(applicationData) {
-            charges = applicationData.Charges;
+    setAmountPaid: function(amount) {
+        var firstOne = this.first();
+        if(firstOne != null) {
+            return firstOne.setAmountPaid(amount);
         }
-        return charges;
+        return false;
     },
-
     applicationFeeIsPaid: function() {
-        var charges = this.getCharges();
-        for(var i=0; (!!charges && i < charges.length); i++) {
-            var charge = charges[i];
-            if(charge.description == "Admissions Application Fee" && (charge.status == "paid" || charge.status == "succeeded")) {
-                return true;
-            }
+        var firstOne = this.first();
+        if(firstOne != null) {
+            return !!firstOne.raw.AmountPaid
         }
         return false;
     },

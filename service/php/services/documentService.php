@@ -6,7 +6,7 @@ header('Content-type: application/json;charset=UTF-8');
 require("./DataService.php");
 $dataService = DataService::getInstance();
 
-error_log("Saving document. REQUEST: " . json_encode($_REQUEST, JSON_PRETTY_PRINT));
+//error_log("document service. REQUEST: " . json_encode($_REQUEST, JSON_PRETTY_PRINT));
 
 $documentType = $_REQUEST['documentType'];
 
@@ -34,6 +34,9 @@ if (array_key_exists('action', $_REQUEST)) {
 } else {
     if (isset($_REQUEST['document'])) {
         $jsonDocument = is_array($_REQUEST['document']) ? $_REQUEST['document'] : json_decode($_REQUEST['document'], true);
+    } else {
+        $jsonDocument = $_REQUEST;
+        //error_log("Found the document in the body " . json_encode($jsonDocument, JSON_PRETTY_PRINT));
     }
     $clearPassword = null;
     if (isset($jsonDocument) && (array_key_exists('Login', $jsonDocument) && array_key_exists("Password", $jsonDocument['Login']) && $jsonDocument['Login']['Password'])) {
@@ -65,8 +68,10 @@ if (array_key_exists('action', $_REQUEST)) {
     //error_log("Saving a document " . json_encode($document));
     if ($documentType == "Person") {
         $document = $dataService->savePerson($document);
-    } else {
+    } else if (!array_key_exists('onlySaveNew', $document) || !$document['onlySaveNew'] || array_key_exists("_id", $document)) {
         $document = $dataService->saveDocument($documentType, $document);
+    } else {
+        $document = array();
     }
 
     $output = json_encode($document);

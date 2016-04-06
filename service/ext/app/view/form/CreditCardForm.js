@@ -399,20 +399,22 @@ Ext.define('Lumen.view.form.CreditCardForm', {
                             }
                         ]
                     });
-                    if (charge.documentSystemId) {
-                        Lumen.getApplication().getAdmissionApplicationStore().setCharges(chargeInfo.allCharges);
+                    if (Lumen.getApplication().getApplicationId()) {
+                        Lumen.getApplication().getAdmissionApplicationStore().setAmountPaid(self.amount);
                     }
                     popup.show();
                     Lumen.getApplication().fireEvent(Lumen.SEND_NOTIFICATION, {
                         notifyParams: {
-                            applicationId: charge.documentSystemId || null,
+                            applicationId: Lumen.getApplication().getApplicationId() || null,
+                            notificationType: "applicationPayment",
+                            amount: (self.amount).toFixed(2),
                             emailTitle: Lumen.getApplication().getStudentApplicantName(),
                             subject: "Payment made for " + Lumen.getApplication().getStudentApplicantName(),
                             link: Lumen.APPLICATION_LINK,
                             templateURL: Lumen.URL_APPLICATION_FEE_RECEIPT,
                             notify: Lumen.username,
                             substitutions: {
-                                "__AMOUNT__": "$" + (chargeInfo.currentAmount / 100).toFixed(2)
+                                "__AMOUNT__": "$" + (self.amount).toFixed(2)
                             }
                         }
                     });

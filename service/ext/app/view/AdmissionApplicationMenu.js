@@ -86,7 +86,7 @@ Ext.define('Lumen.view.AdmissionApplicationMenu', {
                         click: {
                             fn: function () {
                                 Lumen.applicantId = applicationData.Child.systemId;
-                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child, applicationId: record.getId(), type: "AdmissionApplication"});
+                                Lumen.getApplication().fireEvent(Lumen.SHOW_ENROLLMENT_DOCUMENTS, {applicant: applicationData.Child, type: "Enrollment"});
                             }
                         }
                     }

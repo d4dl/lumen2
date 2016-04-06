@@ -142,6 +142,7 @@ Ext.define('Lumen.controller.MainDisplayController', {
             formStore.load({
                 params: {
                     documentType: "JSONForm",
+                    onlySaveNew: true,
                     id: applicationId
                 },
                 callback: function (forms, success) {
