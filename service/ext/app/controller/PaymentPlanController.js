@@ -179,7 +179,6 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
         var title = "Payment Plan";
         var addEntryButton = null;
-        /**
         if (isAdmin && debitSchedule.get("active")) {
             if (radioGroup) {
                 title = "Payment Plan Template";
@@ -195,7 +194,6 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 });
             }
         };
-         **/
         paymentPlanForm.setTitle(title);
 
         console.log("Loading template " + debitSchedule.name);
