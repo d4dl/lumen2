@@ -179,6 +179,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
         var title = "Payment Plan";
         var addEntryButton = null;
+        /**
         if (isAdmin && debitSchedule.get("active")) {
             if (radioGroup) {
                 title = "Payment Plan Template";
@@ -194,6 +195,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 });
             }
         };
+         **/
         paymentPlanForm.setTitle(title);
 
         console.log("Loading template " + debitSchedule.name);
@@ -454,7 +456,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         }
         debitScheduleStore.load({
             params: {
-                studentId: Lumen.getApplication().getChildFromDataStore().systemId,
+                studentId: Lumen.applicantId,
                 payorId: Lumen.getApplication().getUser().systemId
             }, callback: function () {
                 if (debitScheduleStore.getCount() == 0) {

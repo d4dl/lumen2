@@ -91,7 +91,6 @@ switch($action) {
                 $clearPassword = $formData->Password;
                 $user = $dataService->prepareUserForStorage($userName, $clearPassword, $session_id, $loginUser['systemId']);
                 $user['login']["groups"] = array();
-                $user = array_merge($user, $loginUser);
                 $user = $dataService->savePerson($user);
                 error_log("!!!! LOGIN PROCESSING Saved Person: " . json_encode($user));
                 $loginJSON = $dataService->massageForClientConsumption($dataService, $user);

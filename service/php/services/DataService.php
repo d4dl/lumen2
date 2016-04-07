@@ -276,7 +276,7 @@ class DataService
         if($url == "http://localhost:8089/quickmit-rest-1.1/v1.1/localhost/people/" && $method == "GET") {
             throw new Exception("WTF");
         }
-        error_log("Sent request to " . $url . " with headers\n". json_encode($headers));
+        error_log("Warning Sent request to " . $url . " with headers\n". json_encode($headers));
 
         curl_setopt($endpoint, CURLOPT_URL, $url);
         return $endpoint;
@@ -806,12 +806,10 @@ class DataService
     function prepareUserForStorage($userName, $clearPassword, $session_id, $systemId)
     {
         $crypt = $this->encryptPassword($clearPassword);
-        $user = array("Person" => array(
-            "email" => strtolower($userName)),
-            "systemId" => $systemId,
-            "login" => array(
-                "password" => $crypt,
-                "username" => strtolower($userName)));
+        $user = array("email" => strtolower($userName),
+                      "login" => array(
+                      "password" => $crypt,
+                      "username" => strtolower($userName)));
         if ($session_id) {
             $user["login"]["sessionId"] = $session_id;
         }

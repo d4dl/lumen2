@@ -6,7 +6,7 @@ Ext.define('Lumen.store.DebitSchedule', {
         url: Lumen.DATA_SERVICE_URL_ROOT + "/financeService.php",
         reader: {
             type: 'json',
-            idProperty: 'id'
+            idProperty: 'systemId'
         }
     },
     constructor: function (config) {
