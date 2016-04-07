@@ -20,18 +20,18 @@ function proxy($urlEndpoint, $dataService)
     }
     if (isset($_REQUEST['document'])) {
         $data = json_decode($_REQUEST['document']);
+        error_log("Decoded data: " . json_last_error($data));
     }
     if (isset($_REQUEST['action'])) {
         $urlEndpoint .= "/" . $_REQUEST['action'];
     }
     if (isset($_REQUEST['method'])) {
         $method = $_REQUEST['method'];
+    } else {
+        $data = $_REQUEST;
     }
     $result = $dataService->httpRequest($urlEndpoint, null, $data, $method);
     $output = json_encode($result);
-    echo($output);
+    error_log("Sending output to client");
+    echo(trim($output));
 }
-
-proxy($urlEndpoint, $dataService);
-
-?>

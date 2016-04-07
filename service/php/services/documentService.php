@@ -57,6 +57,7 @@ if (array_key_exists('action', $_REQUEST)) {
         }
         require("./financeProxy.php");
         proxy($urlEndpoint, $dataService);
+        exit();
     }
 
     $document = $jsonDocument;

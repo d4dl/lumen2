@@ -174,7 +174,7 @@ class DataService
                 "documentType"=>$document["applicationType"],
                 "accessType"=>"subject"
             );
-            $right = $this->post($this->documentServiceURL . "rights/" . $returnDocument["ChildId"], $rights);
+            $right = $this->post($this->documentServiceURL . "rights" . $returnDocument["ChildId"], $rights);
         }
         //error_log("updated document $documentType");// . json_encode($document, JSON_PRETTY_PRINT));
         return $returnDocument;
@@ -251,7 +251,17 @@ class DataService
                 curl_setopt($endpoint, CURLOPT_POST, count($fields));
             }
         } else if($data) {
-            $fields_string = is_string($data) ? $data : json_encode($data);
+            if(is_string($data)) {
+                error_log("__DATA $data");
+                $fields_string = $data;
+            } else {
+                error_log("encoding__DATA $data");
+                if($method == "GET") {
+                    $fields_string = http_build_query($data);
+                } else {
+                    $fields_string = json_encode($data);
+                }
+            }
         }
         if (isset($fields_string)) {
             if ($method == "GET" || $method == "DELETE") {

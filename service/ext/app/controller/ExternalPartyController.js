@@ -15,10 +15,9 @@ Ext.define('Lumen.controller.ExternalPartyController',{
     },
 
     saveJSONEntity: function(params, options) {
-        Ext.Ajax.request({
-            url: Lumen.DATA_SERVICE_URL_ROOT + "/documentService.php",
-            params: params,
-            method: "POST",
+        var request = {
+            url: Lumen.DATA_SERVICE_URL_ROOT + "/" + (options.endpoint || "documentService.php"),
+            method: options.method || "POST",
             context: this,
             failure: function (response) {
                 var popup = Ext.widget('window',{
@@ -72,7 +71,13 @@ Ext.define('Lumen.controller.ExternalPartyController',{
                     //                        collapsed: true});
                 }
             }
-        });
+        };
+        if(!options.jsonData) {
+            request.params = params;
+        } else {
+            request.jsonData = options.jsonData;
+        }
+        Ext.Ajax.request(request);
     },
 
     sendEvaluation: function(params, options) {

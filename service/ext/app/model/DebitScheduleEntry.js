@@ -26,8 +26,8 @@ Ext.define('Lumen.model.DebitScheduleEntry', {
         {name: "debitType", type: "string"}
     ],
     belongsTo: [{
-        name: 'debitScheduleEntries',
+        name: 'debitEntries',
         model: 'DebitSchedule',
-        associationKey: 'debitScheduleEntries'
+        associationKey: 'debitEntries'
     }]
 });

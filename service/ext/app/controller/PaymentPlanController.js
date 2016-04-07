@@ -87,7 +87,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         var nextPaymentAmount = 0;
         //This totalToBeCurrent stuff is busted.
         var totalToBeCurrent = totalCalculated;
-        debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
+        debitSchedule.debitEntries().each(function (entryModel, index) {
             var debitAmount = entryModel.get("debitAmount") || 0;
             var executedDate = entryModel.get("executedDate");
             var dateToExecute = entryModel.get("dateToExecute");
@@ -130,23 +130,27 @@ Ext.define('Lumen.controller.PaymentPlanController', {
     },
 
     addDebitScheduleEntryView: function (isAdmin, entryModel, debitScheduleModel, scheduleCount, templateView) {
+        /****
+         * Missing debit entries for your templates?  You need to change the template's debitEntries
+         * to debitEntries
+         */
         var scheduleStore = this.getDebitScheduleStore();
         var newModel = entryModel == null;
         if (newModel) {
-            var scheduleEntries = debitScheduleModel.debitScheduleEntries();
+            var scheduleEntries = debitScheduleModel.debitEntries();
             //entryModel = new Lumen.model.DebitScheduleEntry();
             entryModel = scheduleEntries.add({
                 cls: "debitEntry",
                 readOnly: !isAdmin,
-                name: "debitScheduleEntries[" + scheduleCount + "]"
+                name: "debitEntries[" + scheduleCount + "]"
             })[0];
             entryModel.commit();
-            //debitScheduleModel.associations.add("debitScheduleEntries", scheduleEntries);
+            //debitScheduleModel.associations.add("debitEntries", scheduleEntries);
         }
         var entryView = new Lumen.view.finance.DebitScheduleEntry({
             cls: !!entryModel.raw.executedDate ? "paidDebitEntry" : "debitEntry",
             readOnly: !isAdmin || !!entryModel.raw.executedDate,
-            name: "debitScheduleEntries[" + scheduleCount + "]"
+            name: "debitEntries[" + scheduleCount + "]"
         });
         if (entryModel.raw.executedDate) {
             entryView.showPaidDate();
@@ -186,7 +190,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                     itemId: "addEntryButton",
                     text: Lumen.i18n("Add a Payment Entry"),
                     handler: function () {
-                        self.addDebitScheduleEntryView(isAdmin, null, debitScheduleModel, debitSchedule.debitScheduleEntries().getCount(), templateView);
+                        self.addDebitScheduleEntryView(isAdmin, null, debitScheduleModel, debitSchedule.debitEntries().getCount(), templateView);
                     }
                 });
             }
@@ -214,7 +218,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             }
         });
 
-        debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
+        debitSchedule.debitEntries().each(function (entryModel, index) {
             var debitAmount = entryModel.get("debitAmount");
             if (debitAmount > 0) {
                 self.addDebitScheduleEntryView(isAdmin, entryModel, null, index, templateView);
@@ -294,7 +298,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
             });
 
             var totalCost = totalDue;
-            Ext.each(debitScheduleData.debitScheduleEntries, function (entry, index) {
+            Ext.each(debitScheduleData.debitEntries, function (entry, index) {
                 var debitAmount = entry.debitAmount;
                 if (debitAmount) {
                     totalCost += debitAmount;
@@ -312,6 +316,10 @@ Ext.define('Lumen.controller.PaymentPlanController', {
     },
 
     copyScheduleTemplatesToScheduleStore: function (newScheduleTemplates) {
+        /****
+         * Missing debit entries for your templates?  You need to change the template's debitEntries
+         * to debitEntries
+         */
         var scheduleStore = this.getDebitScheduleStore();
         var self = this;
 
@@ -363,7 +371,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         }, self, {destroyable: true});
         //paymentPlanOwnerSelector.data = ownerIdData;
         var parentStore = Ext.create('Ext.data.Store', {
-            fields: ['OwnerId', 'OwnerName'],
+            fields: ['OwnerId', 'OwnerName', 'Payor'],
             data: ownerIdData
         });
         paymentPlanOwnerSelector.bindStore(parentStore);
@@ -410,21 +418,24 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
     populatePaymentPlanSelector: function (ownerIdData) {
         var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
-        this.childId = applicantStore.first().getId();
-        applicantStore.each(function (debitScheduleModel, index) {
-            var guardians = debitScheduleModel.raw.guardianList;
+        var self = this;
+        self.personMap = {}
+        applicantStore.each(function (personModel, index) {
+            var guardians = personModel.raw.guardianList;
             for (var i = 0; i < guardians.length; i++) {
                 var person = guardians[i].guardian
                 var name = person.firstName + " " + person.LastName;
-                ownerIdData.push({OwnerId: person.id, OwnerName: name});
+                ownerIdData.push({OwnerId: person.systemId, OwnerName: name});
+                self.personMap[person.systemId] = person;
             }
-            //debitScheduleModel.set(.applicationId = Lumen.getApplication().getApplicationId();
+            //personModel.set(.applicationId = Lumen.getApplication().getApplicationId();
         });
     },
 
     switchToSelectedUser: function (sendEnrollmentButton, selector, paymentPlanFormContainer, creditCardForm) {
         var self = this;
         var payorSystemId = selector.getValue();
+        this.payor = this.personMap[payorSystemId];
         sendEnrollmentButton.setText(self.enrollmentButtonPrefix + selector.getDisplayValue());
         this.loadUserDebitSchedules(payorSystemId, paymentPlanFormContainer, selector, creditCardForm);
     },
@@ -443,12 +454,8 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 newScheduleTemplates.push(newScheduleTemplate);
             });
         }
-        /**
         debitScheduleStore.load({
             params: {
-                documentType: "DebitSchedule",
-                method: "GET",
-                action: "find",
                 studentId: Lumen.getApplication().getChildFromDataStore().systemId,
                 payorId: Lumen.getApplication().getUser().systemId
             }, callback: function () {
@@ -460,7 +467,6 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                 self.bindScheduleStoreToForms(paymentPlanFormContainer, selector, creditCardForm);
             }
         });
-         **/
     },
 
     addButtonListeners: function (paymentPlanFormContainer, saveDebitScheduleButton, sendEnrollmentButton, paymentPlanOwnerSelector) {
@@ -496,17 +502,21 @@ Ext.define('Lumen.controller.PaymentPlanController', {
         if (!ownerId) {
             var popup = this.forceParentSelection();
         } else {
+            var debitScheduleStore = self.getDebitScheduleStore().save();
             scheduleStore.each(function (debitSchedule, index) {
                 //Crappy custom serialization.. again. ExtJS never fullfilled a nice promise of serialized JSON data
                 //and I gotta eat
                 debitSchedule.raw.OwnerId = ownerId;
                 debitSchedule.raw.ChildId = self.childId;
                 var jsonForm = Ext.apply({}, debitSchedule.raw);
-                jsonForm.debitScheduleEntries = [];
-                debitSchedule.debitScheduleEntries().each(function (entryModel, index) {
-                    jsonForm.debitScheduleEntries.push(entryModel.raw);
+                jsonForm.debitEntries = [];
+                debitSchedule.debitEntries().each(function (entryModel, index) {
+                    jsonForm.debitEntries.push(entryModel.raw);
                 });
-                self.saveJSONForm(jsonForm, "DebitSchedule");
+                Lumen.getApplication().fireEvent(Lumen.SAVE_JSON_ENTITY, {}, {
+                    endpoint: "financeService.php",
+                    jsonData: Ext.encode(debitSchedule.raw)
+                });
             });
             var popup = Ext.widget('window', {
                 title: 'Payment plan saved',
@@ -562,8 +572,16 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                         handler: function () {
                             Lumen.getApplication().updateApplicationStatus(null, "Enrolled");
                             scheduleStore.each(function (debitSchedule, index) {
-                                debitSchedule.raw.OwnerId = ownerId;
-                                debitSchedule.raw.ChildId = self.childId;
+                                debitSchedule.raw.payor = this.payor;
+                                var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
+                                var student = null;
+                                applicantStore.each(function (debitScheduleModel, index) {
+                                    var rawPerson = personModel.raw
+                                    if(rawPerson.systemId == self.childId) {
+                                        student = personModel.raw;
+                                    }
+                                })
+                                debitSchedule.raw.student = student;
                                 self.saveJSONForm(debitSchedule.raw, "DebitSchedule");
                             });
                             popup.close();
