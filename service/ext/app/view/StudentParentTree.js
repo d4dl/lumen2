@@ -98,7 +98,11 @@ var grid = Ext.define('Lumen.view.StudentParentTree', {
                     tooltip: 'View Application',
                     handler: function (grid, rowIndex, colIndex) {
                         var record = grid.getStore().getAt(rowIndex);
-                        Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {person: person})
+                        Lumen.getApplication().fireEvent(Lumen.SHOW_APPLICATION_FORM, {
+                            person: record,
+                            type: "AdmissionApplication"
+                        })
+
                     }
                 },
             /**

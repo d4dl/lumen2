@@ -351,7 +351,7 @@ Ext.application({
         var child = this.getChildFromDataStore();
         if(child) {
             return ((child.firstName ? child.firstName : "") + " " +
-                (child.lastName ? child.lastName : "")).trim();
+            (child.lastName ? child.lastName : "")).trim();
         } else {
             return "No Name";
         }

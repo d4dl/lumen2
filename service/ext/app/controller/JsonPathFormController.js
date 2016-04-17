@@ -399,9 +399,17 @@ Ext.define('Lumen.controller.JsonPathFormController',{
             field.destroyableChangeListener.destroy();
         }
 
-        //if(!boundObject.debugTag) {
-            //boundObject.debugTag = (Math.random() * 1000000000000000).toFixed(0);
-        //}
+        /**
+        if(boundObject) {
+            if(!boundObject.debugTag) {
+                boundObject.debugTag = (Math.random() * 1000000000000000).toFixed(0);
+            }
+        } else {
+            if(!phantomBoundObject.debugTag) {
+                phantomBoundObject.debugTag = "Phantom_" + (Math.random() * 1000000000000000).toFixed(0);
+            }
+        }
+         **/
         var JSONPath = new Lumen.controller.util.JSONPath();
         if(field.setDataItem) {
             field.setDataItem(boundObject);

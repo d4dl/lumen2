@@ -33,7 +33,7 @@ define("SYS_ADMIN_EMAIL", "sysadmin@quickmit.net");
 #############################################################################
 # Directory Configs
 #############################################################################
-defined("BASE_DIR") || define("BASE_DIR", "/usr/www/users/d4dl/quickmit/prod");
+defined("BASE_DIR") || define("BASE_DIR", "/usr/www/users/d4dl/quickmit/production");
 define("GLOBAL_CLIENT_DATA_DIR", BASE_DIR . "/clients");
 defined("CLIENT_DATA_DIR") || define("CLIENT_DATA_DIR", GLOBAL_CLIENT_DATA_DIR . "/installation/" . CLIENT_ID);
 define('FILE_UPLOADS', CLIENT_DATA_DIR . '/uploads');
@@ -48,7 +48,7 @@ define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 #############################################################################
 defined("IMAGES_URL_ROOT") || define("IMAGES_URL_ROOT", "../../../service/img");
 #define("APPLICATION_LINK", PROTOCOL . "://khablestrong.org/admissions");
-define("REST_DATA_SERVICE_URL_ROOT", PROTOCOL . "://localhost:8089/quickmit-rest-1.1/v1.1/");
+define("REST_DATA_SERVICE_URL_ROOT", PROTOCOL . "://quickmit.net:8080/quickmit-rest-1.0/v1");
 define("SHARED_SECRET", "qEIqDjBWx9GxpDUTyE1aVuPLMpk3jPKz4NSDCkDmVjcyBe7MqI3ykIoT6o0jcq6gIEPjacZ2wlCRLBs7mTKlAAORlmCPbXDScLGb");
 define("FINANCE_URL", REST_DATA_SERVICE_URL_ROOT. "/finance");
 defined("URL_STEM") || define("URL_STEM", PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID);

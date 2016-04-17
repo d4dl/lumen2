@@ -75,7 +75,7 @@ function copyTemplates($lumenDir, $clientDir, $clientId)
     exec("cp -r $lumenDir/service/ext/packages/ext-theme-gray-9a90b101-9a31-48ac-a224-71414fd6507e/resources/MyApp-all.css build/production/MyApp/resources/");
 
     exec("cp -r $lumenDir/service/ext/PROTOTYPE_ClientApplication.js $clientDir/ClientApplication.js");
-    //Recursively delete all CVS directory.  The prod dir structure should be deployed via cvs export.  Not Checkout.
+    //Recursively delete all CVS directory.  The production dir structure should be deployed via cvs export.  Not Checkout.
     //find . -name 'CVS' -type d -exec rm -rf {} \;
 
     $templateDir = $lumenDir . "/clients/template";

@@ -43,10 +43,10 @@ class DataService
     private $masterPassword = '$6$rounds=5000$lah04ShD982vtDMA$qI/CFBFR1HZ3Azd/BTg3hapDunCciZ./dLHn0aNCN8qiM.ERsHQQDkDZ01//Zn/lRlBtuarUVOzfBHlnQCK.e1';
     private $log;
 
-    private $documentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/documents/";
-    private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/people/";
-    private $chargesServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/charges/";
-    private $studentServiceURL = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/students/";
+    private $documentServiceURL = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/documents/";
+    private $personServiceURL = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/people/";
+    private $chargesServiceURL = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/charges/";
+    private $studentServiceURL = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/students/";
 
     static function getInstance() {
         if (DataService::$SINGLETON == null) {
@@ -130,7 +130,7 @@ class DataService
             throw new Exception("You can't use this method to save a person. You have to use savePerson");
         }
 
-        error_log("Saving a document in " . $documentType . "\n" . json_encode($document, JSON_PRETTY_PRINT));
+        //error_log("Saving a document in " . $documentType . "\n" . json_encode($document, JSON_PRETTY_PRINT));
         $returnDocument = null;
         try {
             if (array_key_exists('id', $document)) {
@@ -172,9 +172,10 @@ class DataService
             $rights = array(
                 "systemId"=>$document["_id"]."",
                 "documentType"=>$document["applicationType"],
+                "collectionName"=>$documentType,
                 "accessType"=>"subject"
             );
-            $right = $this->post($this->documentServiceURL . "rights" . $returnDocument["ChildId"], $rights);
+            $right = $this->post($this->documentServiceURL . "rights/" . $returnDocument["ChildId"], $rights);
         }
         //error_log("updated document $documentType");// . json_encode($document, JSON_PRETTY_PRINT));
         return $returnDocument;
@@ -252,10 +253,10 @@ class DataService
             }
         } else if($data) {
             if(is_string($data)) {
-                error_log("__DATA $data");
+                //error_log("__DATA $data");
                 $fields_string = $data;
             } else {
-                error_log("encoding__DATA $data");
+                //error_log("encoding__DATA $data");
                 if($method == "GET") {
                     $fields_string = http_build_query($data);
                 } else {
@@ -628,9 +629,15 @@ class DataService
      * session id if the user was just authenticated.
      */
     public function savePerson($person, $sessionId=null, $clearSession=false) {
-        error_log("Saving person " . json_encode($person, JSON_PRETTY_PRINT));
+        //error_log("Saving person " . json_encode($person, JSON_PRETTY_PRINT));
         $clearPassword = isset($person['password2']) ? $person['password2'] : null;
         unset($person['password2']);
+        unset($person['debitScheduleSummary']);
+        if(isset($person['parentalStatus'])) {
+            if(is_array($person['parentalStatus']) && count($person['parentalStatus'])) {
+                $person['parentalStatus'] = $person['parentalStatus'][0];
+            }
+        }
         error_log("Thisis hte person getting persissted " . json_encode($person, JSON_PRETTY_PRINT));
         if (array_key_exists('id', $person)) {
             if ($clearPassword) {
@@ -1017,14 +1024,16 @@ class DataService
 
     public function userIsAdmin($person)
     {
-        $allGroups = $person['login']['groups'];
+        if(isset($person['login'])) {
+            $allGroups = $person['login']['groups'];
 
-        //error_log("Checking is user is admin on " . json_encode($person, JSON_PRETTY_PRINT));
-        //$this->getAllGroups($allGroups, $person['Groups']);
+            error_log("Checking is user is admin on " . json_encode($person, JSON_PRETTY_PRINT));
+            //$this->getAllGroups($allGroups, $person['Groups']);
 
-        foreach ($allGroups as $group) {
-            if ($group["groupName"] == "admin") {
-                return true;
+            foreach ($allGroups as $group) {
+                if ($group["groupName"] == "admin") {
+                    return true;
+                }
             }
         }
         return false;

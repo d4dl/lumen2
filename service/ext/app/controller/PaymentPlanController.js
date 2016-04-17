@@ -220,9 +220,7 @@ Ext.define('Lumen.controller.PaymentPlanController', {
 
         debitSchedule.debitEntries().each(function (entryModel, index) {
             var debitAmount = entryModel.get("debitAmount");
-            if (debitAmount > 0) {
-                self.addDebitScheduleEntryView(isAdmin, entryModel, null, index, templateView);
-            }
+            self.addDebitScheduleEntryView(isAdmin, entryModel, null, index, templateView);
         });
         paymentPlanForm.add(templateView);
         paymentPlanFormContainer.add(paymentPlanForm);
@@ -574,14 +572,8 @@ Ext.define('Lumen.controller.PaymentPlanController', {
                             scheduleStore.each(function (debitSchedule, index) {
                                 debitSchedule.raw.payor = this.payor;
                                 var applicantStore = Ext.data.StoreManager.lookup('Lumen.store.Applicant');
-                                var student = null;
-                                applicantStore.each(function (debitScheduleModel, index) {
-                                    var rawPerson = personModel.raw
-                                    if(rawPerson.systemId == self.childId) {
-                                        student = personModel.raw;
-                                    }
-                                })
-                                debitSchedule.raw.student = student;
+                                debitSchedule.raw.student = Lumen.getApplication().getChildFromDataStore()
+                                Lumen.log("Saving form for " + Lumen.getApplication().getStudentApplicantName())
                                 self.saveJSONForm(debitSchedule.raw, "DebitSchedule");
                             });
                             popup.close();

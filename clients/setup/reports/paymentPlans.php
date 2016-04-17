@@ -10,7 +10,7 @@ define('CLIENT_ID', $_REQUEST['clientId']);
             $delimiter = ",";
 //require_once("../../../service/php/services/DataService.php");
 $mongo = new MongoClient("mongodb://quickmit:XdAJfcQjCUGRPU2EZgCnwQc0fmG4lBToRDJFHN@127.0.0.1:27017");
-$mongoDB = $mongo->khabelestrong;
+//$mongoDB = $mongo->khabelestrong;
 
 $criteria = array("isActive"=>true);
 

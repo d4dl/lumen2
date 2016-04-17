@@ -496,7 +496,7 @@ Ext.define('Lumen.view.JSONForm',{
         var buttons = [
             {
                 text: 'Save Application',
-                tooltip: Lumen.I18N_LABELS.saveApplicationButtonTooltip,
+                //tooltip: Lumen.I18N_LABELS.saveApplicationButtonTooltip,
                 itemId: "saveButton",
                 handler: function () {
                     self.submitApplication(false)
@@ -504,7 +504,7 @@ Ext.define('Lumen.view.JSONForm',{
             },
             {
                 text: 'Submit Application',
-                tooltip: Lumen.I18N_LABELS.submitApplicationButtonTooltip,
+                //tooltip: Lumen.I18N_LABELS.submitApplicationButtonTooltip,
                 itemId: "submitButton",
                 disabled: true,
                 handler: function () {
@@ -513,7 +513,7 @@ Ext.define('Lumen.view.JSONForm',{
             },
             {
                 text: 'Verify Application Completeness',
-                tooltip: Lumen.I18N_LABELS.checkApplicationButtonTooltip,
+                //tooltip: Lumen.I18N_LABELS.checkApplicationButtonTooltip,
                 handler: function () {
                     self.verifyCompleteness();
                 }

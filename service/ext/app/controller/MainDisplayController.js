@@ -525,23 +525,17 @@ Ext.define('Lumen.controller.MainDisplayController', {
         } else {
             var person = opts.person.raw || opts.person;
             var documentRights = person.documentRightList;
-            var applicationId = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
-            //Find the application that the student is the subject of.
-            for (var i in documentRights) {
-                var right = documentRights[i];
-                if (right.accessType == "subject" && right.documentType == "AdmissionApplication") {
-                    applicationId = right.systemId;
-                    Lumen.HACK_APPLICATION_ID = applicationId;
-                }
-            }
-            var documentRights = person.documentRightList;
-            var applicationId = null;
+            var warning = "Could not find the students application id.  Look in AdmissionApplicationGrid.js"
+            var applicationId = warning;
             //Find the application that the student is the subject of.
             for (var i in documentRights) {
                 var right = documentRights[i];
                 if (right.accessType == "subject" && right.documentType == opts.type) {
-                    Lumen.log("!!!! There were more than one applications found.");
+                    if(applicationId != warning) {
+                        Lumen.log("!!!! There were more than one applications found.");
+                    }
                     applicationId = right.systemId;
+                    Lumen.HACK_APPLICATION_ID = applicationId;
                 }
             }
         }

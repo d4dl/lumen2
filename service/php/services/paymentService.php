@@ -14,7 +14,7 @@ $dataService = DataService::getInstance();
 // set your secret key: remember to change this to your live secret key in production
 // see your keys here https://manage.stripe.com/account
 Stripe::setApiKey(STRIPE_API_KEY);
-$paymentService = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/payments";
+$paymentService = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/payments";
 //error_log("|---PAYMENT_SERVICE!!!!! " . json_encode($_REQUEST, JSON_PRETTY_PRINT));
 if ($_REQUEST['paymentType'] == 'applicationFee') {
     try {
@@ -37,7 +37,7 @@ if ($_REQUEST['paymentType'] == 'applicationFee') {
         echo(json_encode(array("errorMessage" => $e->getMessage())));
     }
 } else {
-    $urlEndpoint = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/schedules/update";
+    $urlEndpoint = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/schedules/update";
     if(isset($_REQUEST['id'])) {
         $urlEndpoint .= "/" . filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);
     }

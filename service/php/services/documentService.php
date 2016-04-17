@@ -43,7 +43,7 @@ if (array_key_exists('action', $_REQUEST)) {
         $clearPassword = $jsonDocument['Login']['Password'];
     }
     if (isset($jsonDocument)) {
-        error_log("Saving jsonDocument " . json_encode($jsonDocument, JSON_PRETTY_PRINT));
+        //error_log("Saving jsonDocument " . json_encode($jsonDocument, JSON_PRETTY_PRINT));
         if ($documentType == "Person") {
             $dataService->savePerson($jsonDocument);
         }
@@ -51,7 +51,7 @@ if (array_key_exists('action', $_REQUEST)) {
         //Schedules are accessed here and in financeService depending on where the ui sends the request too. Yuck.
 
 //$endpoint = filter_var($_REQUEST['endpoint'], FILTER_SANITIZE_STRING);
-        $urlEndpoint = REST_DATA_SERVICE_URL_ROOT . CLIENT_ID . "/schedules";
+        $urlEndpoint = REST_DATA_SERVICE_URL_ROOT . TENANT_ID . "/schedules";
         if(isset($_REQUEST['id'])) {
             $urlEndpoint .= "/" . filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);
         }

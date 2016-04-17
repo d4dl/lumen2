@@ -18,7 +18,7 @@ ini_set('display_errors', '1');
 ini_set('error_log', __DIR__ . "/../../php.log");
 
 $lumenDir = realpath(__DIR__ . "/../../");
-ini_set('include_path', ini_get('include_path') . ":/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services");
+ini_set('include_path', ini_get('include_path') . ":/usr/www/users/d4dl/quickmit/production/service/php:/usr/www/users/d4dl/quickmit/production/service/php/services");
 
 //error_log("Requestis " . json_encode($_REQUEST, JSON_PRETTY_PRINT));
 
@@ -28,6 +28,6 @@ $clientId = !$clientId ? (array_key_exists('{__CLIENT_ID__}', $_REQUEST) ? $_REQ
 $clientDirToCreate = $lumenDir . "/clients/installation/" . $clientId;
 $clientDir = $clientId ? realpath($clientDirToCreate) : "";
 if($clientId) {
-    ini_set('include_path', ini_get('include_path') . ":/usr/www/users/d4dl/quickmit/prod/clients/installation/$clientId:/usr/www/users/d4dl/quickmit/prod/service/php:/usr/www/users/d4dl/quickmit/prod/service/php/services");
+    ini_set('include_path', ini_get('include_path') . ":/usr/www/users/d4dl/quickmit/production/clients/installation/$clientId:/usr/www/users/d4dl/quickmit/production/service/php:/usr/www/users/d4dl/quickmit/production/service/php/services");
 }
 error_log("Client id: '$clientId' client dir '$clientDir' to create '$clientDirToCreate'");

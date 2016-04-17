@@ -278,7 +278,8 @@ function getLoginAttemptCount($userName) {
             $count = file_get_contents($attemptCountFile);
         }
     }
-    return $count;
+    //return $count;
+    return 0;
 }
 
 function incrementLoginAttemptCount($userName) {
