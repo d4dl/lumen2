@@ -13,6 +13,7 @@ define("SERVER_VERSION",25);
 //Overridables
 //The domain name for the iframe hosting the app
 defined('DOMAIN_NAME') || define('DOMAIN_NAME', 'dev.quickmit.net');
+defined('TENANT_ID') || define('TENANT_ID', CLIENT_ID);
 
 defined("MONGO_CONNECTION") || define("MONGO_CONNECTION", "mongodb://quickmit:XdAJfcQjCUGRPU2EZgCnwQc0fmG4lBToRDJFHN@127.0.0.1:27017");
 
@@ -48,7 +49,7 @@ define("CONTENT_PREFIX", CLIENT_DATA_DIR . "/formDefinitions/applications");
 #############################################################################
 defined("IMAGES_URL_ROOT") || define("IMAGES_URL_ROOT", "../../../service/img");
 #define("APPLICATION_LINK", PROTOCOL . "://khablestrong.org/admissions");
-define("REST_DATA_SERVICE_URL_ROOT", PROTOCOL . "://quickmit.net:8080/quickmit-rest-1.0/v1");
+define("REST_DATA_SERVICE_URL_ROOT", "http://localhost:8089/quickmit-rest-1.1/v1.1/");
 define("SHARED_SECRET", "qEIqDjBWx9GxpDUTyE1aVuPLMpk3jPKz4NSDCkDmVjcyBe7MqI3ykIoT6o0jcq6gIEPjacZ2wlCRLBs7mTKlAAORlmCPbXDScLGb");
 define("FINANCE_URL", REST_DATA_SERVICE_URL_ROOT. "/finance");
 defined("URL_STEM") || define("URL_STEM", PROTOCOL . "://" . DOMAIN_NAME . "/clients/installation/" . CLIENT_ID);

@@ -274,7 +274,7 @@ class DataService
             }
         }
         curl_setopt($endpoint, CURLOPT_HTTPHEADER, $headers);
-        if($url == "http://localhost:8089/quickmit-rest-1.1/v1.1/localhost/people/" && $method == "GET") {
+        if($url == "https://quickmit.net:8443/quickmit-rest-1.1/v1.1/khabelestrong/people" && $method == "GET") {
             throw new Exception("WTF");
         }
         error_log("Warning Sent request to " . $url . " with headers\n". json_encode($headers));
