@@ -1062,7 +1062,7 @@ class DataService
      * this and buildProcessUrl are very different but should not be.
      */
     public function httpRequest($url, $fields = null, $data = null, $method = null, $useAuthorizedUser = false, $useBinary = false) {
-        $method = $method != null ? $method : filter_input(INPUT_SERVER, 'REQUEST_METHOD');
+        $method = $method != null ? $method : $_SERVER['REQUEST_METHOD'];
         if(!$fields && !$data && $method != "GET") {
             $body = file_get_contents('php://input');
             if($body) {

@@ -14,7 +14,7 @@ function proxy($urlEndpoint, $dataService)
     $action = null;
     $document = null;
 
-//error_log("Getting finance\n" . json_encode($_REQUEST, JSON_PRETTY_PRINT));
+error_log("Getting finance\n" . json_encode($_REQUEST, JSON_PRETTY_PRINT));
     if (isset($_REQUEST['criteria'])) {
         $data = json_decode($_REQUEST['criteria']);
     }
